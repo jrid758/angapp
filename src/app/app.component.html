@@ -3,19 +3,33 @@
   <h1>
     Welcome to a {{ title }}! {{ test2 }}
   </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  <input type="text" pInputText />
+  <h3>Float Label</h3>
+  <span class="ui-float-label">
+      <input id="float-input" type="text" size="30" pInputText> 
+      <label for="float-input">Username</label>
+  </span>
+
+
+  <h3>Disabled</h3>
+  <input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" />
+  <button id="disabled-btn" type="button" (click)="toggleDisabled()" pButton label="Toggle"></button>
 </div>
 
-<!--<p-orderList [value]="cars">
-    <ng-template let-car pTemplate="item">-->
 
-        <!--<div class="ui-helper-clearfix">
-            <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48">
+<button pButton type="button" (click)="onclick()" label="Click2" class="ui-button-info"></button>
+
+
+<p-orderList [value]="cars" dragdrop="true" dragdropScope="cars">
+    <ng-template let-car pTemplate="item">
+
+        <div class="ui-helper-clearfix">
+            <!-- <img src="assets/showcase/images/demo/car/{{car.brand}}.png" style="display:inline-block;margin:2px 0 2px 2px" width="48"> -->
             <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
-        </div>-->
+        </div>
 
-    <!--</ng-template>
-</p-orderList>-->
+    </ng-template>
+</p-orderList>
 
 
 <h2>Here are some links to help you start f: {{ cars[0].brand }}</h2>
