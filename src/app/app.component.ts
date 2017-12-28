@@ -4,6 +4,7 @@ import { OrderListModule } from 'primeng/primeng';
 //import {ButtonModule} from 'primeng/primeng';
 //import {InputTextModule} from 'primeng/primeng';
 import { ICars } from "./cars";
+import {DragulaService} from 'ng2-dragula';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 
@@ -32,6 +33,16 @@ export class AppComponent {
   cars:ICars[];
   test2: string = 'hello';
   disabled = true;
+  options: any = {
+    ignoreInputTextSelection: true
+  }
+
+  constructor(private dragulaService: DragulaService) {
+    dragulaService.setOptions('first-bag', {
+      moves: (el, source, handle, sibling) => !el.classList.contains('no-drag')
+    });
+    
+  }
 
   onclick() {
     console.log("PRESSED");

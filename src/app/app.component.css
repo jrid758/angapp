@@ -20,7 +20,7 @@ p {
     height: 200px;
 
     background-color: #2F2726;
-    overflow: scroll;
+    /* overflow: scroll; */
     float: left;
 }
 /*---------------------------*/
@@ -83,6 +83,8 @@ p {
     width: 600px;
     height: 50px;
     background: #D2D2D2;
+    margin: 7px 0px 7px 0px;
+    overflow: hidden;
 }
 
 .layername {

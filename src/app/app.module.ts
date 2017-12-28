@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-
+import {DragulaModule} from 'ng2-dragula';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
@@ -21,6 +21,7 @@ import {OrderListModule} from 'primeng/primeng';
     BrowserAnimationsModule,
     AngularFontAwesomeModule,
     OrderListModule,
+    DragulaModule,
 
 
     ButtonModule,

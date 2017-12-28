@@ -33,8 +33,8 @@
 
 <p [@myAnim]='state' (click)="animateMe()">I will animate</p>
 <div id="window">
-  <div class="layers">
-    <div class="timelineWrap">
+  <div class="layers" >
+    <div class="timelineWrap no-drag">
         <div class="timelineName">Layer</div>
         <div class="timelineNumbers">
             <div class="timeNumberSpace">0</div>
@@ -50,48 +50,51 @@
             <div class="timeNumberSpace">5</div>
         </div>
     </div>
-    <div id="obj1" class="layer" [@myAnim]='state'(click)="animateMe()">
-      <div class="layername">
-        Layer 1
-        <span class='toggle'></span>
-      </div>
-      <div class="layernamespace"></div>
-      <div class="effect">
-        <div class="effectName">Move In
-          <select class='moveinsel'>
-              <option value="left">Left</option>
-              <option value="right">Right</option>
-              <option value="top">Top</option>
-              <option value="bottom">Bottom</option>
-          </select>
-        </div>
-      </div>
 
-      <div class="effectnamespace"></div>
-      <div class="effectsliderspace"></div>
-      
-    </div>
-    <div id="obj2" class="layer" [@myAnim]='state'(click)="animateMe()">
-        <div class="layername">
-          Layer 1
-          <span class='toggle'></span>
-        </div>
-        <div class="layernamespace"></div>
-        <div class="effect">
-          <div class="effectName">Move In
-            <select class='moveinsel'>
-                <option value="left">Left</option>
-                <option value="right">Right</option>
-                <option value="top">Top</option>
-                <option value="bottom">Bottom</option>
-            </select>
+    <div id="objects" [dragula]='"first-bag"'>
+        <div  id="obj1" class="layer" >
+          <div class="layername">
+            Layer 1
+            <span class='toggle'></span>
           </div>
+          <div class="layernamespace"></div>
+          <div class="effect">
+            <div class="effectName">Move In
+              <select class='moveinsel'>
+                  <option value="left">Left</option>
+                  <option value="right">Right</option>
+                  <option value="top">Top</option>
+                  <option value="bottom">Bottom</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="effectnamespace"></div>
+          <div class="effectsliderspace"></div>
+          
         </div>
-  
-        <div class="effectnamespace"></div>
-        <div class="effectsliderspace"></div>
-        
-      </div>
+        <div  id="obj2" class="layer">
+            <div class="layername">
+              Layer 2
+              <span class='toggle'></span>
+            </div>
+            <div class="layernamespace"></div>
+            <div class="effect">
+              <div class="effectName">Move In
+                <select class='moveinsel'>
+                    <option value="left">Left</option>
+                    <option value="right">Right</option>
+                    <option value="top">Top</option>
+                    <option value="bottom">Bottom</option>
+                </select>
+              </div>
+            </div>
+      
+            <div class="effectnamespace"></div>
+            <div class="effectsliderspace"></div>
+            
+          </div>
+    </div>
   </div>
 </div>
 
