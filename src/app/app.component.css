@@ -23,7 +23,9 @@ p {
     overflow: scroll;
     float: left;
 }
-
+/*---------------------------*/
+/*TimelineNumbers*/
+/*---------------------------*/
 .timelineWrap {
     height: 20px;
     width: 600px;
@@ -35,7 +37,6 @@ p {
     width: 100px;
     background-color: #A00079;
     color: red;
-    float: left;
     display: inline-block;
 }
 
@@ -50,31 +51,84 @@ p {
 .timelineNumbers {
     width: 500px;
     height: 20px;
-  
+    font-size: 0;
+    color: white;
+    background-color: #353535;
 }
 
 .timelineNumbers > *{
     
-    font-size: 10px;
+  
     display: inline-block;
-    margin: 0px;
-    padding: 0px;
+    font-size: 10px;
 }
 
 .timeNumberSpace {
   width: 2.8%;
-  height: 100%;
-  background-color: purple;
-   margin: 0px;
-    padding: 0px;
-
+  height: 20px;
 }
 
 .timeNumberSpaceBetween {
  width: 16.64%;
- height: 100%;
+ height: 20px;
+ opacity: 0;
  background-color:yellow;
-  margin: 0px;
-    padding: 0px;
+}
+
+/*---------------------------*/
+/*Layer Added to Layers*/
+/*---------------------------*/
+
+.layer {
+    width: 600px;
+    height: 50px;
+    background: #D2D2D2;
+}
+
+.layername {
+    height: 20px;
+    width: 100px;
+    background-color: #6badef;
+    float: left;
+    font-size: 15px;
+}
+
+.layernamespace {
+    width: 500px;
+    height: 20px;
+    background-color: yellow;
+    float: right;
+  
+}
+
+.effect {
+    height: 30px;
+    width: 100px;
+    font-size: 80%;
+    float: left;
+    background: repeating-linear-gradient(
+            45deg,
+            rgba(0, 0, 0, 0.2),
+            rgba(0, 0, 0, 0.2) 10px,
+            rgba(0, 0, 0, 0.3) 10px,
+            rgba(0, 0, 0, 0.3) 20px
+            );
+}
+
+
+.effectnamespace {
+    width: 500px;
+    height: 15px;
+    background-color: #FF00EB;
+    float: right;
+  
+}
+
+.effectsliderspace {
+    width: 500px;
+    height: 15px;
+    background-color: #007DFF;
+    float: right;
+  
 }
 

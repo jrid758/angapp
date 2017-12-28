@@ -38,30 +38,63 @@
         <div class="timelineName">Layer</div>
         <div class="timelineNumbers">
             <div class="timeNumberSpace">0</div>
-            <div class="timeNumberSpaceBetween"></div>
+            <div class="timeNumberSpaceBetween">P</div>
             <div class="timeNumberSpace">1</div>
-            <div class="timeNumberSpaceBetween"></div>
+            <div class="timeNumberSpaceBetween">P</div>
             <div class="timeNumberSpace">2</div>
-            <div class="timeNumberSpaceBetween"></div><div class="timeNumberSpace">3</div><div class="timeNumberSpaceBetween"></div>
+            <div class="timeNumberSpaceBetween">P</div>
+            <div class="timeNumberSpace">3</div>
+            <div class="timeNumberSpaceBetween">P</div>
             <div class="timeNumberSpace">4</div>
             <div class="timeNumberSpaceBetween">P</div>
             <div class="timeNumberSpace">5</div>
         </div>
     </div>
+    <div id="obj1" class="layer" [@myAnim]='state'(click)="animateMe()">
+      <div class="layername">
+        Layer 1
+        <span class='toggle'></span>
+      </div>
+      <div class="layernamespace"></div>
+      <div class="effect">
+        <div class="effectName">Move In
+          <select class='moveinsel'>
+              <option value="left">Left</option>
+              <option value="right">Right</option>
+              <option value="top">Top</option>
+              <option value="bottom">Bottom</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="effectnamespace"></div>
+      <div class="effectsliderspace"></div>
+      
+    </div>
+    <div id="obj2" class="layer" [@myAnim]='state'(click)="animateMe()">
+        <div class="layername">
+          Layer 1
+          <span class='toggle'></span>
+        </div>
+        <div class="layernamespace"></div>
+        <div class="effect">
+          <div class="effectName">Move In
+            <select class='moveinsel'>
+                <option value="left">Left</option>
+                <option value="right">Right</option>
+                <option value="top">Top</option>
+                <option value="bottom">Bottom</option>
+            </select>
+          </div>
+        </div>
+  
+        <div class="effectnamespace"></div>
+        <div class="effectsliderspace"></div>
+        
+      </div>
   </div>
 </div>
 
 
-<h2>Here are some links to help you start : {{ cars[0].brand }}</h2>
-<!--<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>-->
+
 
