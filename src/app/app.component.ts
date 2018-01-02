@@ -42,6 +42,19 @@ export class AppComponent {
       moves: (el, source, handle, sibling) => !el.classList.contains('no-drag')
     });
     
+     dragulaService.drop.subscribe((value) => {
+      console.log(`drag: ${value[0]}`);
+      console.log(`drag2: ${value.slice(1)}`);
+      this.onDrop(value.slice(1));
+    });
+  }
+
+  private onDrop(args) {
+    let [e,el,c] = args;
+    console.log(`drage3: ${e.innerHTML}`);
+    console.log(`drage4id: ${e.id}`);
+    console.log(`dragel: ${el}`);
+    console.log(`dragelc: ${c.innerHTML}`);
   }
 
   onclick() {
