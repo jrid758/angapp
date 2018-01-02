@@ -23,7 +23,10 @@
           "../node_modules/font-awesome/css/font-awesome.min.css",
           "../node_modules/primeng/resources/themes/omega/theme.css",
          "../node_modules/primeng/resources/primeng.min.css",
-         "../node_modules/dragula/dist/dragula.css"
+         "../node_modules/dragula/dist/dragula.css",
+         "../node_modules/nouislider/distribute/nouislider.css",
+         "./assets/nouisliderupdate.css"
+         
       ],
       "scripts": [],
       "environmentSource": "environments/environment.ts",

@@ -3,9 +3,11 @@ import { Component } from '@angular/core';
 import { OrderListModule } from 'primeng/primeng';
 //import {ButtonModule} from 'primeng/primeng';
 //import {InputTextModule} from 'primeng/primeng';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ICars } from "./cars";
 import {DragulaService} from 'ng2-dragula';
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { NouisliderModule } from 'ng2-nouislider';
 
 
 @Component({
@@ -33,9 +35,14 @@ export class AppComponent {
   cars:ICars[];
   test2: string = 'hello';
   disabled = true;
-  options: any = {
-    ignoreInputTextSelection: true
-  }
+  someRange: number[] = [0, 5];
+  someRange2: number[] = [0, 5];
+  // options: any = {
+  //   ignoreInputTextSelection: true
+  // }
+
+
+
 
   constructor(private dragulaService: DragulaService) {
     dragulaService.setOptions('first-bag', {
@@ -47,6 +54,9 @@ export class AppComponent {
       console.log(`drag2: ${value.slice(1)}`);
       this.onDrop(value.slice(1));
     });
+
+
+
   }
 
   private onDrop(args) {
@@ -71,6 +81,11 @@ export class AppComponent {
 
     animateMe() {
       this.state = (this.state === 'small') ? 'large' : 'small';
+    }
+
+    sliderNum() {
+      console.log("Top: " + this.someRange2);
+      console.log("Bottom: " + this.someRange);
     }
 
 }

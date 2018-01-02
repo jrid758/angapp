@@ -30,7 +30,7 @@
 
     </ng-template>
 </p-orderList>
-
+<nouislider [connect]="true" [min]="0" [max]="15" [(ngModel)]="someRange2" (click)='sliderNum()'></nouislider>
 <p [@myAnim]='state' (click)="animateMe()">I will animate</p>
 <div id="window">
   <div class="layers" >
@@ -71,8 +71,9 @@
 
           <div class="effectnamespace"></div>
           <div class="effectsliderspace">
-             <input type="range" min="1" max="600" value="50" class="slider" id="myRange">
+            <nouislider [connect]="true" [min]="0" [max]="5" [(ngModel)]="someRange" (click)='sliderNum()'></nouislider>
           </div>
+         
           
         </div>
         <div  id="obj2" class="layer">

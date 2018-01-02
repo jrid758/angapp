@@ -26,7 +26,9 @@
     "font-awesome": "^4.7.0",
     "primeng": "^5.0.2",
     "rxjs": "^5.5.2",
-    "zone.js": "^0.8.14"
+    "zone.js": "^0.8.14",
+    "nouislider": "10.1.0",
+    "ng2-nouislider": "1.7.6"
   },
   "devDependencies": {
     "@angular/cli": "1.6.1",
