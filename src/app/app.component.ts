@@ -17,10 +17,12 @@ import { NouisliderModule } from 'ng2-nouislider';
   animations: [
     trigger('myAnim',[
       state('small', style({
-        transform: 'scale(1)',
+        display: 'none',
+        opacity: 0
       })),
       state('large', style({
-        transform: 'scale(1.2)',
+        display: 'block',
+        opacity: 1
       })),
 
       transition('small <=> large', animate('300ms ease-in')),

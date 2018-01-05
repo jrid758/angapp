@@ -31,7 +31,7 @@
     </ng-template>
 </p-orderList>
 <nouislider [connect]="true" [min]="0" [max]="15" [(ngModel)]="someRange2" (click)='sliderNum()'></nouislider>
-<p [@myAnim]='state' (click)="animateMe()">I will animate</p>
+<!--<p [@myAnim]='state' (click)="animateMe()">I will animate</p>-->
 <div id="window">
   <div class="layers" >
     <div class="timelineWrap no-drag">
@@ -53,29 +53,35 @@
 
     <div id="objects" [dragula]='"first-bag"'>
         <div  id="obj1" class="layer" >
-          <div class="layername">
+          <div class="layername" (click)="animateMe()">
             Layer 1
             <span class='toggle'></span>
           </div>
           <div class="layernamespace"></div>
-          <div class="effect">
-            <div class="effectName">Move In
-              <select class='moveinsel'>
-                  <option value="left">Left</option>
-                  <option value="right">Right</option>
-                  <option value="top">Top</option>
-                  <option value="bottom">Bottom</option>
-              </select>
+          <div class=".effectanim" [@myAnim]='state'>
+            <div class="effect" >
+              <div class="effectName">Move In
+                <select class='moveinsel'>
+                    <option value="left">Left</option>
+                    <option value="right">Right</option>
+                    <option value="top">Top</option>
+                    <option value="bottom">Bottom</option>
+                </select>
+              </div>
             </div>
-          </div>
 
-          <div class="effectnamespace"></div>
-          <div class="effectsliderspace">
-            <nouislider [connect]="true" [min]="0" [max]="5" [(ngModel)]="someRange" (click)='sliderNum()'></nouislider>
-          </div>
-         
+            <div class="effectnamespace"></div>
+            <div class="effectsliderspace">
+              <nouislider [connect]="true" [min]="0" [max]="5" [(ngModel)]="someRange" (click)='sliderNum()'></nouislider>
+            </div>
+         </div>
           
         </div>
+
+
+
+
+        
         <div  id="obj2" class="layer">
             <div class="layername">
               Layer 2

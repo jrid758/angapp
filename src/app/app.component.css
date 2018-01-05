@@ -81,7 +81,7 @@ p {
 
 .layer {
     width: 600px;
-    height: 50px;
+    height: 100%;
     background: #D2D2D2;
     margin: 7px 0px 7px 0px;
     overflow: hidden;
@@ -101,6 +101,11 @@ p {
     background-color: yellow;
     float: right;
   
+}
+
+.effectanim {
+    height: 30px;
+    width: 600px;
 }
 
 .effect {
