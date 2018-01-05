@@ -6,7 +6,7 @@ import {DragulaModule} from 'ng2-dragula';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NouisliderModule } from 'ng2-nouislider';
-
+import { LayerComponent } from './timeline/layer.component';
 
 
 
@@ -17,7 +17,8 @@ import {OrderListModule} from 'primeng/primeng';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LayerComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +29,8 @@ import {OrderListModule} from 'primeng/primeng';
     OrderListModule,
     DragulaModule,
     NouisliderModule,
+
+    
 
     ButtonModule,
     SharedModule,

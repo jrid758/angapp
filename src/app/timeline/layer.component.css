@@ -1,0 +1,63 @@
+/*---------------------------*/
+/*Layer Added to Layers*/
+/*---------------------------*/
+
+.layer {
+    width: 600px;
+    height: 100%;
+    background: #D2D2D2;
+    margin: 7px 0px 7px 0px;
+    overflow: hidden;
+}
+
+.layername {
+    height: 20px;
+    width: 100px;
+    background-color: #6badef;
+    float: left;
+    font-size: 15px;
+}
+
+.layernamespace {
+    width: 500px;
+    height: 20px;
+    background-color: yellow;
+    float: right;
+  
+}
+
+.effectanim {
+    height: 30px;
+    width: 600px;
+}
+
+.effect {
+    height: 30px;
+    width: 100px;
+    font-size: 80%;
+    float: left;
+    background: repeating-linear-gradient(
+            45deg,
+            rgba(0, 0, 0, 0.2),
+            rgba(0, 0, 0, 0.2) 10px,
+            rgba(0, 0, 0, 0.3) 10px,
+            rgba(0, 0, 0, 0.3) 20px
+            );
+}
+
+
+.effectnamespace {
+    width: 500px;
+    height: 15px;
+    background-color: #FF00EB;
+    float: right;
+  
+}
+
+.effectsliderspace {
+    width: 500px;
+    height: 15px;
+    background-color: #007DFF;
+    float: right;
+  
+}
