@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { NouisliderModule } from 'ng2-nouislider';
 
@@ -26,6 +26,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 export class LayerComponent {
     someRange: number[] = [0, 5];
     state: string = 'small';
+    @Input() layerName: string;
 
     animateMe() {
         this.state = (this.state === 'small') ? 'large' : 'small';

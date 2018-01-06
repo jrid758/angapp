@@ -52,59 +52,9 @@
     </div>
 
     <div id="objects" [dragula]='"first-bag"'>
-        <div  id="obj1" class="layer" >
-          <div class="layername" (click)="animateMe()">
-            Layer 1
-            <span class='toggle'></span>
-          </div>
-          <div class="layernamespace"></div>
-          <div class=".effectanim" [@myAnim]='state'>
-            <div class="effect" >
-              <div class="effectName">Move In
-                <select class='moveinsel'>
-                    <option value="left">Left</option>
-                    <option value="right">Right</option>
-                    <option value="top">Top</option>
-                    <option value="bottom">Bottom</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="effectnamespace"></div>
-            <div class="effectsliderspace">
-              <nouislider [connect]="true" [min]="0" [max]="5" [(ngModel)]="someRange" (click)='sliderNum()'></nouislider>
-            </div>
-         </div>
-          
-        </div>
-
-
-
-
-        
-        <div  id="obj2" class="layer">
-            <div class="layername">
-              Layer 2
-              <span class='toggle'></span>
-            </div>
-            <div class="layernamespace"></div>
-            <div class="effect">
-              <div class="effectName">Move In
-                <select class='moveinsel'>
-                    <option value="left">Left</option>
-                    <option value="right">Right</option>
-                    <option value="top">Top</option>
-                    <option value="bottom">Bottom</option>
-                </select>
-              </div>
-            </div>
-      
-            <div class="effectnamespace"></div>
-            <div class="effectsliderspace"></div>
-            
-          </div>
-
-          <time-layer></time-layer>
+  
+          <time-layer [layerName]='"Layer 1"'></time-layer>
+          <time-layer [layerName]='"Layer 2"'></time-layer>
     </div>
   </div>
 </div>
