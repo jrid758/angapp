@@ -28,30 +28,39 @@
 }
 
 .effectanim {
-    height: 30px;
+    /* height: 30px; */
     width: 600px;
 }
 
 .effect {
-    height: 30px;
-    width: 100px;
+    clear: both;
+    height: 100%;
+    
     font-size: 80%;
+    
+  
+}
+
+.effectName {
     float: left;
-    background: repeating-linear-gradient(
-            45deg,
-            rgba(0, 0, 0, 0.2),
-            rgba(0, 0, 0, 0.2) 10px,
-            rgba(0, 0, 0, 0.3) 10px,
-            rgba(0, 0, 0, 0.3) 20px
-            );
+    background-color: yellow;
+    height: 30px;
+    width: 100%;
+    width: 100px;
 }
 
 
 .effectnamespace {
     width: 500px;
     height: 15px;
-    background-color: #FF00EB;
     float: right;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.2) 10px,
+        rgba(0, 0, 0, 0.3) 10px,
+        rgba(0, 0, 0, 0.3) 20px
+        );
   
 }
 
