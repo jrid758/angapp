@@ -33,30 +33,7 @@
 <nouislider [connect]="true" [min]="0" [max]="15" [(ngModel)]="someRange2" (click)='sliderNum()'></nouislider>
 <!--<p [@myAnim]='state' (click)="animateMe()">I will animate</p>-->
 <div id="window">
-  <div class="layers" >
-    <div class="timelineWrap no-drag">
-        <div class="timelineName">Layer</div>
-        <div class="timelineNumbers">
-            <div class="timeNumberSpace">0</div>
-            <div class="timeNumberSpaceBetween">P</div>
-            <div class="timeNumberSpace">1</div>
-            <div class="timeNumberSpaceBetween">P</div>
-            <div class="timeNumberSpace">2</div>
-            <div class="timeNumberSpaceBetween">P</div>
-            <div class="timeNumberSpace">3</div>
-            <div class="timeNumberSpaceBetween">P</div>
-            <div class="timeNumberSpace">4</div>
-            <div class="timeNumberSpaceBetween">P</div>
-            <div class="timeNumberSpace">5</div>
-        </div>
-    </div>
-
-    <div id="objects" [dragula]='"first-bag"'>
-  
-          <time-layer [layerName]='"Layer 1"'></time-layer>
-          <time-layer [layerName]='"Layer 2"'></time-layer>
-    </div>
-  </div>
+    <timeline></timeline>
 </div>
 
 

@@ -1,0 +1,61 @@
+.layers {
+    width: 800px;
+    height: 200px;
+
+    background-color: #2F2726;
+    /* overflow: scroll; */
+    float: left;
+}
+/*---------------------------*/
+/*TimelineNumbers*/
+/*---------------------------*/
+.timelineWrap {
+    height: 20px;
+    width: 600px;
+    background-color: #12F004;
+}
+
+.timelineName {
+    height: 20px;
+    width: 100px;
+    background-color: #A00079;
+    color: red;
+    display: inline-block;
+}
+
+.timelineNumbers {
+    height: 20px;
+    width: 500px;
+    background-color: #0E8E1C;
+    color: red;
+    float: right;
+}
+
+.timelineNumbers {
+    width: 500px;
+    height: 20px;
+    font-size: 0;
+    color: white;
+    background-color: #353535;
+}
+
+.timelineNumbers > *{
+    
+  
+    display: inline-block;
+    font-size: 10px;
+}
+
+.timeNumberSpace {
+  width: 2.8%;
+  height: 20px;
+}
+
+.timeNumberSpaceBetween {
+ width: 16.64%;
+ height: 20px;
+ opacity: 0;
+ background-color:yellow;
+}
+
+
