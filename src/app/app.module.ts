@@ -14,13 +14,15 @@ import { SharedModule, InputTextModule } from "primeng/primeng";
 import { ButtonModule } from "primeng/primeng";
 import {OrderListModule} from 'primeng/primeng';
 import { TimelineComponent } from './timeline/timeline.component';
+import { CompComponent } from './comp/comp.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LayerComponent,
-    TimelineComponent
+    TimelineComponent,
+    CompComponent
   ],
   imports: [
     BrowserModule,

@@ -28,7 +28,8 @@
     "rxjs": "^5.5.2",
     "zone.js": "^0.8.14",
     "nouislider": "10.1.0",
-    "ng2-nouislider": "1.7.6"
+    "ng2-nouislider": "1.7.6",
+    "pixi.js": "~4.6.2"
   },
   "devDependencies": {
     "@angular/cli": "1.6.1",
