@@ -13,66 +13,68 @@ export class CompComponent implements OnInit, AfterViewInit {
 
     @ViewChild('compView') compView: ElementRef;
     time: string = "hello";
-    htmlToAdd;
-    app;
-    cat = '/assets/images/cat.png';
+    app: any;
+    rendererPixi;
+    stage;
+    compLength: number = 256;
+    compHeight: number = 256;
+    container;
     constructor(private renderer: Renderer2) {
+    
+       
 
     }
 
     ngOnInit() {
-        let type = "WebGL"
-        if(!PIXI.utils.isWebGLSupported()){
-          type = "canvas"
-        }
-    
-        PIXI.utils.sayHello(type)
-
-       
-        this.app = new PIXI.Application({ 
-            width: 256,         // default: 800
-            height: 256,        // default: 600
-            antialias: true,    // default: false
-            transparent: false, // default: false
-            resolution: 1       // default: 1
-          }
-        );
+        //this.rendererPixi = PIXI.autoDetectRenderer(  {width: this.compLength, height: this.compHeight, antialias: true});
+       this.app = new PIXI.Application({ 
+        width: 256,         // default: 800
+        height: 256,        // default: 600
+        antialias: true,    // default: false
+        transparent: false, // default: false
+        resolution: 1       // default: 1
+      });
+        console.log("test" + this.getAllMethods(this.app));
         this.app.renderer.backgroundColor =0xFF0000;
         this.app.renderer.autoResize = true;
-        console.log("whats in app:" + this.app.view);
-
-        document.body.appendChild(this.app.view);
-        //this.compView.nativeElement.appendChild(this.app.view);
-        let cat = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/images/cat.png'));
-        //this.app.renderer.backgroundColor =0xFF0000;
-        //Add the cat to the stage
-        this.app.stage.addChild(cat);
-        //PIXI.loader.add('/assets/images/cat.png').load(this.setup);
-
-
-        //this.htmlToAdd = app.view;
-        //this.htmlToAdd = '<div class="two">two</div>';
-        //document.body.appendChild(this.app.view);
-        //this.htmlToAdd = this.app.view;
-        //this.compView.nativeElement.appendChild(this.app.view);
+ 
+        this.compView.nativeElement.appendChild(this.app.view);
+        PIXI.loader.add('/assets/images/cat.png').load(this.setup.bind(this));
+        //this.test();
         
-       //this.renderer.appendChild(this.compView, this.app.view);
+    }
+
+    ​ getAllMethods(object) {
+        return Object.getOwnPropertyNames(object).filter(function(property) {
+            return typeof object[property] == 'function';
+        });
     }
 
      ngAfterViewInit(): void {
-            //throw new Error('Method not implemented.');
-            //this.compView.nat = "hello2";
-            //this.renderer.appendChild(this.compView, this.app.view);
-            
+        // this.rendererPixi = PIXI.autoDetectRenderer(  {width: this.compLength, height: this.compHeight, antialias: true});
+        // this.rendererPixi.backgroundColor = 0xFF0000;
+        // this.rendererPixi.autoResize = true;
+        // document.body.appendChild(this.rendererPixi.view);
+        
+     }
+
+     test() {
+        let textTex = PIXI.Texture.fromImage('/assets/images/cat.png');
+        let textTex2 = new PIXI.Sprite(textTex);
+        console.log("What in text2: " + textTex2.width);
+        this.app.stage.addChild(textTex2);
      }
 
      setup() {
-                //Create the cat sprite
-        //let cat = new PIXI.Sprite(PIXI.loader.resources['/assets/images/cat.png'].texture);
-        let cat = new PIXI.Sprite(PIXI.Texture.fromImage('/assets/images/cat.png'));
-        //this.app.renderer.backgroundColor =0xFF0000;
-        //Add the cat to the stage
-        this.app.stage.addChild(cat);
+        let test = PIXI.loader.resources['/assets/images/cat.png'].texture;
+        console.log(test);
+        let cat2 = new PIXI.Sprite(test);
+        console.log("What in cat: " + cat2.width);
+        this.app.stage.addChild(cat2);
+     }
+
+     update() {
+         this.app.renderer(this.app.stage);
      }
 
 }
