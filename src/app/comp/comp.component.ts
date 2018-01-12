@@ -1,5 +1,7 @@
 import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit,Renderer2 } from "@angular/core";
+import { Text } from './text';
 import * as PIXI from 'pixi.js';
+
 
 @Component({
     selector: 'comp',
@@ -39,9 +41,12 @@ export class CompComponent implements OnInit, AfterViewInit {
         this.app.renderer.autoResize = true;
  
         this.compView.nativeElement.appendChild(this.app.view);
-        PIXI.loader.add('/assets/images/cat.png').load(this.setup.bind(this));
+        //PIXI.loader.add('/assets/images/cat.png').add('/testpic/icon.png').load(this.setup.bind(this));
         //this.test();
+        let newClass = new Text();
         
+        console.log("Test Private x: " + newClass.x);
+        this.app.stage.addChild(newClass);
     }
 
     ​ getAllMethods(object) {
