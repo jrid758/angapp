@@ -2,7 +2,22 @@ import * as PIXI from 'pixi.js';
 
 
 
-export class Text extends PIXI.Text{
+
+export class Text extends PIXI.Text {
+    height: number;
+    width: number;
+    parent: any;
+    yOffset: number;
+    xOffset: number;
+    offsetStart: boolean;
+    dragging: boolean;
+    data: any;
+    on: any;
+    buttonMode: boolean;
+    y: number;
+    x: number;
+    text: string;
+    interactive: boolean;
   
 
     public time: string = "hello";
@@ -15,11 +30,12 @@ export class Text extends PIXI.Text{
     dText: string = "Firefighter";
 
   
-    constructor() {
-        super();
+    constructor(xPos, yPos, style) {
+        super("Text");
+
         this.text = this.dText;
-        this.x = 50;
-        this.y = 50;
+        this.x = (xPos/2) - (this.width/2);
+        this.y = (yPos/2) - (this.height/2);
 
         this.interactive = true;
         this.buttonMode = true;

@@ -43,10 +43,11 @@ export class CompComponent implements OnInit, AfterViewInit {
         this.compView.nativeElement.appendChild(this.app.view);
         //PIXI.loader.add('/assets/images/cat.png').add('/testpic/icon.png').load(this.setup.bind(this));
         //this.test();
-        let newClass = new Text();
-        
-        console.log("Test Private x: " + newClass.x);
-        this.app.stage.addChild(newClass);
+        //let newClass = new Text(this.app.renderer,this.app.stage);
+        this.addText(this.app.renderer,this.app.stage);
+        this.addText(this.app.renderer,this.app.stage);
+        //console.log("Test Private x: " + newClass.x);
+        //this.app.stage.addChild(newClass);
     }
 
     ​ getAllMethods(object) {
@@ -81,5 +82,40 @@ export class CompComponent implements OnInit, AfterViewInit {
      update() {
          this.app.renderer(this.app.stage);
      }
+
+      addText(renderer, stage) {
+        let textObj = null;
+
+
+        //setup text attributes
+         let style = new PIXI.TextStyle({
+            fontFamily: 'Arial',
+            fontSize: 30,
+            //fontStyle: 'italic',
+            fontWeight: 'bold',
+            
+            fill: '#ffffff', // gradient
+            stroke: '#4a1850',
+            strokeThickness: 3,
+            lineJoin: 'round',
+            dropShadow: true,
+            dropShadowColor: '#000000',
+            dropShadowBlur: 4,
+            dropShadowAngle: Math.PI / 6,
+            dropShadowDistance: 3,
+            wordWrap: true,
+            wordWrapWidth: 440
+        });
+        //create text object
+        textObj = new Text(renderer.width, renderer.height, style);
+        //have selected variable set to text object when clicked
+
+        stage.addChild(textObj);
+
+
+
+
+
+    }
 
 }
