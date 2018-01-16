@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ICars } from "./cars";
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { IObject } from './obj';
+import { forEach } from '@angular/router/src/utils/collection';
+
 
 
 
@@ -27,6 +30,8 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 
 })
 export class AppComponent implements OnInit {
+  objects: IObject[];
+  numberText: number = 0;
   title = 'app';
   cars:ICars[];
   test2: string = 'hello';
@@ -39,7 +44,7 @@ export class AppComponent implements OnInit {
 
 
   constructor() {
-
+    this.objects = [];
   }
 
   private onDrop(args) {
@@ -61,7 +66,34 @@ export class AppComponent implements OnInit {
   ngOnInit() {
         this.cars = [{brand: "Happy", year: 1989, color:"Red"}, {brand: "Happy2", year: 19892, color:"Red2"}];
         console.log("Happy");
+
+        //this.objects = null;
+
     }
 
+    addText() {
+      console.log("CLICK!!!");
+      this.numberText++;
+      this.createObj();
+    }
 
+    createObj() {
+      let obj: IObject = {
+      name: "Layer " + (this.objects.length + 1),
+      objectType: "text",
+      text: "placeholder",
+      effect: null
+      };
+      this.objects.unshift(obj);
+      console.log(this.objects.length);
+      console.log(this.objects[0].text);
+    }
+
+    updateObjects(message: IObject[]): void {
+      this.objects = message.slice();
+      for(let i = 0; i < this.objects.length; i++) {
+        console.log("Main Prog Update: " + this.objects[i].name);
+      }
+    }
+    
 }

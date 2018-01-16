@@ -30,9 +30,12 @@
     </ng-template>
 </p-orderList> 
 <!--<p [@myAnim]='state' (click)="animateMe()">I will animate</p>-->
-<button>Add Text</button>
+
+
+
+<button (click)="addText()">Add Text</button>
 <comp></comp>
-<timeline></timeline>
+<timeline [objects]="objects" (updateObjects)='updateObjects($event)' [num]="numberText"></timeline>
 
 
 
