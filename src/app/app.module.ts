@@ -15,6 +15,7 @@ import { ButtonModule } from "primeng/primeng";
 import {OrderListModule} from 'primeng/primeng';
 import { TimelineComponent } from './timeline/timeline.component';
 import { CompComponent } from './comp/comp.component';
+import { EffectComponent } from './timeline/effect.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { CompComponent } from './comp/comp.component';
     AppComponent,
     LayerComponent,
     TimelineComponent,
-    CompComponent
+    CompComponent,
+    EffectComponent
   ],
   imports: [
     BrowserModule,

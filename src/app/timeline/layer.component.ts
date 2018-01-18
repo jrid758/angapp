@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
+import { IObject } from "../obj";
 
 
 @Component({
@@ -24,16 +25,13 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 })
 
 export class LayerComponent {
-    someRange: number[] = [0, 5];
+   
     state: string = 'small';
     @Input() layerName: string;
+    @Input() object: IObject;
 
     animateMe() {
         this.state = (this.state === 'small') ? 'large' : 'small';
       }
 
-      sliderNum() {
-        //console.log("Top: " + this.someRange2);
-        console.log("Bottom: " + this.someRange);
-      }
 }

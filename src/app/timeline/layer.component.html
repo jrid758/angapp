@@ -6,25 +6,12 @@
     <div class="layernamespace"><button>ADD EFFECT</button></div>
     <div class=".effectanim" [@myAnim]='state'>
 
-
-      <div class="effect" >
-        <div class="effectName">Move Out
-          <select class='moveinsel'>
-              <option value="left">Left</option>
-              <option value="right">Right</option>
-              <option value="top">Top</option>
-              <option value="bottom">Bottom</option>
-          </select>
-        </div>
+      <effect></effect>
+      <effect></effect>
       
-      <div class="effectnamespace"></div>
-      <div class="effectsliderspace">
-        <nouislider [connect]="true" [min]="0" [max]="5" [(ngModel)]="someRange" (click)='sliderNum()'></nouislider>
-      </div>
-    </div>
 
-
-    <div class="effect" >
+    
+    <!-- <div class="effect" >
         <div class="effectName">Move In
           <select class='moveinsel'>
               <option value="left">Left</option>
@@ -38,10 +25,10 @@
       <div class="effectsliderspace">
         <nouislider [connect]="true" [min]="0" [max]="5" [(ngModel)]="someRange" (click)='sliderNum()'></nouislider>
       </div>
-    </div>
+    </div> -->
 
 
-    <div class="effect" >
+    <!-- <div class="effect" >
         <div class="effectName">Fade Out
         </div>
       
@@ -49,7 +36,7 @@
       <div class="effectsliderspace">
         <nouislider [connect]="true" [min]="0" [max]="5" [(ngModel)]="someRange" (click)='sliderNum()'></nouislider>
       </div>
-    </div>
+    </div> -->
 
  
 

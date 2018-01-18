@@ -1,0 +1,15 @@
+<div class="effect" >
+    <div class="effectName">Move Out
+      <select class='moveinsel'>
+          <option value="left">Left</option>
+          <option value="right">Right</option>
+          <option value="top">Top</option>
+          <option value="bottom">Bottom</option>
+      </select>
+    </div>
+  
+  <div class="effectnamespace"></div>
+  <div class="effectsliderspace">
+    <nouislider [connect]="true" [min]="0" [max]="5" [(ngModel)]="someRange" (click)='sliderNum()'></nouislider>
+  </div>
+</div>
