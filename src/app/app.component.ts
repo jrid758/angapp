@@ -4,6 +4,7 @@ import { ICars } from "./cars";
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { IObject } from './obj';
 import { forEach } from '@angular/router/src/utils/collection';
+import { ObjectService } from './object.service';
 
 
 
@@ -12,6 +13,7 @@ import { forEach } from '@angular/router/src/utils/collection';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  providers: [ ObjectService],
   animations: [
     trigger('myAnim',[
       state('small', style({
@@ -30,7 +32,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 
 })
 export class AppComponent implements OnInit {
-  objects: IObject[];
+  objects: IObject[] = [];
   numberText: number = 0;
   title = 'app';
   cars:ICars[];
@@ -39,12 +41,12 @@ export class AppComponent implements OnInit {
   // options: any = {
   //   ignoreInputTextSelection: true
   // }
+  private _objectService;
 
 
-
-
-  constructor() {
-    this.objects = [];
+  constructor(objectService: ObjectService) {
+    this._objectService = objectService;
+    //this.objects = [];
   }
 
   private onDrop(args) {
@@ -63,10 +65,10 @@ export class AppComponent implements OnInit {
     this.disabled = !this.disabled;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
         this.cars = [{brand: "Happy", year: 1989, color:"Red"}, {brand: "Happy2", year: 19892, color:"Red2"}];
         console.log("Happy");
-
+        this.objects = this._objectService.getObjects();
         //this.objects = null;
 
     }
