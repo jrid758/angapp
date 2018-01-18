@@ -4,6 +4,8 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 import { DragulaService } from "ng2-dragula";
 //import { EventEmitter } from "@angular/core/src/event_emitter";
 import { IObject } from "../obj";
+import { ObjectService } from "../object.service";
+import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 
 @Component({
     selector: 'timeline',
@@ -12,14 +14,16 @@ import { IObject } from "../obj";
 
 })
 
-export class TimelineComponent implements OnChanges {
+export class TimelineComponent implements OnChanges, OnInit {
+  
 
-    @Input() objects: IObject[];
-    @Output() updateObjects: EventEmitter<IObject[]> = new EventEmitter<IObject[]>();
-    @Input() num: number;
+    // @Input() objects: IObject[];
+    // @Output() updateObjects: EventEmitter<IObject[]> = new EventEmitter<IObject[]>();
+    // @Input() num: number;
+    objects: IObject[] = [];
     //test: IObject;
 
-    constructor(private dragulaService: DragulaService) {
+    constructor(private dragulaService: DragulaService, private _objectservice: ObjectService) {
 
         this.objects = [];
 
@@ -44,8 +48,12 @@ export class TimelineComponent implements OnChanges {
         }
       }
 
+      ngOnInit(): void {
+        this.objects = this._objectservice.getObjects();
+      }
+
       ngOnChanges(): void {
-        console.log("NUMBER INSIDE: " + this.num);
+        //console.log("NUMBER INSIDE: " + this.num);
         console.log("What is this:" + this.objects.length);
         if(this.objects.length != 0) {
           console.log("What is text in obj:" + this.objects[0].name);
@@ -96,7 +104,7 @@ export class TimelineComponent implements OnChanges {
         //   text: "placeholder"});
         //console.log(names[0].innerHTML.substr(0,names[0].innerHTML.lastIndexOf("<span")));
         console.log("***********************");
-        this.updateObjects.emit(newArray);
+        //this.updateObjects.emit(newArray);
       }
 
 

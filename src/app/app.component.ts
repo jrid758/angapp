@@ -5,6 +5,7 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
 import { IObject } from './obj';
 import { forEach } from '@angular/router/src/utils/collection';
 import { ObjectService } from './object.service';
+import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 
 
@@ -31,7 +32,8 @@ import { ObjectService } from './object.service';
   ]
 
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnChanges {
+ 
   objects: IObject[] = [];
   numberText: number = 0;
   title = 'app';
@@ -73,6 +75,12 @@ export class AppComponent implements OnInit {
 
     }
 
+    ngOnChanges(): void {
+      //doesn't work - only for INPUT STUFF
+      //this.objects = this._objectService.getObjects();
+      //this._objectService.setObjects(this.objects);
+    }
+
     addText() {
       console.log("CLICK!!!");
       this.numberText++;
@@ -81,14 +89,29 @@ export class AppComponent implements OnInit {
 
     createObj() {
       let obj: IObject = {
-      name: "Layer " + (this.objects.length + 1),
+      
+      name: "Layer " + (this._objectService.lengthObjects() + 1),
       objectType: "text",
+      xC: 25,
+      yC: 25,
+      scaleCurrent: 1,
+      alphaCurrent: 1,
+      widthCurrent: 50,
+      heightCurrent: 50,
       text: "placeholder",
       effect: null
+      
       };
+
       this.objects.unshift(obj);
-      console.log(this.objects.length);
-      console.log(this.objects[0].text);
+      // console.log(this.objects.length);
+      // console.log(this.objects[0].text);
+      this._objectService.setObjects(obj);
+      console.log("Service: " + this._objectService.lengthObjects());
+      console.log("Internal Length: " + this.objects.length);
+      //console.log(this._objectService[0].text);
+
+      
     }
 
     updateObjects(message: IObject[]): void {

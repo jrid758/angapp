@@ -34,4 +34,8 @@ export class LayerComponent {
         this.state = (this.state === 'small') ? 'large' : 'small';
       }
 
+    select() {
+      
+    }
+
 }
