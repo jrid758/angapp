@@ -1,6 +1,8 @@
 import { Component, Input } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { IObject } from "../obj";
+import { ObjectService } from "../object.service";
+import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 
 
 @Component({
@@ -24,11 +26,17 @@ import { IObject } from "../obj";
       ]
 })
 
-export class LayerComponent {
+export class LayerComponent implements OnInit {
+  
    
     state: string = 'small';
     @Input() layerName: string;
-    @Input() object: IObject;
+    // @Input() object: IObject;
+    objects: IObject[] = [];
+
+    constructor(private _objectservice: ObjectService) {
+      
+    }
 
     animateMe() {
         this.state = (this.state === 'small') ? 'large' : 'small';
@@ -36,6 +44,10 @@ export class LayerComponent {
 
     select() {
       
+    }
+
+    ngOnInit(): void {
+      this.objects = this._objectservice.getObjects();
     }
 
 }

@@ -50,14 +50,15 @@ export class TimelineComponent implements OnChanges, OnInit {
 
       ngOnInit(): void {
         this.objects = this._objectservice.getObjects();
+        console.log("Init");
       }
 
       ngOnChanges(): void {
         //console.log("NUMBER INSIDE: " + this.num);
-        console.log("What is this:" + this.objects.length);
-        if(this.objects.length != 0) {
-          console.log("What is text in obj:" + this.objects[0].name);
-        }
+        // console.log("What is this:" + this.objects.length);
+        // if(this.objects.length != 0) {
+        //   console.log("What is text in obj:" + this.objects[0].name);
+        // }
       }
 
       private onDrop(args) {
@@ -95,9 +96,10 @@ export class TimelineComponent implements OnChanges, OnInit {
             }
           }
         }
+        console.log("Start");
+        this._objectservice.updateAllObjects(newArray);
+        this.objects = this._objectservice.getObjects();
 
-
-        
         // newArray.push({name: "Layer 5",
         //   objectType: "text",
         //   effect: null,
@@ -105,7 +107,20 @@ export class TimelineComponent implements OnChanges, OnInit {
         //console.log(names[0].innerHTML.substr(0,names[0].innerHTML.lastIndexOf("<span")));
         console.log("***********************");
         //this.updateObjects.emit(newArray);
-      }
+        for(let i = 0; i < this._objectservice.lengthObjects();i++) {
+          console.log("N: " + newArray[i].name);
+        }
+
+        for(let i = 0; i < this._objectservice.lengthObjects();i++) {
+          console.log("B: " + this.objects[i].name);
+        }
+
+        let test: IObject[] = [];
+        test = this._objectservice.getObjects();
+        for(let i = 0; i < this._objectservice.lengthObjects();i++) {
+          console.log("M: " + test[i].name);
+        }
 
 
+        }
 }

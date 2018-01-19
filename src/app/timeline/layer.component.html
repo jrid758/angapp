@@ -5,10 +5,14 @@
     </div>
     <div class="layernamespace"><button>ADD EFFECT</button></div>
     <div class=".effectanim" [@myAnim]='state'>
+      <div *ngFor='let effect of objects'>
+        <effect></effect>
+        <effect></effect>
+      </div>
+       
 
-      <effect></effect>
-      <effect></effect>
-      
+      <!-- <div id="objects" [dragula]='"first-bag"' *ngIf='objects.length'>
+        <div *ngFor='let object of objects'> -->
 
     
     <!-- <div class="effect" >
