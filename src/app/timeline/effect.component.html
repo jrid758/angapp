@@ -10,6 +10,6 @@
   
   <div class="effectnamespace"></div>
   <div class="effectsliderspace">
-    <nouislider [connect]="true" [min]="0" [max]="5" [(ngModel)]="someRange" (click)='sliderNum()'></nouislider>
+    <nouislider [connect]="true" [min]="min" [max]="max" [(ngModel)]="someRange" (mouseup)='sliderNum()'></nouislider>
   </div>
 </div>

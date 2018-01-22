@@ -1,8 +1,10 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, AfterViewInit } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { IObject } from "../obj";
 import { ObjectService } from "../object.service";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
+import { ViewChild } from "@angular/core/src/metadata/di";
+import { EffectComponent } from "./effect.component";
 
 
 @Component({
@@ -26,13 +28,17 @@ import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
       ]
 })
 
-export class LayerComponent implements OnInit {
+export class LayerComponent implements OnInit,AfterViewInit {
+  
   
    
     state: string = 'small';
     @Input() layerName: string;
     // @Input() object: IObject;
     objects: IObject[] = [];
+    //whatIn: number[] = [];
+
+    //@ViewChild(EffectComponent) effect;
 
     constructor(private _objectservice: ObjectService) {
       
@@ -48,6 +54,11 @@ export class LayerComponent implements OnInit {
 
     ngOnInit(): void {
       this.objects = this._objectservice.getObjects();
+    }
+
+    ngAfterViewInit(): void {
+      //this.whatIn = this.effect.someRange;
+      //console.log("Whats in Effect: " + this.effect.someRange);
     }
 
 }
