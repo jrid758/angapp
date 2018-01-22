@@ -1,10 +1,11 @@
-import { Component, Input, AfterViewInit } from "@angular/core";
+import { Component, Input, AfterViewInit, ViewChild, OnChanges } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { IObject } from "../obj";
 import { ObjectService } from "../object.service";
 import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
-import { ViewChild } from "@angular/core/src/metadata/di";
+//import { ViewChild } from "@angular/core/src/metadata/di";
 import { EffectComponent } from "./effect.component";
+import { IEffect } from "../effect";
 
 
 @Component({
@@ -28,7 +29,8 @@ import { EffectComponent } from "./effect.component";
       ]
 })
 
-export class LayerComponent implements OnInit,AfterViewInit {
+export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
+ 
   
   
    
@@ -36,9 +38,11 @@ export class LayerComponent implements OnInit,AfterViewInit {
     @Input() layerName: string;
     // @Input() object: IObject;
     objects: IObject[] = [];
-    //whatIn: number[] = [];
+    whatIn: number[] = [];
+    @Input() effects: IEffect[] = [];
 
-    //@ViewChild(EffectComponent) effect;
+    @ViewChild(EffectComponent) effect2;
+
 
     constructor(private _objectservice: ObjectService) {
       
@@ -54,11 +58,19 @@ export class LayerComponent implements OnInit,AfterViewInit {
 
     ngOnInit(): void {
       this.objects = this._objectservice.getObjects();
+      // if(this.effects[0] != null) {
+      // console.log("Did objects load: " + this.effects[0].type);
+      // }
     }
 
     ngAfterViewInit(): void {
-      //this.whatIn = this.effect.someRange;
-      //console.log("Whats in Effect: " + this.effect.someRange);
+      //this.whatIn = this.effect2.someRange;
+      //console.log("Whats in Effect: " + this.effect2.someRange);
+    }
+
+    ngOnChanges(): void {
+      //throw new Error("Method not implemented.");
+      //console.log("Whats in Effect2: " + this.effect2.someRange);
     }
 
 }

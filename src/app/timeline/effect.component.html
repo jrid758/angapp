@@ -1,10 +1,7 @@
 <div class="effect" >
-    <div class="effectName">Move Out
-      <select class='moveinsel'>
-          <option value="left">Left</option>
-          <option value="right">Right</option>
-          <option value="top">Top</option>
-          <option value="bottom">Bottom</option>
+    <div class="effectName">{{effect.type}}
+      <select class='moveinsel' *ngIf='effect.direction !== ""' (change)="updateSelect()" [(ngModel)]="directionSelected">
+          <option *ngFor="let option of optionSelect" [ngValue]="option">{{option}}</option>
       </select>
     </div>
   

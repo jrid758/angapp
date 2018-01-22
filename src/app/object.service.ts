@@ -9,7 +9,7 @@ export class ObjectService {
     constructor() {
         this.layerNumber = 1;
     }
-    objects: IObject[] = this.objects = [
+    objects: IObject[] = [
         {
             name: "Layer 3",
             objectType: "text",
@@ -42,25 +42,12 @@ export class ObjectService {
 
                     alphaStarting: 1,
                     alphaEnding: 1
-                }
-            ]
-        },
-        {
-            name: "Layer 2",
-            objectType: "text",
-            text: "placeholder",
-            xC: 25,
-            yC: 25,
-            scaleCurrent: 1,
-            alphaCurrent: 1,
-            widthCurrent: 30,
-            heightCurrent: 20,
-            effect: [
+                },
                 {
-                    type: "moveIn",
-                    direction: "right",
+                    type: "moveOut",
+                    direction: "top",
                     timeStart: 1,
-                    timeEnd: 3,
+                    timeEnd: 4,
 
                     xS: 0,
                     yS: 20,
@@ -77,6 +64,41 @@ export class ObjectService {
 
                     alphaStarting: 1,
                     alphaEnding: 1
+                }
+            ]
+        },
+        {
+            name: "Layer 2",
+            objectType: "text",
+            text: "placeholder",
+            xC: 25,
+            yC: 25,
+            scaleCurrent: 1,
+            alphaCurrent: 1,
+            widthCurrent: 30,
+            heightCurrent: 20,
+            effect: [
+                {
+                    type: "fadeOut",
+                    direction: "",
+                    timeStart: 1,
+                    timeEnd: 5,
+
+                    xS: 0,
+                    yS: 20,
+                    xE: 30,
+                    yE: 20,
+
+                    scaleStarting: 1,
+                    scaleEnding: 1,
+
+                    widthStarting: 20,
+                    heightStarting: 20,
+                    widthEnding: 20,
+                    heightEnding: 20,
+
+                    alphaStarting: 1,
+                    alphaEnding: 0
                 }
             ]
         },
@@ -117,6 +139,16 @@ export class ObjectService {
         }
     ];
 
+    consoleAllObjects(): void {
+        for(let i = 0; i < this.objects.length; i++) {
+            if(this.objects[i].effect != null) {
+            console.log("Did " + this.objects[i].name  + " change Start: " + this.objects[i].effect[0].timeStart);
+            console.log("Did " + this.objects[i].name  + " change End: " + this.objects[i].effect[0].timeEnd);
+            console.log("Did " + this.objects[i].name  + " direction change " + this.objects[i].effect[0].direction);
+            }
+        }
+    }
+
     lengthObjects(): number {
         return this.objects.length;
     }
@@ -128,6 +160,21 @@ export class ObjectService {
     updateAllObjects(newArray: IObject[]): void {
         this.objects = newArray;
         console.log("finished updating all objects")
+    }
+
+    updateEffectObject(layerName: string, effect: IEffect) {
+        for(let i = 0; i < this.objects.length; i++) {
+            if(this.objects[i].name === layerName) {
+                for(let k = 0; k < this.objects.length; k++) {
+                  if(this.objects[i].effect[k].type === effect.type) {
+                    this.objects[i].effect[k].timeStart = effect.timeStart;
+                    this.objects[i].effect[k].timeStart = effect.timeEnd;
+                  }
+                }
+            }
+        }
+
+
     }
 
     getObjects(): IObject[] {

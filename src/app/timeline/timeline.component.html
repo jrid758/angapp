@@ -18,7 +18,7 @@
 
     <div id="objects" [dragula]='"first-bag"' *ngIf='objects.length'>
         
-          <time-layer *ngFor='let object of objects' [layerName]='object.name'></time-layer>
+          <time-layer *ngFor='let object of objects' [layerName]='object.name' [effects]='object.effect'></time-layer>
       
         <!-- <time-layer [layerName]='"Layer 1"'></time-layer> -->
         <!-- <time-layer [layerName]='"Layer 2"'></time-layer> -->

@@ -89,24 +89,49 @@ export class AppComponent implements OnInit, OnChanges {
 
     createObj() {
       let obj: IObject = {
-      
-      name: "Layer " + (this._objectService.lengthObjects() + 1),
-      objectType: "text",
-      xC: 25,
-      yC: 25,
-      scaleCurrent: 1,
-      alphaCurrent: 1,
-      widthCurrent: 50,
-      heightCurrent: 50,
-      text: "placeholder",
-      effect: null
-      
+
+
+        
+          name: "Layer " + (this._objectService.lengthObjects() + 1),
+          objectType: "text",
+          text: "placeholder",
+          xC: 25,
+          yC: 25,
+          scaleCurrent: 1,
+          alphaCurrent: 1,
+          widthCurrent: 30,
+          heightCurrent: 20,
+          effect: null
+          // effect: [
+          //     {
+          //         type: "moveIn",
+          //         direction: "right",
+          //         timeStart: 1,
+          //         timeEnd: 3,
+
+          //         xS: 0,
+          //         yS: 20,
+          //         xE: 30,
+          //         yE: 20,
+
+          //         scaleStarting: 1,
+          //         scaleEnding: 1,
+
+          //         widthStarting: 20,
+          //         heightStarting: 20,
+          //         widthEnding: 20,
+          //         heightEnding: 20,
+
+          //         alphaStarting: 1,
+          //         alphaEnding: 1
+          //     }
+          //   ]
       };
 
       this.objects.unshift(obj);
       // console.log(this.objects.length);
       // console.log(this.objects[0].text);
-      this._objectService.setObjects(obj);
+      //this._objectService.setObjects(obj);
       console.log("Service: " + this._objectService.lengthObjects());
       console.log("Internal Length: " + this.objects.length);
       //console.log(this._objectService[0].text);
