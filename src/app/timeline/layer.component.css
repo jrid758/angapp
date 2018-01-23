@@ -8,7 +8,7 @@
     height: 100%;
     background: #D2D2D2;
     margin: 7px 0px 7px 0px;
-    overflow: hidden;
+    overflow: hidden; 
 }
 
 .layername {
@@ -27,9 +27,15 @@
   
 }
 
-.effectanim {
-    /* height: 30px; */
-    width: 600px;
+
+
+
+.toggle {
+    content:url(/assets/images/arrow_down.png);
+    width:15%;
+    display: inline-block;
+    color: white;
+    /* transition: 0.3s; */
 }
 
 

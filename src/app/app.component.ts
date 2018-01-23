@@ -6,6 +6,8 @@ import { IObject } from './obj';
 import { forEach } from '@angular/router/src/utils/collection';
 import { ObjectService } from './object.service';
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { CompService } from './comp.service';
+import { ADDRCONFIG } from 'dns';
 
 
 
@@ -46,7 +48,7 @@ export class AppComponent implements OnInit, OnChanges {
   private _objectService;
 
 
-  constructor(objectService: ObjectService) {
+  constructor(objectService: ObjectService, private _compservice: CompService) {
     this._objectService = objectService;
     //this.objects = [];
   }
@@ -87,11 +89,15 @@ export class AppComponent implements OnInit, OnChanges {
       this.createObj();
     }
 
+    changeTime(num:number) {
+      this._compservice.setTimeLenght(num);
+    }
+
     createObj() {
       let obj: IObject = {
 
 
-        
+          style: null,
           name: "Layer " + (this._objectService.lengthObjects() + 1),
           objectType: "text",
           text: "placeholder",

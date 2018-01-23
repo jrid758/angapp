@@ -1,11 +1,25 @@
-import { Component, Input, OnChanges, Output, EventEmitter } from "@angular/core";
+import { Component, Input, OnChanges, Output, EventEmitter, Pipe, PipeTransform } from "@angular/core";
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 
 import { DragulaService } from "ng2-dragula";
 //import { EventEmitter } from "@angular/core/src/event_emitter";
 import { IObject } from "../obj";
 import { ObjectService } from "../object.service";
-import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
+import { OnInit, AfterViewInit } from "@angular/core/src/metadata/lifecycle_hooks";
+import { CompService } from "../comp.service";
+
+@Pipe({name: 'demoNumber'})
+export class DemoNumber implements PipeTransform {
+  transform(value, args:string[]) : any {
+    let res = [];
+    for (let i = 0; i < value; i++) {
+        res.push(i);
+      }
+      return res;
+  }
+}
+
+
 
 @Component({
     selector: 'timeline',
@@ -14,7 +28,10 @@ import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 
 })
 
-export class TimelineComponent implements OnChanges, OnInit {
+export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
+  ngAfterViewInit(): void {
+    
+  }
   
 
     // @Input() objects: IObject[];
@@ -22,8 +39,12 @@ export class TimelineComponent implements OnChanges, OnInit {
     // @Input() num: number;
     objects: IObject[] = [];
     //test: IObject;
+    //lineTimes: number[] = [0,1,2,3,4,5];
+    timeLength: number;
+    widthtimelineWrap: string;
+    timelineNumbers: string;
 
-    constructor(private dragulaService: DragulaService, private _objectservice: ObjectService) {
+    constructor(private dragulaService: DragulaService, private _objectservice: ObjectService, private _compservice: CompService) {
 
         this.objects = [];
 
@@ -36,9 +57,23 @@ export class TimelineComponent implements OnChanges, OnInit {
           //console.log(`drag: ${value[1]}`);
           //console.log(`drag2: ${value.slice(1)}`);
           this.onDrop(value.slice(1));
+          
           //this.whatsInObjects();
           
         });
+
+
+        this._compservice.OtimeChange.subscribe(value => {
+          console.log("What is numberX1: " + value);
+          this.setTimeLength(value);
+        })
+      }
+
+      setTimeLength(num: number) {
+        this.timeLength = +num + 1;
+        this.widthtimelineWrap =  (+num + 1 ) * 100 + "px";
+        this.timelineNumbers = +num * 100 + "px";
+        console.log("What is numberX2: " + num);
       }
 
 
@@ -51,6 +86,8 @@ export class TimelineComponent implements OnChanges, OnInit {
       ngOnInit(): void {
         this.objects = this._objectservice.getObjects();
         console.log("Init");
+        this.setTimeLength(this._compservice.comp.timeLength);
+        
       }
 
       ngOnChanges(): void {
@@ -59,6 +96,8 @@ export class TimelineComponent implements OnChanges, OnInit {
         // if(this.objects.length != 0) {
         //   console.log("What is text in obj:" + this.objects[0].name);
         // }
+        //console.log("Getting Update: " + this._compservice.getSelected());
+        
       }
 
       private onDrop(args) {

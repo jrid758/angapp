@@ -233,6 +233,14 @@ export class ObjectService {
         this.objects = newArray;
         console.log("finished updating all objects")
     }
+ 
+    getObjectByLayerName(layerName: string): IObject {
+        for(let i = 0; i < this.objects.length; i++) {
+            if(this.objects[i].name === layerName) {
+               return this.objects[i];
+            }
+        }
+    }
 
     updateEffectObject(layerName: string, effect: IEffect) {
         for(let i = 0; i < this.objects.length; i++) {

@@ -1,18 +1,8 @@
 <div class="layers" >
-    <div class="timelineWrap">
+    <div class="timelineWrap" [style.width]="widthtimelineWrap">
         <div class="timelineName">Layer</div>
-        <div class="timelineNumbers">
-            <div class="timeNumberSpace">0</div>
-            <div class="timeNumberSpaceBetween">P</div>
-            <div class="timeNumberSpace">1</div>
-            <div class="timeNumberSpaceBetween">P</div>
-            <div class="timeNumberSpace">2</div>
-            <div class="timeNumberSpaceBetween">P</div>
-            <div class="timeNumberSpace">3</div>
-            <div class="timeNumberSpaceBetween">P</div>
-            <div class="timeNumberSpace">4</div>
-            <div class="timeNumberSpaceBetween">P</div>
-            <div class="timeNumberSpace">5</div>
+        <div class="timelineNumbers" [style.width]="timelineNumbers">
+            <timelineNumbers [number]="number" *ngFor="let number of timeLength | demoNumber"></timelineNumbers>
         </div>
     </div>
 

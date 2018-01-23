@@ -1,15 +1,15 @@
-<div id={{layerName}} class="layer" >
-    <div class="layername" (click)="animateMe()">
+<div id={{layerName}} class="layer" [style.width]="widthlayer" (click)="selected()" [ngStyle]="{'outline': variableOutline ? '3px solid greenyellow' : '0px solid greenyellow'}">
+    <div class="layername">
       {{layerName}}
-      <span class='toggle'></span>
+      <span class='toggle' (click)="animateMe()" [@rotateArrow]='stateArrow'></span>
     </div>
-    <div class="layernamespace"><button>ADD EFFECT</button></div>
-    <div class=".effectanim" [@myAnim]='state'>
+    <div class="layernamespace" [style.width]="widthlayernamespace"><button>ADD EFFECT</button></div>
+    <div [@myAnim]='state'>
       <div *ngIf='effects != null'> 
         <effect *ngFor='let effectProps of effects' [effect]='effectProps'></effect>
       </div> 
        
-
+   
       <!-- <div id="objects" [dragula]='"first-bag"' *ngIf='objects.length'>
         <div *ngFor='let object of objects'> -->
 

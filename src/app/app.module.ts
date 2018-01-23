@@ -12,10 +12,12 @@ import { LayerComponent } from './timeline/layer.component';
 import { SharedModule, InputTextModule } from "primeng/primeng";
 import { ButtonModule } from "primeng/primeng";
 import {OrderListModule} from 'primeng/primeng';
-import { TimelineComponent } from './timeline/timeline.component';
+import { TimelineComponent, DemoNumber } from './timeline/timeline.component';
 import { CompComponent } from './comp/comp.component';
 import { EffectComponent } from './timeline/effect.component';
 import { ObjectService } from './object.service';
+import { CompService } from './comp.service';
+import { TimelineNumbersComponent } from './timeline/timelineNumbers.component';
 
 
 @NgModule({
@@ -24,7 +26,10 @@ import { ObjectService } from './object.service';
     LayerComponent,
     TimelineComponent,
     CompComponent,
-    EffectComponent
+    EffectComponent,
+    TimelineNumbersComponent,
+    DemoNumber
+    
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,7 @@ import { ObjectService } from './object.service';
     SharedModule,
     InputTextModule
   ],
-  providers: [ObjectService],
+  providers: [ObjectService,CompService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

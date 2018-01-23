@@ -1,0 +1,28 @@
+
+/* .timelineNumbers {
+    height: 20px;
+    width: 500px;
+    background-color: rgb(142, 40, 14);
+    color: red;
+    float: right;
+} */
+
+
+
+/* .timelineNumbers > *{
+    display: inline-block;
+    font-size: 10px;
+} */
+
+.timeNumberSpace {
+    width: 10px;
+    height: 20px;
+    float: left;
+  }
+  
+  .timeNumberSpaceBetween {
+   height: 20px;
+   opacity: 0;
+   background-color:yellow;
+   float: left;
+  }

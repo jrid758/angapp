@@ -5,8 +5,8 @@
       </select>
     </div>
   
-  <div class="effectnamespace"></div>
-  <div class="effectsliderspace">
+  <div class="effectnamespace" [style.width]="effectLength"></div>
+  <div class="effectsliderspace" [style.width]="effectLength">
     <nouislider [connect]="true" [min]="min" [max]="max" [(ngModel)]="someRange" (mouseup)='sliderNum()'></nouislider>
   </div>
 </div>
