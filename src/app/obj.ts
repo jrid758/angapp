@@ -1,4 +1,5 @@
 import { IEffect } from "./effect";
+import { ITextStyle } from "./textstyle";
 
 export interface IObject {
     name: string;
@@ -10,5 +11,6 @@ export interface IObject {
     widthCurrent: number;
     heightCurrent: number;
     text: string;
+    style: ITextStyle;
     effect: IEffect[];
   }

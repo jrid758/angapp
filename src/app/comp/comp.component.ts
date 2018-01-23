@@ -89,20 +89,26 @@ export class CompComponent implements OnInit, AfterViewInit {
 
         //setup text attributes
          let style = new PIXI.TextStyle({
+            align: 'center',
+            breakWords: 'false',
             fontFamily: 'Arial',
             fontSize: 30,
-            //fontStyle: 'italic',
-            fontWeight: 'bold',
-            
+            fontStyle: 'normal',
+            fontWeight: 'normal',
+            fontVariant: 'normal',
             fill: '#ffffff', // gradient
-            stroke: '#4a1850',
+            stroke: '#000000',
             strokeThickness: 3,
             lineJoin: 'round',
+            leading: 0,
+            letterSpacing: 0,
+            lineHeight: 0,
             dropShadow: true,
             dropShadowColor: '#000000',
             dropShadowBlur: 4,
             dropShadowAngle: Math.PI / 6,
             dropShadowDistance: 3,
+            dropShadowAlpha: 1,
             wordWrap: true,
             wordWrapWidth: 440
         });

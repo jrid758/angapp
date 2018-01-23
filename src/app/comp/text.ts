@@ -31,7 +31,7 @@ export class Text extends PIXI.Text {
 
   
     constructor(xPos, yPos, style) {
-        super("Text");
+        super("Text",style);
 
         this.text = this.dText;
         this.x = (xPos/2) - (this.width/2);
