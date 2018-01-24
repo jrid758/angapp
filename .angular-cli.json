@@ -28,7 +28,9 @@
          "./assets/nouisliderupdate.css"
          
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/underscore/underscore.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

@@ -1,8 +1,9 @@
-<div id={{layerName}} class="layer" [style.width]="widthlayer" (click)="selected()" [ngStyle]="{'outline': variableOutline ? '3px solid greenyellow' : '0px solid greenyellow'}">
+<div id={{layerName}} class="layer" [style.width]="widthlayer"  (click)="selected()" [ngStyle]="{'outline': variableOutline ? '3px solid greenyellow' : '0px solid greenyellow'}">
     <div class="layername">
       {{layerName}}
       <!-- fixing -->
-      <span class='toggle' (click)="animateMe()" [@rotateArrow]='stateArrow'></span>
+      <!-- *ngIf='_.isEmpty({}) === true' -->
+      <span class='toggle' (click)="animateMe()" [@rotateArrow]='stateArrow' [style.visibility]="isEffectEmpty() ? 'visible' : 'hidden'"></span>
     </div>
     <div class="layernamespace" [style.width]="widthlayernamespace"><button>ADD EFFECT</button></div>
     <div [@myAnim]='state'>

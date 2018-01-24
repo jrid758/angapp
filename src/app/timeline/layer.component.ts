@@ -7,7 +7,7 @@ import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 import { EffectComponent } from "./effect.component";
 import { IEffect } from "../effect";
 import { CompService } from "../comp.service";
-
+import * as _ from 'underscore';
 
 @Component({
     selector: 'time-layer',
@@ -99,6 +99,11 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
     //     console.log('nothing changed');
     //   }
     // }
+
+    isEffectEmpty(): boolean {
+      //console.log("Is it empty: " + _.isEmpty(this.effects));
+      return  !_.isEmpty(this.effects);
+    }
 
     setTimeLength(num: number) {
       this.widthlayer = (+num +1 )*100 + "px";
