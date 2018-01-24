@@ -69,8 +69,10 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
         })
       }
 
-      deselectObjects() {
-        console.log("FIREDED deselect");
+      deselectObjects(event) {
+        if(event.target.id === "layers") {
+     
+       
         let newBlank: IObject = {
           name: null,
           objectType: null,
@@ -85,6 +87,7 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
           effect: null,
         }
         this._compservice.setSelected(newBlank);
+      }
       }
 
       setTimeLength(num: number) {

@@ -1,16 +1,21 @@
-<div class="layers">
+<div id="layers" (click)="deselectObjects($event)">
     <div class="timelineWrap" [style.width]="widthtimelineWrap">
         <div class="timelineName">Layer</div>
         <div class="timelineNumbers" [style.width]="timelineNumbers">
             <timelineNumbers [number]="number" *ngFor="let number of timeLength | demoNumber"></timelineNumbers>
         </div>
     </div>
-
+    <!-- <div class="clear"></div> -->
     <div id="objects" [dragula]='"first-bag"' *ngIf='objects.length'>
         
           <time-layer *ngFor='let object of objects' [layerName]='object.name' [effects]='object.effect'></time-layer>
       
         <!-- <time-layer [layerName]='"Layer 1"'></time-layer> -->
         <!-- <time-layer [layerName]='"Layer 2"'></time-layer> -->
+
     </div>
+    <!-- <div class="deselectArea" (mouseover)="deselectObjects()">3</div>
+    <div class="deselectAreaRight" (mouseover)="deselectObjects()">3</div> -->
+    <div class="space"></div>
+    
   </div>
