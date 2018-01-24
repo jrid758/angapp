@@ -7,7 +7,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { ObjectService } from './object.service';
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { CompService } from './comp.service';
-import { ADDRCONFIG } from 'dns';
+// import { ADDRCONFIG } from 'dns';
 
 
 
