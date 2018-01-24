@@ -5,6 +5,7 @@
     background-color: #2F2726;
     overflow: scroll;
     float: left;
+    z-index: -1;
 }
 /*---------------------------*/
 /*TimelineNumbers*/

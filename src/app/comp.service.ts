@@ -38,6 +38,7 @@ export class CompService {
         this.OtimeChange.next(this.comp.timeLength);
     }
 
+
     setSelected(selected: IObject) {
         this.comp.selected = selected;
         this.Observable.next(this.comp.selected);

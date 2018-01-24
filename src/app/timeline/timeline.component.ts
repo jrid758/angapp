@@ -69,6 +69,24 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
         })
       }
 
+      deselectObjects() {
+        console.log("FIREDED deselect");
+        let newBlank: IObject = {
+          name: null,
+          objectType: null,
+          xC: null,
+          yC: null,
+          scaleCurrent: null,
+          alphaCurrent: null,
+          widthCurrent: null,
+          heightCurrent: null,
+          text: null,
+          style: null,
+          effect: null,
+        }
+        this._compservice.setSelected(newBlank);
+      }
+
       setTimeLength(num: number) {
         this.timeLength = +num + 1;
         this.widthtimelineWrap =  (+num + 1 ) * 100 + "px";
