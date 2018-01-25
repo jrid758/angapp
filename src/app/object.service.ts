@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { IObject } from "./obj";
 import { IEffect } from "./effect";
+import * as _ from 'underscore';
 
 @Injectable()
 export class ObjectService {
@@ -212,13 +213,21 @@ export class ObjectService {
     ];
 
     consoleAllObjects(): void {
-        for(let i = 0; i < this.objects.length; i++) {
-            if(this.objects[i].effect != null) {
-            console.log("Did " + this.objects[i].name  + " change Start: " + this.objects[i].effect[0].timeStart);
-            console.log("Did " + this.objects[i].name  + " change End: " + this.objects[i].effect[0].timeEnd);
-            console.log("Did " + this.objects[i].name  + " direction change " + this.objects[i].effect[0].direction);
-            }
-        }
+
+        // for(let i = 0; i < this.objects.length; i++) {
+        //         for(let k = 0; k < this.objects[i].effect.length; k++) {
+        //         }
+        //     }
+        // }
+
+
+        // for(let i = 0; i < this.objects.length; i++) {
+        //     if(this.objects[i].effect != null) {
+            // console.log("Did " + this.objects[i].name  + " change Start: " + this.objects[i].effect[0].timeStart);
+            // console.log("Did " + this.objects[i].name  + " change End: " + this.objects[i].effect[0].timeEnd);
+            // console.log("Did " + this.objects[i].name  + " direction change " + this.objects[i].effect[0].direction);
+            // }
+        // }
     }
 
     lengthObjects(): number {
@@ -245,7 +254,7 @@ export class ObjectService {
     updateEffectObject(layerName: string, effect: IEffect) {
         for(let i = 0; i < this.objects.length; i++) {
             if(this.objects[i].name === layerName) {
-                for(let k = 0; k < this.objects.length; k++) {
+                for(let k = 0; k < this.objects[i].effect.length; k++) {
                   if(this.objects[i].effect[k].type === effect.type) {
                     this.objects[i].effect[k].timeStart = effect.timeStart;
                     this.objects[i].effect[k].timeStart = effect.timeEnd;
@@ -255,6 +264,26 @@ export class ObjectService {
         }
 
 
+    }
+
+    removeEffectObject(layerName: string, effect: IEffect) {
+        for(let i = 0; i < this.objects.length; i++) {
+            console.log("Searching... " + this.objects[i].name + " " + layerName);
+            if(this.objects[i].name === layerName) {
+                console.log("Found1");
+                for(let k = 0; k < this.objects[i].effect.length; k++) {
+                  if(this.objects[i].effect[k].type === effect.type) {
+                    console.log("Found2: " + this.objects[i].effect[k].type + " removed ");
+
+                    this.objects[i].effect.splice(k,1);
+                    // someArray = _.reject(this.objects[i].effect, function(el) { return el.Name === "Kristian"; });
+                    // this.objects[i].effect[k] = null;
+                    // break;
+                    //console.log("Found3: " + this.objects[i].effect[k].type + " removed ");
+                  }
+                }
+            }
+        }
     }
 
     getObjects(): IObject[] {

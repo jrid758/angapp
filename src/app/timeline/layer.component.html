@@ -8,7 +8,7 @@
     <div class="layernamespace" [style.width]="widthlayernamespace"><button>ADD EFFECT</button></div>
     <div [@myAnim]='state'>
       <div *ngIf='effects != null'> 
-        <effect *ngFor='let effectProps of effects' [effect]='effectProps'></effect>
+        <effect *ngFor='let effectProps of effects' [effect]='effectProps' [layerName]='layerName'></effect>
       </div> 
        
    

@@ -78,6 +78,11 @@ export class EffectComponent implements OnChanges,OnInit {
     updateSelectedOption() {
 
     }
+
+    removeEffect() {
+        console.log("starting to remove effect " + this.layerName + " " + this.effect.type);
+        this._objectservice.removeEffectObject(this.layerName, this.effect);
+    }
 }
 
 
