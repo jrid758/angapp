@@ -9,9 +9,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { LayerComponent } from './timeline/layer.component';
 
 
-import { SharedModule, InputTextModule } from "primeng/primeng";
-import { ButtonModule } from "primeng/primeng";
-import {OrderListModule} from 'primeng/primeng';
+
 import { TimelineComponent, DemoNumber } from './timeline/timeline.component';
 import { CompComponent } from './comp/comp.component';
 import { EffectComponent } from './timeline/effect.component';
@@ -37,15 +35,8 @@ import { TimelineNumbersComponent } from './timeline/timelineNumbers.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     AngularFontAwesomeModule,
-    OrderListModule,
     DragulaModule,
-    NouisliderModule,
-
-    
-
-    ButtonModule,
-    SharedModule,
-    InputTextModule
+    NouisliderModule
   ],
   providers: [ObjectService,CompService],
   bootstrap: [AppComponent]

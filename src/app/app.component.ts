@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ICars } from "./cars";
 import { trigger, state, style, transition, animate, keyframes } from '@angular/animations';
 import { IObject } from './obj';
 import { forEach } from '@angular/router/src/utils/collection';
@@ -39,7 +38,6 @@ export class AppComponent implements OnInit, OnChanges {
   objects: IObject[] = [];
   numberText: number = 0;
   title = 'app';
-  cars:ICars[];
   test2: string = 'hello';
   disabled = true;
   // options: any = {
@@ -70,7 +68,6 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-        this.cars = [{brand: "Happy", year: 1989, color:"Red"}, {brand: "Happy2", year: 19892, color:"Red2"}];
         console.log("Happy");
         this.objects = this._objectService.getObjects();
         //this.objects = null;

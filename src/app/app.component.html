@@ -1,42 +1,9 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to a {{ title }}! {{ test2 }}
-  </h1>
-  <input type="text" pInputText />
-  <h3>Float Label</h3>
-  <span class="ui-float-label">
-      <input id="float-input" type="text" size="30" pInputText> 
-      <label for="float-input">Username</label>
-  </span>
-
-
-  <h3>Disabled</h3>
-  <input id="disabled-input" type="text" size="30" pInputText [disabled]="disabled" />
-  <button id="disabled-btn" type="button" (click)="toggleDisabled()" pButton label="Toggle"></button>
-</div>
 
 
 
-
-<p-orderList [value]="cars" dragdrop="false" dragdropScope="cars">
-    <ng-template let-car pTemplate="item">
-
-        <div class="ui-helper-clearfix">
-           
-            <div style="font-size:14px;float:right;margin:15px 5px 0 0">{{car.brand}} - {{car.year}} - {{car.color}}</div>
-        </div>
-
-    </ng-template>
-</p-orderList> 
-<!--<p [@myAnim]='state' (click)="animateMe()">I will animate</p>-->
-
-
-
+<comp></comp>
 <button (click)="addText()">Add Text</button>
 <button (click)="changeTime(numInput.value)">Set Time</button><input type="text" #numInput />
-<comp></comp>
-<!-- <timeline [objects]="objects" (updateObjects)='updateObjects($event)' [num]="numberText"></timeline> -->
 <timeline></timeline>
 
 
