@@ -214,12 +214,36 @@ export class ObjectService {
 
     consoleAllObjects(): void {
 
-        // for(let i = 0; i < this.objects.length; i++) {
-        //         for(let k = 0; k < this.objects[i].effect.length; k++) {
-        //         }
-        //     }
-        // }
+        for(let i = 0; i < this.objects.length; i++) {
+            let output;
+            if(!_.isEmpty(this.objects)) {
+                output = this.objects[i].name;
+                for (var property in this.objects[i]) {
+                    output += property + ': ' + this.objects[i][property] + '; ';
+                }
+            }
+                if(!_.isEmpty(this.objects[i].effect)) {
+                    for(let k = 0; k < this.objects[i].effect.length; k++) {
+                        
+                        output += "EFFECTS" + this.objects[i].effect[k].type + ' ';
+                        for (var property in this.objects[i].effect[k]) {
+                        output += property + ': ' + this.objects[i].effect[k][property] + '; ';
+                        }
+                    
+                    }
+                }
 
+        console.log(output);
+
+
+                // for(let k = 0; k < this.objects[i].effect.length; k++) {
+                // }
+        }
+        
+
+        //JSON.stringify(this.objects, null, 4);
+
+        
 
         // for(let i = 0; i < this.objects.length; i++) {
         //     if(this.objects[i].effect != null) {
@@ -284,6 +308,7 @@ export class ObjectService {
                 }
             }
         }
+        this.consoleAllObjects();
     }
 
     getObjects(): IObject[] {
