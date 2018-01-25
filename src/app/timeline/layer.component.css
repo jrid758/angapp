@@ -38,6 +38,13 @@
     /* transition: 0.3s; */
 }
 
+.deleteButton {
+
+    background-color: red;
+    color: white;
+    
+}
+
 
 
 

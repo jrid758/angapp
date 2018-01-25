@@ -254,7 +254,31 @@ export class ObjectService {
         // }
     }
 
+    newLayerName(): string {
+        let numberCount = 1;
+        let newName = "Layer " + numberCount;
+
+        while(this.checkIfNameExists(newName)) {
+            numberCount++;
+            newName = "Layer " + numberCount;
+        }
+
+        return newName;
+    }
+
+    checkIfNameExists(name: string) {
+        let boo: boolean;
+        for(let i = 0; i < this.objects.length; i++) {
+            if(this.objects[i].name === name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     lengthObjects(): number {
+
         return this.objects.length;
     }
 
@@ -309,6 +333,18 @@ export class ObjectService {
             }
         }
         this.consoleAllObjects();
+    }
+
+    removeLayerObject(layerName: string) {
+        for(let i = 0; i < this.objects.length; i++) {
+            console.log("Searching... " + this.objects[i].name + " " + layerName);
+            if(this.objects[i].name === layerName) {
+                this.objects.splice(i,1);
+            }
+        }
+        this.consoleAllObjects();
+
+
     }
 
     getObjects(): IObject[] {

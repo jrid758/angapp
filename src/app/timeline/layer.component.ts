@@ -147,4 +147,9 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
       //console.log("Whats in Effect2: " + this.effect2.someRange);
     }
 
+    removeLayer() {
+      console.log("starting to remove layer " + this.layerName);
+      this._objectservice.removeLayerObject(this.layerName);
+  }
+
 }

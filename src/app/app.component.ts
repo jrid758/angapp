@@ -98,7 +98,7 @@ export class AppComponent implements OnInit, OnChanges {
 
 
           style: null,
-          name: "Layer " + (this._objectService.lengthObjects() + 1),
+          name: this._objectService.newLayerName(),
           objectType: "text",
           text: "placeholder",
           xC: 25,
