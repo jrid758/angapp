@@ -152,4 +152,36 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
       this._objectservice.removeLayerObject(this.layerName);
   }
 
+  addEffect() {
+    let newEffect: IEffect = {
+
+                type: "moveIn",
+                direction: "right",
+                timeStart: 1,
+                timeEnd: 3,
+
+                xS: 0,
+                yS: 20,
+                xE: 30,
+                yE: 20,
+
+                scaleStarting: 1,
+                scaleEnding: 1,
+
+                widthStarting: 20,
+                heightStarting: 20,
+                widthEnding: 20,
+                heightEnding: 20,
+
+                alphaStarting: 1,
+                alphaEnding: 1
+    
+    };
+
+    if(this.stateArrow != 'down') {
+    this.animateMe();
+    }
+    this._objectservice.addEffectToLayer(this.layerName, newEffect);
+  }
+
 }

@@ -299,6 +299,22 @@ export class ObjectService {
         }
     }
 
+    getLayerPositionInArray(layerName: string): number {
+        for(let i = 0; i < this.objects.length; i++) {
+            if(this.objects[i].name === layerName) {
+                return i;
+            }
+        }
+        console.log("ERROR on get layer Position");
+        return -1;
+    }
+
+    addEffectToLayer(layerName: string, newEffect: IEffect){
+        this.objects[this.getLayerPositionInArray(layerName)].effect.push(newEffect);
+        this.consoleAllObjects();
+    }
+
+
     updateEffectObject(layerName: string, effect: IEffect) {
         for(let i = 0; i < this.objects.length; i++) {
             if(this.objects[i].name === layerName) {
@@ -314,7 +330,7 @@ export class ObjectService {
 
     }
 
-    removeEffectObject(layerName: string, effect: IEffect) {
+    removeEffectObject(layerName: string, effect: IEffect): void {
         for(let i = 0; i < this.objects.length; i++) {
             console.log("Searching... " + this.objects[i].name + " " + layerName);
             if(this.objects[i].name === layerName) {
@@ -324,6 +340,7 @@ export class ObjectService {
                     console.log("Found2: " + this.objects[i].effect[k].type + " removed ");
 
                     this.objects[i].effect.splice(k,1);
+                    break;
                     // someArray = _.reject(this.objects[i].effect, function(el) { return el.Name === "Kristian"; });
                     // this.objects[i].effect[k] = null;
                     // break;

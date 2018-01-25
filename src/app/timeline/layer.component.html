@@ -6,7 +6,7 @@
       
       <span class='toggle' (click)="animateMe()" [@rotateArrow]='stateArrow' [style.visibility]="isEffectEmpty() ? 'visible' : 'hidden'"></span>
     </div>
-    <div class="layernamespace" [style.width]="widthlayernamespace"><button class="deleteButton" (click)="removeLayer()">X</button><button>ADD EFFECT</button></div>
+    <div class="layernamespace" [style.width]="widthlayernamespace"><button class="deleteButton" (click)="removeLayer()">X</button><button (click)="addEffect()">ADD EFFECT</button></div>
     <div [@myAnim]='state'>
       <div *ngIf='effects != null'> 
         <effect *ngFor='let effectProps of effects' [effect]='effectProps' [layerName]='layerName'></effect>

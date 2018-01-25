@@ -107,7 +107,7 @@ export class AppComponent implements OnInit, OnChanges {
           alphaCurrent: 1,
           widthCurrent: 30,
           heightCurrent: 20,
-          effect: null
+          effect: []
           // effect: [
           //     {
           //         type: "moveIn",
