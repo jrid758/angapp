@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-
+import * as _ from 'underscore';
 
 
 
@@ -18,6 +18,7 @@ export class Text extends PIXI.Text {
     x: number;
     text: string;
     interactive: boolean;
+    name: string;
   
 
     public time: string = "hello";
@@ -27,15 +28,21 @@ export class Text extends PIXI.Text {
     // compLength: number = 256;
     // compHeight: number = 256;
     // container;
-    dText: string = "Firefighter";
+    //dText: string = "Firefighter";
 
   
-    constructor(xPos, yPos, style) {
-        super("Text",style);
-
-        this.text = this.dText;
-        this.x = (xPos/2) - (this.width/2);
-        this.y = (yPos/2) - (this.height/2);
+    constructor(xHeight, yWidth, x, y, style, text, name) {
+        super(text,style);
+        this.name = name;
+        //this.text = this.dText;
+        console.log("Test is empty: " + x + _.isNumber(x) + " " + y + _.isNumber(y));
+        if(!_.isNumber(x) && !_.isNumber(y)) {
+            this.x = (xHeight/2) - (this.width/2);
+            this.y = (yWidth/2) - (this.height/2);
+        } else {
+            this.x = x;
+            this.y = y;
+        }
 
         this.interactive = true;
         this.buttonMode = true;
@@ -57,6 +64,7 @@ export class Text extends PIXI.Text {
         this.data = event.data;
         this.dragging = true;
         this.offsetStart = true;
+    
     }
 
     onDragEnd() {

@@ -95,7 +95,7 @@ export class ObjectService {
         {
             name: "Layer 2",
             objectType: "text",
-            text: "placeholder",
+            text: "place",
             style: {
                 align: 'center',
                 breakWords: 'false',
@@ -120,8 +120,8 @@ export class ObjectService {
                 wordWrap: true,
                 wordWrapWidth: 440
             },
-            xC: 25,
-            yC: 25,
+            xC: 40,
+            yC: 120,
             scaleCurrent: 1,
             alphaCurrent: 1,
             widthCurrent: 30,
@@ -179,8 +179,8 @@ export class ObjectService {
                 wordWrap: true,
                 wordWrapWidth: 440
             },
-            xC: 25,
-            yC: 25,
+            xC: 60,
+            yC: 80,
             scaleCurrent: 1,
             alphaCurrent: 1,
             widthCurrent: 30,

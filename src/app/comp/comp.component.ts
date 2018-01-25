@@ -1,6 +1,9 @@
 import { Component, Input, OnInit, ViewChild, ElementRef, AfterViewInit,Renderer2 } from "@angular/core";
 import { Text } from './text';
 import * as PIXI from 'pixi.js';
+import { CompService } from "../comp.service";
+import { IObject } from "../obj";
+import { ObjectService } from "../object.service";
 
 
 @Component({
@@ -21,17 +24,35 @@ export class CompComponent implements OnInit, AfterViewInit {
     compLength: number = 256;
     compHeight: number = 256;
     container;
-    constructor(private renderer: Renderer2) {
+    objectTemp: IObject[] = [];
+    constructor(private renderer: Renderer2, private _compservice: CompService, private _objectservice: ObjectService) {
     
-       
+       //getObjects()
+       this._compservice.Observable.subscribe(value => {
+        
+        // if(this.layerName === value.name){
+        //   this.variableOutline = true;
+        //   console.log("TRUE" + value.name);
+        // } else {
+        //   this.variableOutline = false;
+        //   console.log("FALSE" + value.name);
+        // }
+
+        // let outlineFilterBlue = new PIXI.filters.OutlineFilter(5, 0x99ff99);
+        let outlineFilterBlue = new PIXI.filters.BlurFilter();
+        // selected.filters = [outlineFilterBlue];
+
+        this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].filters = [outlineFilterBlue];
+        console.log("FROM COMP: " + value.name + " " + value.text + " child height " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].width + " width " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].height);
+      })
 
     }
 
     ngOnInit() {
         //this.rendererPixi = PIXI.autoDetectRenderer(  {width: this.compLength, height: this.compHeight, antialias: true});
        this.app = new PIXI.Application({ 
-        width: 256,         // default: 800
-        height: 256,        // default: 600
+        width: this._compservice.x,         // default: 800
+        height: this._compservice.y,        // default: 600
         antialias: true,    // default: false
         transparent: false, // default: false
         resolution: 1       // default: 1
@@ -44,8 +65,12 @@ export class CompComponent implements OnInit, AfterViewInit {
         //PIXI.loader.add('/assets/images/cat.png').add('/testpic/icon.png').load(this.setup.bind(this));
         //this.test();
         //let newClass = new Text(this.app.renderer,this.app.stage);
-        this.addText(this.app.renderer,this.app.stage);
-        this.addText(this.app.renderer,this.app.stage);
+        console.log("Running?1");
+        this.objectTemp = this._objectservice.getObjects();
+        console.log("Running?2");
+        this.initObjects(this.app.renderer,this.app.stage, this.objectTemp);
+        console.log("Running?3");
+        //this.addText(this.app.renderer,this.app.stage);
         //console.log("Test Private x: " + newClass.x);
         //this.app.stage.addChild(newClass);
     }
@@ -57,10 +82,7 @@ export class CompComponent implements OnInit, AfterViewInit {
     }
 
      ngAfterViewInit(): void {
-        // this.rendererPixi = PIXI.autoDetectRenderer(  {width: this.compLength, height: this.compHeight, antialias: true});
-        // this.rendererPixi.backgroundColor = 0xFF0000;
-        // this.rendererPixi.autoResize = true;
-        // document.body.appendChild(this.rendererPixi.view);
+
         
      }
 
@@ -83,40 +105,22 @@ export class CompComponent implements OnInit, AfterViewInit {
          this.app.renderer(this.app.stage);
      }
 
-      addText(renderer, stage) {
-        let textObj = null;
+    initObjects(renderer, stage, objects: IObject[]) {
+        
+        console.log("Inside Check");
+        for(let i=0; i < objects.length; i++) {
+            console.log("Check Type: " + objects[i].objectType);
+            if(objects[i].objectType === "text"){
+                let textObj = null;
+                //setup text attributes
+                let style = new PIXI.TextStyle(objects[i].style);
+                    textObj = new Text(this._compservice.x, this._compservice.y, objects[i].xC , objects[i].yC, style, objects[i].text, objects[i].name);
+                //have selected variable set to text object when clicked
+                stage.addChild(textObj);
+            }
+        }
 
-
-        //setup text attributes
-         let style = new PIXI.TextStyle({
-            align: 'center',
-            breakWords: 'false',
-            fontFamily: 'Arial',
-            fontSize: 30,
-            fontStyle: 'normal',
-            fontWeight: 'normal',
-            fontVariant: 'normal',
-            fill: '#ffffff', // gradient
-            stroke: '#000000',
-            strokeThickness: 3,
-            lineJoin: 'round',
-            leading: 0,
-            letterSpacing: 0,
-            lineHeight: 0,
-            dropShadow: true,
-            dropShadowColor: '#000000',
-            dropShadowBlur: 4,
-            dropShadowAngle: Math.PI / 6,
-            dropShadowDistance: 3,
-            dropShadowAlpha: 1,
-            wordWrap: true,
-            wordWrapWidth: 440
-        });
-        //create text object
-        textObj = new Text(renderer.width, renderer.height, style);
-        //have selected variable set to text object when clicked
-
-        stage.addChild(textObj);
+        
 
 
 

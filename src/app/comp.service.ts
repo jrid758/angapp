@@ -8,6 +8,7 @@ import { Subject } from "rxjs/Subject";
 export class CompService {
     public Observable = new Subject<IObject>();
     public OtimeChange = new Subject<number>();
+   
 
     layerNumber: number;
 
@@ -27,7 +28,20 @@ export class CompService {
     //     this.Observable.next(trueFalse);
     //   }
 
+    get x(): number {
+        return this.comp.x;
+    }
+
+    get y(): number {
+        return this.comp.y;
+    }
+
     getObjects(): ICompMain {
+        
+        return this.comp;
+    }
+
+    getCompSelectedValues(): ICompMain {
         
         return this.comp;
     }
