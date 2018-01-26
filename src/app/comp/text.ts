@@ -54,6 +54,8 @@ export class Text extends PIXI.Text {
          .on('pointermove', this.onDragMove);
     }
 
+    
+
     onPointerUpOutside(event) {
         console.log("**************Pointer UP outside***************");
 

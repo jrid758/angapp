@@ -14,7 +14,7 @@ export class ObjectService {
         {
             name: "Layer 3",
             objectType: "text",
-            text: "placeholder",
+            text: "placeholder3",
             style: {
                 align: 'center',
                 breakWords: 'false',
@@ -95,7 +95,7 @@ export class ObjectService {
         {
             name: "Layer 2",
             objectType: "text",
-            text: "place",
+            text: "place2",
             style: {
                 align: 'center',
                 breakWords: 'false',
@@ -154,7 +154,7 @@ export class ObjectService {
         {
             name: "Layer 1",
             objectType: "text",
-            text: "placeholder",
+            text: "placehol1",
             style: {
                 align: 'center',
                 breakWords: 'false',

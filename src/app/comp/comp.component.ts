@@ -25,25 +25,58 @@ export class CompComponent implements OnInit, AfterViewInit {
     compHeight: number = 256;
     container;
     objectTemp: IObject[] = [];
+    selectedObject: any;
+
+
     constructor(private renderer: Renderer2, private _compservice: CompService, private _objectservice: ObjectService) {
     
-       //getObjects()
+        /////////////////////////
+       //Crappy Reoder of objects
+       /////////////////////////
        this._compservice.Observable.subscribe(value => {
-        
-        // if(this.layerName === value.name){
-        //   this.variableOutline = true;
-        //   console.log("TRUE" + value.name);
-        // } else {
-        //   this.variableOutline = false;
-        //   console.log("FALSE" + value.name);
-        // }
 
-        // let outlineFilterBlue = new PIXI.filters.OutlineFilter(5, 0x99ff99);
-        let outlineFilterBlue = new PIXI.filters.BlurFilter();
-        // selected.filters = [outlineFilterBlue];
+            let position = this._objectservice.objects.length - 1;
+            for(let i = 0; i < this._objectservice.objects.length; i++) {
+                
+                for(let currentChild of this.app.stage.children) {
+                //console.log("This is the obj number: " + currentChild.objNum);
+                    if(currentChild.name === this._objectservice.objects[i].name) {
+                        //console.log("The reorder: " + currentChild.objNum + " and zorder " + zorder);
+                        this.app.stage.setChildIndex(currentChild,position);
+                        console.log("MOVED TO POSITION: " + position + " " + this._objectservice.objects[i].name + "ChildeName: " + currentChild.name);
+                        position--;
+                        break;
+                    }
+                }
 
-        this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].filters = [outlineFilterBlue];
-        console.log("FROM COMP: " + value.name + " " + value.text + " child height " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].width + " width " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].height);
+            }
+
+
+
+            /////////////////////////
+            //Crappy Selection of Objects
+            /////////////////////////
+
+            for(let currentChild of this.app.stage.children) {
+                currentChild.removeChild(currentChild.children[0]);
+            }
+
+            for(let currentChild of this.app.stage.children) {
+                if(currentChild.name === value.name) {
+                    this.selectedObject = currentChild;
+                }
+            }   
+
+            //this.selectedObject = this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)];
+            var graphics = new PIXI.Graphics();
+            graphics.lineStyle(1, 0x0BFF70, 1);
+            graphics.beginFill(0xFF700B, 0);
+            graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
+            graphics.endFill();    
+    
+            console.log("addingChild");
+            this.selectedObject.addChild(graphics);
+            console.log("FROM COMP: " + value.name + " " + value.text + " child height " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].width + " width " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].height);
       })
 
     }
@@ -108,7 +141,7 @@ export class CompComponent implements OnInit, AfterViewInit {
     initObjects(renderer, stage, objects: IObject[]) {
         
         console.log("Inside Check");
-        for(let i=0; i < objects.length; i++) {
+        for(let i = objects.length-1; i > -1; i--) {
             console.log("Check Type: " + objects[i].objectType);
             if(objects[i].objectType === "text"){
                 let textObj = null;
