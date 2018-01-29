@@ -2,11 +2,15 @@ import { Injectable } from "@angular/core";
 import { IObject } from "./obj";
 import { IEffect } from "./effect";
 import * as _ from 'underscore';
+import { Subject } from "rxjs/Subject";
 
 @Injectable()
 export class ObjectService {
 
     layerNumber: number;
+    objectsUpdated = new Subject<any>(); //needs to be looked at "any"
+
+
     constructor() {
         this.layerNumber = 1;
     }
@@ -284,6 +288,7 @@ export class ObjectService {
 
     setObjects(insert: IObject): void {
         this.objects.unshift(insert);
+        this.objectsUpdated.next(this.objects);
     }
 
     updateAllObjects(newArray: IObject[]): void {
@@ -292,12 +297,29 @@ export class ObjectService {
     }
  
     getObjectByLayerName(layerName: string): IObject {
+        console.log("GETTING LAYER OBJECT: " + layerName);
         for(let i = 0; i < this.objects.length; i++) {
             if(this.objects[i].name === layerName) {
                return this.objects[i];
             }
         }
     }
+
+    updateObjectProperties(object: any): void {
+
+        let sobj = this.getObjectByLayerName(object.name);
+        sobj.xC = object.x;
+        sobj.yC = object.y;
+        sobj.widthCurrent = object.width;
+        sobj.heightCurrent = object.height;
+        sobj.scaleCurrent = object.scale;
+    }
+
+    // scaleCurrent: number;
+    // alphaCurrent: number;
+    // widthCurrent: number;
+    // heightCurrent: number;
+    // text: string;
 
     getLayerPositionInArray(layerName: string): number {
         for(let i = 0; i < this.objects.length; i++) {
@@ -360,6 +382,7 @@ export class ObjectService {
             }
         }
         this.consoleAllObjects();
+        this.objectsUpdated.next(this.objects);
 
 
     }

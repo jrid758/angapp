@@ -15,7 +15,6 @@ import { CompService } from './comp.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [ ObjectService],
   animations: [
     trigger('myAnim',[
       state('small', style({
@@ -120,9 +119,9 @@ export class AppComponent implements OnInit, OnChanges {
           },
           name: this._objectService.newLayerName(),
           objectType: "text",
-          text: "placeholder",
-          xC: 25,
-          yC: 25,
+          text: "placeLayer4",
+          xC: 200,
+          yC: 50,
           scaleCurrent: 1,
           alphaCurrent: 1,
           widthCurrent: 30,
@@ -178,8 +177,10 @@ export class AppComponent implements OnInit, OnChanges {
       //   wordWrap: true,
       //   wordWrapWidth: number
       // }
-
-      this.objects.unshift(obj);
+      this._objectService.setObjects(obj);
+      this._objectService.objectsUpdated.next(obj);
+      //this.objects.unshift(obj);
+      //this._objectService.
       // console.log(this.objects.length);
       // console.log(this.objects[0].text);
       //this._objectService.setObjects(obj);

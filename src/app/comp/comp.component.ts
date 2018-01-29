@@ -4,7 +4,10 @@ import * as PIXI from 'pixi.js';
 import { CompService } from "../comp.service";
 import { IObject } from "../obj";
 import { ObjectService } from "../object.service";
-
+import { Text2 } from "./text2.component";
+import { Subject } from "rxjs/Subject";
+import 'rxjs/add/operator/skip';
+import * as _ from 'underscore';
 
 @Component({
     selector: 'comp',
@@ -26,10 +29,16 @@ export class CompComponent implements OnInit, AfterViewInit {
     container;
     objectTemp: IObject[] = [];
     selectedObject: any;
+   
 
 
     constructor(private renderer: Renderer2, private _compservice: CompService, private _objectservice: ObjectService) {
-    
+        
+        this._objectservice.objectsUpdated.subscribe(value => {
+                this.refreshObjects();
+        });
+
+
         /////////////////////////
        //Crappy Reoder of objects
        /////////////////////////
@@ -39,7 +48,8 @@ export class CompComponent implements OnInit, AfterViewInit {
             for(let i = 0; i < this._objectservice.objects.length; i++) {
                 
                 for(let currentChild of this.app.stage.children) {
-                //console.log("This is the obj number: " + currentChild.objNum);
+                //console.log("Current Child Name: " + currentChild.name);
+
                     if(currentChild.name === this._objectservice.objects[i].name) {
                         //console.log("The reorder: " + currentChild.objNum + " and zorder " + zorder);
                         this.app.stage.setChildIndex(currentChild,position);
@@ -53,17 +63,25 @@ export class CompComponent implements OnInit, AfterViewInit {
 
 
 
+
+
             /////////////////////////
             //Crappy Selection of Objects
             /////////////////////////
 
+            if(!_.isNull(value.name)) {
+            ///Remove all green boxes
             for(let currentChild of this.app.stage.children) {
                 currentChild.removeChild(currentChild.children[0]);
             }
 
+         
+
             for(let currentChild of this.app.stage.children) {
+                console.log("Value Name: " + value.name);
                 if(currentChild.name === value.name) {
                     this.selectedObject = currentChild;
+                    console.log("Value Name Selected Object: " + this.selectedObject.name);
                 }
             }   
 
@@ -74,10 +92,27 @@ export class CompComponent implements OnInit, AfterViewInit {
             graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
             graphics.endFill();    
     
-            console.log("addingChild");
+            console.log("addingChild to " + this.selectedObject.name);
             this.selectedObject.addChild(graphics);
-            console.log("FROM COMP: " + value.name + " " + value.text + " child height " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].width + " width " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].height);
-      })
+            //console.log("FROM COMP: " + value.name + " " + value.text + " child height " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].width + " width " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].height);
+            } else {
+                 ///Remove all green boxes
+            for(let currentChild of this.app.stage.children) {
+                currentChild.removeChild(currentChild.children[0]);
+            }
+            }
+      });
+
+      /////////////////
+      ///Add New layer to comp - beta
+      ////////////////////
+      this._objectservice.objectsUpdated.skip(1).subscribe(value => {
+        if(!_.isEmpty(value.name)){
+            console.log("Subscribe update---------------------------------------------" + value.name);
+            //this.initObjects(this.app.renderer,this.app.stage, this.objectTemp);
+            this.refreshObjects();
+        }
+    });
 
     }
 
@@ -138,8 +173,81 @@ export class CompComponent implements OnInit, AfterViewInit {
          this.app.renderer(this.app.stage);
      }
 
-    initObjects(renderer, stage, objects: IObject[]) {
+     deleteChild() {
+        console.log("DOPOOOOOOOOOOOOOOOOOG");
+         while(this.app.stage.children[0]) { this.app.stage.removeChild(this.app.stage.children[0]); }
+
+     }
+
+     refreshObjects() {
         
+        // for(let currentChild of this.app.stage) {
+        //     console.log("REMOVE CHILD");
+        //     currentChild.removeChild(currentChild.children[0]);
+        // }
+        
+        // let howManyChildren = this._objectservice.lengthObjects() - 1;
+        // console.log("Remove Children " + howManyChildren);
+        // this.app.stage.removeChildren(0, howManyChildren);
+
+        while(this.app.stage.children[0]) { this.app.stage.removeChild(this.app.stage.children[0]); }
+
+
+
+
+
+        
+
+        for(let i = this._objectservice.objects.length-1; i > -1; i--) {
+            console.log("Check Type: " + this._objectservice.objects[i].objectType);
+            if(this._objectservice.objects[i].objectType === "text"){
+                let textObj = null;
+                //setup text attributes
+                let style = new PIXI.TextStyle(this._objectservice.objects[i].style);
+                    textObj = new Text2(this._compservice.x, this._compservice.y, this._objectservice.objects[i].xC , this._objectservice.objects[i].yC, style, this._objectservice.objects[i].text, this._objectservice.objects[i].name, this._compservice, this._objectservice);
+                //have selected variable set to text object when clicked
+                this.app.stage.addChild(textObj);
+            }
+        }
+
+
+        //////////////////////
+        ///Need to reselect//
+        //////////////////////
+
+
+        for(let currentChild of this.app.stage.children) {
+            console.log("Value Name: " + this._compservice.comp.selected.name);
+            if(currentChild.name === this._compservice.comp.selected.name) {
+                this.selectedObject = currentChild;
+                console.log("Value Name Selected Object: " + this.selectedObject.name);
+            }
+        }   
+
+        //this.selectedObject = this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)];
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(1, 0x0BFF70, 1);
+        graphics.beginFill(0xFF700B, 0);
+        graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
+        graphics.endFill();    
+
+        console.log("addingChild to " + this.selectedObject.name);
+        this.selectedObject.addChild(graphics);
+
+
+
+
+
+        // for(let i = 0; i < this.app.stage.length; i++) {
+
+
+        // }
+     }
+
+    initObjects(renderer, stage, objects: IObject[]) {
+
+       
+
         console.log("Inside Check");
         for(let i = objects.length-1; i > -1; i--) {
             console.log("Check Type: " + objects[i].objectType);
@@ -147,7 +255,7 @@ export class CompComponent implements OnInit, AfterViewInit {
                 let textObj = null;
                 //setup text attributes
                 let style = new PIXI.TextStyle(objects[i].style);
-                    textObj = new Text(this._compservice.x, this._compservice.y, objects[i].xC , objects[i].yC, style, objects[i].text, objects[i].name);
+                    textObj = new Text2(this._compservice.x, this._compservice.y, objects[i].xC , objects[i].yC, style, objects[i].text, objects[i].name, this._compservice, this._objectservice);
                 //have selected variable set to text object when clicked
                 stage.addChild(textObj);
             }

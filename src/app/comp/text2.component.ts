@@ -3,6 +3,15 @@ import * as _ from 'underscore';
 import { ObjectService } from '../object.service';
 import {Observable} from 'rxjs/Observable';
 import { Subject } from "rxjs/Subject";
+import { CompileStylesheetMetadata } from '@angular/compiler';
+import { CompService } from '../comp.service';
+import { Component } from '@angular/core';
+
+
+@Component({
+    providers: [CompService]
+  })
+
 
 export class Text2 extends PIXI.Text {
     height: number;
@@ -21,7 +30,7 @@ export class Text2 extends PIXI.Text {
     interactive: boolean;
     name: string;
     //private clickedOn: Observable<string>;
-    public Oclicked = new Subject<string>();
+    //public Oclicked = new Subject<string>();
 
 
     public time: string = "hello";
@@ -33,10 +42,19 @@ export class Text2 extends PIXI.Text {
     // container;
     //dText: string = "Firefighter";
 
-  
-    constructor(xHeight, yWidth, x, y, style, text, name) {
+//     private _objectService;
+
+
+//   constructor(objectService: ObjectService, private _compservice: CompService) {
+//     this._objectService = objectService;
+//     //this.objects = [];
+//   }
+
+    //private _compservice;
+
+    constructor(xHeight, yWidth, x, y, style, text, name, private _compService: CompService, private _objectservice: ObjectService) {
         super(text,style);
-        
+        console.log("&&&&&&&&&&&&&&&&&&&ServiceProp: " + _compService.comp.timeLength);
         this.name = name;
         //this.text = this.dText;
         console.log("Test is empty: " + x + _.isNumber(x) + " " + y + _.isNumber(y));
@@ -74,13 +92,18 @@ export class Text2 extends PIXI.Text {
         this.dragging = true;
         this.offsetStart = true;
 
-        this.Oclicked.next(this.name);
+        console.log("Whats Dragging: " + this.name);
+        this._compService.setSelectedByName(this.name);
+        //this.Oclicked.next(this.name);
     
     }
 
     onDragEnd() {
         this.dragging = false;
         this.data = null;
+
+        this._objectservice.updateObjectProperties(this);
+
     }
 
     onDragMove() {

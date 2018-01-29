@@ -3,17 +3,25 @@ import { IObject } from "./obj";
 import { IEffect } from "./effect";
 import { ICompMain } from "./compMain";
 import { Subject } from "rxjs/Subject";
+import { ObjectService } from "./object.service";
 
 @Injectable()
 export class CompService {
     public Observable = new Subject<IObject>();
     public OtimeChange = new Subject<number>();
-   
+    //public Oclicked = new Subject<string>();
 
     layerNumber: number;
 
-    constructor() {
+    constructor(private _objectservice: ObjectService) {
         this.layerNumber = 1;
+
+        // this.Oclicked.subscribe((name: string) => {
+            
+        // }
+
+        // );
+
     }
 
     comp: ICompMain = {
@@ -55,8 +63,17 @@ export class CompService {
 
     setSelected(selected: IObject) {
         this.comp.selected = selected;
+        console.log("New selected Name: " + this.comp.selected.name);
         this.Observable.next(this.comp.selected);
     }
+
+    setSelectedByName(name: string) {
+        console.log("Setting setSelectedByName: " + name);
+        this.comp.selected = this._objectservice.getObjectByLayerName(name);
+        this.Observable.next(this.comp.selected);
+    }
+
+    
 
     getSelected(): IObject {
         return this.comp.selected;
