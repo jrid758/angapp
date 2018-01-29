@@ -89,13 +89,31 @@ export class Text2 extends PIXI.Text {
 
     onDragStart(event) {
         this.data = event.data;
+        //console.log("onDragStart");
+        //console.log("onDragStart: " + this._compService.comp.selected.name);
+        // if(!_.isEmpty(this._compService.comp.selected) || !_.isNull(this._compService.comp.selected)) {
+        //     if(this.name === this._compService.comp.selected.name) {
+        //         this.dragging = true;
+        //         this.interactive = true;
+        //     } else {
+        //         this.dragging = false;
+        //         this.interactive = false;
+        //     }
+        // } else {
+        //     this.dragging = true;
+        //     this.interactive = true;
+        //     this._compService.setSelectedByName(this.name);
+        // }
+
+        // this.offsetStart = true;
+
+        // console.log("Whats Dragging: " + this.name);
+        
+        //this.Oclicked.next(this.name);
         this.dragging = true;
         this.offsetStart = true;
-
-        console.log("Whats Dragging: " + this.name);
+        //this.interactive = true;
         this._compService.setSelectedByName(this.name);
-        //this.Oclicked.next(this.name);
-    
     }
 
     onDragEnd() {

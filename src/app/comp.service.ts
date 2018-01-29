@@ -12,6 +12,7 @@ export class CompService {
     //public Oclicked = new Subject<string>();
 
     layerNumber: number;
+    comp: ICompMain;
 
     constructor(private _objectservice: ObjectService) {
         this.layerNumber = 1;
@@ -21,16 +22,17 @@ export class CompService {
         // }
 
         // );
+        
+        this.comp = {
+            x: 320,
+            y: 160,
+            timeLength: 4,
+            fps: 30,
+            selected: null
+        }
 
     }
 
-    comp: ICompMain = {
-        x: 320,
-        y: 160,
-        timeLength: 4,
-        fps: 30,
-        selected: null
-    }
 
     // selectedG(trueFalse: boolean) {
     //     this.Observable.next(trueFalse);
