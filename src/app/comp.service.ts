@@ -4,6 +4,7 @@ import { IEffect } from "./effect";
 import { ICompMain } from "./compMain";
 import { Subject } from "rxjs/Subject";
 import { ObjectService } from "./object.service";
+import * as _ from 'underscore';
 
 @Injectable()
 export class CompService {
@@ -62,10 +63,18 @@ export class CompService {
         this.OtimeChange.next(this.comp.timeLength);
     }
 
+    setSelectedNoEvent(selected: IObject) {
+        this.comp.selected = selected;
+    }
 
     setSelected(selected: IObject) {
-        this.comp.selected = selected;
-        console.log("New selected Name: " + this.comp.selected.name);
+        if(!_.isNull(selected)) {
+         this.comp.selected = selected;
+        } else {
+            console.log("set to null");
+            this.comp.selected = null;
+        }
+        //console.log("New selected Name: " + this.comp.selected.name);
         this.Observable.next(this.comp.selected);
     }
 

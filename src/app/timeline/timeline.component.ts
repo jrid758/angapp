@@ -87,6 +87,7 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
           effect: null,
         }
         this._compservice.setSelected(newBlank);
+        this._compservice.Observable.next(null);
       }
       }
 

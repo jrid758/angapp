@@ -73,13 +73,16 @@ export class Text2 extends PIXI.Text {
          .on('pointerup', this.onDragEnd)
          .on('pointerupoutside', this.onDragEnd)
          .on('pointertap', this.onPointerUpOutside)
-         .on('pointermove', this.onDragMove);
+         .on('pointermove', this.onDragMove)
+         .on('pointerover', this.onPointerOver);
 
          this.data = new Observable(observer => {});
 
     }
 
-    
+    onPointerOver(event) {
+        console.log("OVER LAYER: " + this.name);
+    }
 
     onPointerUpOutside(event) {
         console.log("**************Pointer UP outside***************");

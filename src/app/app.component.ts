@@ -177,8 +177,12 @@ export class AppComponent implements OnInit, OnChanges {
       //   wordWrap: true,
       //   wordWrapWidth: number
       // }
+      this._compservice.setSelectedNoEvent(obj);
       this._objectService.setObjects(obj);
+      
+      this._compservice.setSelected(obj);
       this._objectService.objectsUpdated.next(obj);
+      
       //this.objects.unshift(obj);
       //this._objectService.
       // console.log(this.objects.length);

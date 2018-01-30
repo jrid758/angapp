@@ -29,6 +29,7 @@ export class CompComponent implements OnInit, AfterViewInit {
     container;
     objectTemp: IObject[] = [];
     selectedObject: any;
+    bottom: any;
    
 
 
@@ -43,8 +44,8 @@ export class CompComponent implements OnInit, AfterViewInit {
        //Crappy Reoder of objects
        /////////////////////////
        this._compservice.Observable.subscribe(value => {
-
-            let position = this._objectservice.objects.length - 1;
+            console.log("WHATS IN VALUE: " + value);
+            let position = this._objectservice.objects.length;
             for(let i = 0; i < this._objectservice.objects.length; i++) {
                 
                 for(let currentChild of this.app.stage.children) {
@@ -69,16 +70,17 @@ export class CompComponent implements OnInit, AfterViewInit {
             //Crappy Selection of Objects
             /////////////////////////
 
-            if(!_.isNull(value.name)) {
+            if(!_.isNull(value)) {
             ///Remove all green boxes
-            for(let currentChild of this.app.stage.children) {
-                currentChild.removeChild(currentChild.children[0]);
-            }
+                console.log("Removing Boxes");
+                for(let currentChild of this.app.stage.children) {
+                    currentChild.removeChild(currentChild.children[0]);
+                 }
 
          
 
             for(let currentChild of this.app.stage.children) {
-                console.log("Value Name: " + value.name);
+                console.log("Value Name: " + value.name + " " + currentChild.name);
                 if(currentChild.name === value.name) {
                     this.selectedObject = currentChild;
                     console.log("Value Name Selected Object: " + this.selectedObject.name);
@@ -96,10 +98,11 @@ export class CompComponent implements OnInit, AfterViewInit {
             this.selectedObject.addChild(graphics);
             //console.log("FROM COMP: " + value.name + " " + value.text + " child height " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].width + " width " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].height);
             } else {
-                 ///Remove all green boxes
-            for(let currentChild of this.app.stage.children) {
-                currentChild.removeChild(currentChild.children[0]);
-            }
+                 //Remove all green boxes
+                for(let currentChild of this.app.stage.children) {
+                    currentChild.removeChild(currentChild.children[0]);
+                }
+                console.log("REMOVING ALL BOXES BOTTOM");
             }
       });
 
@@ -128,8 +131,14 @@ export class CompComponent implements OnInit, AfterViewInit {
         console.log("test" + this.getAllMethods(this.app));
         this.app.renderer.backgroundColor =0xFF0000;
         this.app.renderer.autoResize = true;
- 
+
+
         this.compView.nativeElement.appendChild(this.app.view);
+
+    
+
+
+
         //PIXI.loader.add('/assets/images/cat.png').add('/testpic/icon.png').load(this.setup.bind(this));
         //this.test();
         //let newClass = new Text(this.app.renderer,this.app.stage);
@@ -196,19 +205,25 @@ export class CompComponent implements OnInit, AfterViewInit {
 
 
 
-        
-
+        console.log("Everything Removed");
+        console.log("Object lenght: " + this._objectservice.objects.length);
         for(let i = this._objectservice.objects.length-1; i > -1; i--) {
-            console.log("Check Type: " + this._objectservice.objects[i].objectType);
+            //console.log("Check Type: " + this._objectservice.objects[i].objectType);
             if(this._objectservice.objects[i].objectType === "text"){
                 let textObj = null;
                 //setup text attributes
                 let style = new PIXI.TextStyle(this._objectservice.objects[i].style);
                     textObj = new Text2(this._compservice.x, this._compservice.y, this._objectservice.objects[i].xC , this._objectservice.objects[i].yC, style, this._objectservice.objects[i].text, this._objectservice.objects[i].name, this._compservice, this._objectservice);
                 //have selected variable set to text object when clicked
+                console.log("Object added: " + textObj.name);
                 this.app.stage.addChild(textObj);
             }
         }
+
+      
+
+
+
 
 
         //////////////////////
@@ -217,11 +232,13 @@ export class CompComponent implements OnInit, AfterViewInit {
 
 
         for(let currentChild of this.app.stage.children) {
-            console.log("Value Name: " + this._compservice.comp.selected.name);
-            if(currentChild.name === this._compservice.comp.selected.name) {
-                this.selectedObject = currentChild;
-                console.log("Value Name Selected Object: " + this.selectedObject.name);
-            }
+            console.log("XValue Name: " + this._compservice.comp.selected.name);
+      
+                if(currentChild.name === this._compservice.comp.selected.name) {
+                    this.selectedObject = currentChild;
+                    console.log("XValue Name Selected Object: " + this.selectedObject.name);
+                }
+           
         }   
 
         //this.selectedObject = this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)];
@@ -235,6 +252,18 @@ export class CompComponent implements OnInit, AfterViewInit {
         this.selectedObject.addChild(graphics);
 
 
+          //////////////////
+        ////Re add bottom
+        /////////////////////
+        this.bottom = new PIXI.Sprite();
+        this.bottom.hitArea = new PIXI.Rectangle(0, 0, 1000, 1000);
+        this.bottom.name = "stage";
+        this.bottom.interactive = true;
+        
+        this.bottom.on('pointerover', this.overStage.bind(this)),
+        this.bottom.on('pointerdown', this.stageClick.bind(this));
+        this.app.stage.addChild(this.bottom);
+        this.app.stage.setChildIndex(this.bottom, 0);
 
 
 
@@ -244,9 +273,20 @@ export class CompComponent implements OnInit, AfterViewInit {
         // }
      }
 
+    
+
     initObjects(renderer, stage, objects: IObject[]) {
 
+        
        
+        // this.on('pointerdown', this.onDragStart)
+        //  .on('pointerup', this.onDragEnd)
+        //  .on('pointerupoutside', this.onDragEnd)
+        //  .on('pointertap', this.onPointerUpOutside)
+        //  .on('pointermove', this.onDragMove)
+        //  .on('pointerover', this.onPointerOver);
+
+        //  this.data = new Observable(observer => {});
 
         console.log("Inside Check");
         for(let i = objects.length-1; i > -1; i--) {
@@ -262,11 +302,58 @@ export class CompComponent implements OnInit, AfterViewInit {
         }
 
         
+        this.bottom = new PIXI.Sprite();
+        this.bottom.hitArea = new PIXI.Rectangle(0, 0, 1000, 1000);
+        this.bottom.name = "stage";
+        this.bottom.interactive = true;
+        
+        this.bottom.on('pointerover', this.overStage.bind(this)),
+        this.bottom.on('pointerdown', this.stageClick.bind(this));
+        stage.addChild(this.bottom);
+        stage.setChildIndex(this.bottom, 0);
+
+    }
 
 
+    overStage() {
+        console.log("OVER: " + this.bottom.name);
+    }
 
+    stageClick() {
+        // this._compservice.comp.selected = {
+           
+        //         name: '',
+        //         objectType: '',
+        //         xC: 0,
+        //         yC: 0,
+        //         scaleCurrent: 0,
+        //         alphaCurrent: 0,
+        //         widthCurrent: 0,
+        //         heightCurrent: 0,
+        //         text: '',
+        //         style: null,
+        //         effect: null;
+            
+        // }
+       
+        this._compservice.setSelected(null);
+        for(let currentChild of this.app.stage.children) {
+            currentChild.removeChild(currentChild.children[0]);
+        }
+        console.log("REMOVING ALL BOXES BOTTOM");
+                //      name: '',
+                // objectType: '',
+                // xC: 0,
+                // yC: 0,
+                // scaleCurrent: 0,
+                // alphaCurrent: 0,
+                // widthCurrent: 0,
+                // heightCurrent: 0,
+                // text: '',
+                // style: null,
+                // effect: null
 
-
+        console.log("Stage Click");
     }
 
 }
