@@ -124,8 +124,8 @@ export class AppComponent implements OnInit, OnChanges {
           yC: 50,
           scaleCurrent: 1,
           alphaCurrent: 1,
-          widthCurrent: 30,
-          heightCurrent: 20,
+          widthCurrent: 170,
+          heightCurrent: 40,
           effect: []
           // effect: [
           //     {

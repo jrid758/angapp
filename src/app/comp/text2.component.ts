@@ -112,8 +112,13 @@ export class Text2 extends PIXI.Text {
         //this.Oclicked.next(this.name);
         this.dragging = true;
         this.offsetStart = true;
-        //this.interactive = true;
+        console.log("*********************************");
+        console.log("MOUSEX: " + this.data.getLocalPosition(this.parent).x + "MOUSEY: " + this.data.getLocalPosition(this.parent).y);
+        console.log("CURRENT: Xpos: " + this.x + " " + "Ypos: " + this.y + " " + "Width: " + this.width + " " + "Height: " + this.height);
         this._compService.setSelectedByName(this.name);
+        console.log("SELECTED:Xpos: " + this._compService.comp.selected.xC + " " + "Ypos: " + this._compService.comp.selected.yC + " " + "Width: " + this._compService.comp.selected.widthCurrent + " " + "Height: " + this._compService.comp.selected.heightCurrent);
+        //this.interactive = true;
+        
     }
 
     onDragEnd() {

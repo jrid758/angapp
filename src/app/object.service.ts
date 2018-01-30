@@ -47,8 +47,8 @@ export class ObjectService {
             yC: 25,
             scaleCurrent: 1,
             alphaCurrent: 1,
-            widthCurrent: 30,
-            heightCurrent: 20,
+            widthCurrent: 178,
+            heightCurrent: 40,
             effect: [
                 {
                     type: "moveIn",
@@ -128,8 +128,8 @@ export class ObjectService {
             yC: 120,
             scaleCurrent: 1,
             alphaCurrent: 1,
-            widthCurrent: 30,
-            heightCurrent: 20,
+            widthCurrent: 95,
+            heightCurrent: 40,
             effect: [
                 {
                     type: "fadeOut",
@@ -187,8 +187,8 @@ export class ObjectService {
             yC: 80,
             scaleCurrent: 1,
             alphaCurrent: 1,
-            widthCurrent: 30,
-            heightCurrent: 20,
+            widthCurrent: 135,
+            heightCurrent: 40,
             effect: [
                 {
                     type: "moveIn",
