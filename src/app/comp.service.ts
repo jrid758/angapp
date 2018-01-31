@@ -59,7 +59,7 @@ export class CompService {
 
     setTimeLenght(num: number) {
         this.comp.timeLength = num;
-        console.log("number: " + this.comp.timeLength);
+       
         this.OtimeChange.next(this.comp.timeLength);
     }
 
@@ -71,15 +71,15 @@ export class CompService {
         if(!_.isNull(selected)) {
          this.comp.selected = selected;
         } else {
-            console.log("set to null");
+      
             this.comp.selected = null;
         }
-        //console.log("New selected Name: " + this.comp.selected.name);
+  
         this.Observable.next(this.comp.selected);
     }
 
     setSelectedByName(name: string) {
-        console.log("Setting setSelectedByName: " + name);
+   
         this.comp.selected = this._objectservice.getObjectByLayerName(name);
         this.Observable.next(this.comp.selected);
     }

@@ -64,7 +64,6 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
 
 
         this._compservice.OtimeChange.subscribe(value => {
-          console.log("What is numberX1: " + value);
           this.setTimeLength(value);
         })
       }
@@ -95,7 +94,6 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
         this.timeLength = +num + 1;
         this.widthtimelineWrap =  (+num + 1 ) * 100 + "px";
         this.timelineNumbers = +num * 100 + "px";
-        console.log("What is numberX2: " + num);
       }
 
 
@@ -107,7 +105,6 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
 
       ngOnInit(): void {
         this.objects = this._objectservice.getObjects();
-        console.log("Init");
         this.setTimeLength(this._compservice.comp.timeLength);
         
       }
@@ -136,16 +133,13 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
       orderofLayers() {
         let names = document.querySelectorAll('.layername');
         let layerOrder: any[] = [];
-        console.log("***********************" + names.length + " " + names[3]);
         for(let i = 0; i < names.length - 1;i++) {
           //console.log("Num: " +i);
           //console.log(names[i].innerHTML.substr(0,names[i].innerHTML.lastIndexOf("<span")));
           layerOrder.push(names[i].innerHTML.substr(0,names[i].innerHTML.lastIndexOf("<span")).trim());
         }
         for(let i = 0; i < layerOrder.length;i++) {
-          console.log("K: " + layerOrder[i]);
           if(layerOrder[i] === "Layer 1"){
-            console.log("Matched");
           }
         }
 
@@ -157,7 +151,6 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
             }
           }
         }
-        console.log("Start");
         this._objectservice.updateAllObjects(newArray);
         this.objects = this._objectservice.getObjects();
 
@@ -166,20 +159,16 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
         //   effect: null,
         //   text: "placeholder"});
         //console.log(names[0].innerHTML.substr(0,names[0].innerHTML.lastIndexOf("<span")));
-        console.log("***********************");
         //this.updateObjects.emit(newArray);
         for(let i = 0; i < this._objectservice.lengthObjects();i++) {
-          console.log("N: " + newArray[i].name);
         }
 
         for(let i = 0; i < this._objectservice.lengthObjects();i++) {
-          console.log("B: " + this.objects[i].name);
         }
 
         let test: IObject[] = [];
         test = this._objectservice.getObjects();
         for(let i = 0; i < this._objectservice.lengthObjects();i++) {
-          console.log("M: " + test[i].name);
         }
 
 

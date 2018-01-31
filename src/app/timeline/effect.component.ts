@@ -37,8 +37,6 @@ export class EffectComponent implements OnChanges,OnInit {
 
     sliderNum() {
         //console.log("Bottom: " + this.someRange);
-        console.log("BottomOnChanges");
-        console.log("BottomOnChanges: " + this.someRange + " " + this.someRange[0] + " " + this.someRange[1]);
         this.effect.timeStart = this.someRange[0];
         this.effect.timeEnd = this.someRange[1];
         this._objectservice.updateEffectObject(this.layerName, this.effect);
@@ -58,7 +56,6 @@ export class EffectComponent implements OnChanges,OnInit {
         this.someRange = [this.sliderStart, this.sliderEnd];
         if(this.effect.type === "moveIn" || this.effect.type === "moveOut") {
             this.directionSelected = this.effect.direction;
-            console.log("DirectionSelected: " + this.directionSelected);
         }
     }
 
@@ -68,8 +65,6 @@ export class EffectComponent implements OnChanges,OnInit {
     }
 
     updateSelect() {
-
-        console.log("ChangedX" + this.directionSelected)
         this.effect.direction = this.directionSelected;
         this._objectservice.updateEffectObject(this.layerName, this.effect);
         this._objectservice.consoleAllObjects();
@@ -80,7 +75,6 @@ export class EffectComponent implements OnChanges,OnInit {
     }
 
     removeEffect() {
-        console.log("starting to remove effect " + this.layerName + " " + this.effect.type);
         this._objectservice.removeEffectObject(this.layerName, this.effect);
     }
 }

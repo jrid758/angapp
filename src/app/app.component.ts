@@ -52,14 +52,14 @@ export class AppComponent implements OnInit, OnChanges {
 
   private onDrop(args) {
     let [e,el,c] = args;
-    console.log(`drage3: ${e.innerHTML}`);
-    console.log(`drage4id: ${e.id}`);
-    console.log(`dragel: ${el}`);
-    console.log(`dragelc: ${c.innerHTML}`);
+    // console.log(`drage3: ${e.innerHTML}`);
+    // console.log(`drage4id: ${e.id}`);
+    // console.log(`dragel: ${el}`);
+    // console.log(`dragelc: ${c.innerHTML}`);
   }
 
   onclick() {
-    console.log("PRESSED");
+
   }
 
   toggleDisabled() {
@@ -67,7 +67,6 @@ export class AppComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-        console.log("Happy");
         this.objects = this._objectService.getObjects();
         //this.objects = null;
 
@@ -80,7 +79,6 @@ export class AppComponent implements OnInit, OnChanges {
     }
 
     addText() {
-      console.log("CLICK!!!");
       this.numberText++;
       this.createObj();
     }
@@ -188,8 +186,6 @@ export class AppComponent implements OnInit, OnChanges {
       // console.log(this.objects.length);
       // console.log(this.objects[0].text);
       //this._objectService.setObjects(obj);
-      console.log("Service: " + this._objectService.lengthObjects());
-      console.log("Internal Length: " + this.objects.length);
       //console.log(this._objectService[0].text);
 
       
@@ -198,7 +194,6 @@ export class AppComponent implements OnInit, OnChanges {
     updateObjects(message: IObject[]): void {
       this.objects = message.slice();
       for(let i = 0; i < this.objects.length; i++) {
-        console.log("Main Prog Update: " + this.objects[i].name);
       }
     }
     

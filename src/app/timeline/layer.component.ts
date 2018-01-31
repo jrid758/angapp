@@ -75,13 +75,13 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
               console.log("FALSE" + value.name);
             }
         } else {
+          console.log("TRUE TRUE TRUE TRUE TRUE");
           this.variableOutline = false;
         }
       })
 
 
       this._compservice.OtimeChange.subscribe(value => {
-        console.log("What is number: " + value);
         this.setTimeLength(value);
       })
       
@@ -125,7 +125,6 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
       }
 
     selected() {
-      console.log("selected!!!");
       //console.log("Whats in object: " + this._objectservice.getObjectByLayerName(this.layerName));
       this._compservice.setSelected(this._objectservice.getObjectByLayerName(this.layerName));
       console.log(this._compservice.getSelectedName());
@@ -152,7 +151,6 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
     }
 
     removeLayer() {
-      console.log("starting to remove layer " + this.layerName);
       this._objectservice.removeLayerObject(this.layerName);
   }
 

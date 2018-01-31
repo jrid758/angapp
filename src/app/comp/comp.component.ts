@@ -44,7 +44,6 @@ export class CompComponent implements OnInit, AfterViewInit {
        //Crappy Reoder of objects
        /////////////////////////
        this._compservice.Observable.subscribe(value => {
-            console.log("WHATS IN VALUE: " + value);
             let position = this._objectservice.objects.length;
             for(let i = 0; i < this._objectservice.objects.length; i++) {
                 
@@ -54,7 +53,6 @@ export class CompComponent implements OnInit, AfterViewInit {
                     if(currentChild.name === this._objectservice.objects[i].name) {
                         //console.log("The reorder: " + currentChild.objNum + " and zorder " + zorder);
                         this.app.stage.setChildIndex(currentChild,position);
-                        console.log("MOVED TO POSITION: " + position + " " + this._objectservice.objects[i].name + "ChildeName: " + currentChild.name);
                         position--;
                         break;
                     }
@@ -72,18 +70,13 @@ export class CompComponent implements OnInit, AfterViewInit {
 
             if(!_.isNull(value)) {
             ///Remove all green boxes
-                console.log("Removing Boxes");
-                for(let currentChild of this.app.stage.children) {
-                    currentChild.removeChild(currentChild.children[0]);
-                 }
+                this.removeAllChildrenFromChildren();
 
          
 
             for(let currentChild of this.app.stage.children) {
-                console.log("Value Name: " + value.name + " " + currentChild.name);
                 if(currentChild.name === value.name) {
                     this.selectedObject = currentChild;
-                    console.log("Value Name Selected Object: " + this.selectedObject.name);
                 }
             }   
 
@@ -93,8 +86,7 @@ export class CompComponent implements OnInit, AfterViewInit {
             graphics.beginFill(0xFF700B, 0);
             graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
             graphics.endFill();    
-    
-            console.log("addingChild to " + this.selectedObject.name);
+
             this.selectedObject.addChild(graphics);
             //console.log("FROM COMP: " + value.name + " " + value.text + " child height " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].width + " width " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].height);
             } else {
@@ -102,7 +94,6 @@ export class CompComponent implements OnInit, AfterViewInit {
                 for(let currentChild of this.app.stage.children) {
                     currentChild.removeChild(currentChild.children[0]);
                 }
-                console.log("REMOVING ALL BOXES BOTTOM");
             }
       });
 
@@ -111,7 +102,6 @@ export class CompComponent implements OnInit, AfterViewInit {
       ////////////////////
       this._objectservice.objectsUpdated.skip(1).subscribe(value => {
         if(!_.isEmpty(value.name)){
-            console.log("Subscribe update---------------------------------------------" + value.name);
             //this.initObjects(this.app.renderer,this.app.stage, this.objectTemp);
             this.refreshObjects();
         }
@@ -128,7 +118,6 @@ export class CompComponent implements OnInit, AfterViewInit {
         transparent: false, // default: false
         resolution: 1       // default: 1
       });
-        console.log("test" + this.getAllMethods(this.app));
         this.app.renderer.backgroundColor =0xFF0000;
         this.app.renderer.autoResize = true;
 
@@ -142,11 +131,11 @@ export class CompComponent implements OnInit, AfterViewInit {
         //PIXI.loader.add('/assets/images/cat.png').add('/testpic/icon.png').load(this.setup.bind(this));
         //this.test();
         //let newClass = new Text(this.app.renderer,this.app.stage);
-        console.log("Running?1");
+
         this.objectTemp = this._objectservice.getObjects();
-        console.log("Running?2");
+  
         this.initObjects(this.app.renderer,this.app.stage, this.objectTemp);
-        console.log("Running?3");
+   
         //this.addText(this.app.renderer,this.app.stage);
         //console.log("Test Private x: " + newClass.x);
         //this.app.stage.addChild(newClass);
@@ -166,15 +155,12 @@ export class CompComponent implements OnInit, AfterViewInit {
      test() {
         let textTex = PIXI.Texture.fromImage('/assets/images/cat.png');
         let textTex2 = new PIXI.Sprite(textTex);
-        console.log("What in text2: " + textTex2.width);
         this.app.stage.addChild(textTex2);
      }
 
      setup() {
         let test = PIXI.loader.resources['/assets/images/cat.png'].texture;
-        console.log(test);
         let cat2 = new PIXI.Sprite(test);
-        console.log("What in cat: " + cat2.width);
         this.app.stage.addChild(cat2);
      }
 
@@ -183,7 +169,6 @@ export class CompComponent implements OnInit, AfterViewInit {
      }
 
      deleteChild() {
-        console.log("DOPOOOOOOOOOOOOOOOOOG");
          while(this.app.stage.children[0]) { this.app.stage.removeChild(this.app.stage.children[0]); }
 
      }
@@ -205,8 +190,6 @@ export class CompComponent implements OnInit, AfterViewInit {
 
 
 
-        console.log("Everything Removed");
-        console.log("Object lenght: " + this._objectservice.objects.length);
         for(let i = this._objectservice.objects.length-1; i > -1; i--) {
             //console.log("Check Type: " + this._objectservice.objects[i].objectType);
             if(this._objectservice.objects[i].objectType === "text"){
@@ -215,7 +198,7 @@ export class CompComponent implements OnInit, AfterViewInit {
                 let style = new PIXI.TextStyle(this._objectservice.objects[i].style);
                     textObj = new Text2(this._compservice.x, this._compservice.y, this._objectservice.objects[i].xC , this._objectservice.objects[i].yC, style, this._objectservice.objects[i].text, this._objectservice.objects[i].name, this._compservice, this._objectservice);
                 //have selected variable set to text object when clicked
-                console.log("Object added: " + textObj.name);
+ 
                 this.app.stage.addChild(textObj);
             }
         }
@@ -232,11 +215,11 @@ export class CompComponent implements OnInit, AfterViewInit {
 
 
         for(let currentChild of this.app.stage.children) {
-            console.log("XValue Name: " + this._compservice.comp.selected.name);
+
       
                 if(currentChild.name === this._compservice.comp.selected.name) {
                     this.selectedObject = currentChild;
-                    console.log("XValue Name Selected Object: " + this.selectedObject.name);
+              
                 }
            
         }   
@@ -248,7 +231,7 @@ export class CompComponent implements OnInit, AfterViewInit {
         graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
         graphics.endFill();    
 
-        console.log("addingChild to " + this.selectedObject.name);
+ 
         this.selectedObject.addChild(graphics);
 
 
@@ -288,9 +271,9 @@ export class CompComponent implements OnInit, AfterViewInit {
 
         //  this.data = new Observable(observer => {});
 
-        console.log("Inside Check");
+  
         for(let i = objects.length-1; i > -1; i--) {
-            console.log("Check Type: " + objects[i].objectType);
+       
             if(objects[i].objectType === "text"){
                 let textObj = null;
                 //setup text attributes
@@ -337,10 +320,8 @@ export class CompComponent implements OnInit, AfterViewInit {
         // }
        
         this._compservice.setSelected(null);
-        for(let currentChild of this.app.stage.children) {
-            currentChild.removeChild(currentChild.children[0]);
-        }
-        console.log("REMOVING ALL BOXES BOTTOM");
+        this.removeAllChildrenFromChildren();
+
                 //      name: '',
                 // objectType: '',
                 // xC: 0,
@@ -354,6 +335,13 @@ export class CompComponent implements OnInit, AfterViewInit {
                 // effect: null
 
         console.log("Stage Click");
+    }
+
+    removeAllChildrenFromChildren(): void {
+        for(let currentChild of this.app.stage.children) {
+            currentChild.removeChild(currentChild.children[0]);
+        }
+
     }
 
 }

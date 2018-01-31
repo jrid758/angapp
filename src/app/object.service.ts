@@ -237,7 +237,7 @@ export class ObjectService {
                     }
                 }
 
-        console.log(output);
+  
 
 
                 // for(let k = 0; k < this.objects[i].effect.length; k++) {
@@ -293,11 +293,11 @@ export class ObjectService {
 
     updateAllObjects(newArray: IObject[]): void {
         this.objects = newArray;
-        console.log("finished updating all objects")
+     
     }
  
     getObjectByLayerName(layerName: string): IObject {
-        console.log("GETTING LAYER OBJECT: " + layerName);
+    
         for(let i = 0; i < this.objects.length; i++) {
             if(this.objects[i].name === layerName) {
                return this.objects[i];
@@ -327,7 +327,7 @@ export class ObjectService {
                 return i;
             }
         }
-        console.log("ERROR on get layer Position");
+    
         return -1;
     }
 
@@ -354,12 +354,12 @@ export class ObjectService {
 
     removeEffectObject(layerName: string, effect: IEffect): void {
         for(let i = 0; i < this.objects.length; i++) {
-            console.log("Searching... " + this.objects[i].name + " " + layerName);
+            
             if(this.objects[i].name === layerName) {
-                console.log("Found1");
+               
                 for(let k = 0; k < this.objects[i].effect.length; k++) {
                   if(this.objects[i].effect[k].type === effect.type) {
-                    console.log("Found2: " + this.objects[i].effect[k].type + " removed ");
+                  
 
                     this.objects[i].effect.splice(k,1);
                     break;
@@ -376,7 +376,7 @@ export class ObjectService {
 
     removeLayerObject(layerName: string) {
         for(let i = 0; i < this.objects.length; i++) {
-            console.log("Searching... " + this.objects[i].name + " " + layerName);
+         
             if(this.objects[i].name === layerName) {
                 this.objects.splice(i,1);
             }
@@ -389,7 +389,7 @@ export class ObjectService {
 
     getObjects(): IObject[] {
         
-        console.log("finished getting objects");
+
         return this.objects;
         
     }
