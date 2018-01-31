@@ -57,7 +57,7 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
     // @Input() object: IObject;
     objects: IObject[] = [];
     whatIn: number[] = [];
-    variableOutline: boolean = false;
+    variableOutline: boolean = true;
     @Input() effects: IEffect[] = [];
 
     @ViewChild(EffectComponent) effect2;
@@ -65,17 +65,19 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
 
     constructor(private _objectservice: ObjectService, private _compservice: CompService) {
 
+    
       this._compservice.Observable.subscribe(value => {
         if(!_.isNull(value)) {
+            console.log("TESTING LAYER NAME: " + value.name);
             if(this.layerName === value.name){
               this.variableOutline = true;
-              console.log("TRUE" + value.name);
+              console.log("TRUE" + value.name + "VS: " + this.layerName);
             } else {
               this.variableOutline = false;
-              console.log("FALSE" + value.name);
+              console.log("FALSE" + value.name + "VS: " + this.layerName);
             }
         } else {
-          console.log("TRUE TRUE TRUE TRUE TRUE");
+          //console.log("TRUE TRUE TRUE TRUE TRUE" + value.name);
           this.variableOutline = false;
         }
       })
@@ -84,6 +86,11 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
       this._compservice.OtimeChange.subscribe(value => {
         this.setTimeLength(value);
       })
+
+
+
+
+
       
     }
 
@@ -135,6 +142,32 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
     ngOnInit(): void {
       this.objects = this._objectservice.getObjects();
       this.setTimeLength(this._compservice.comp.timeLength);
+
+
+       
+      
+      /////////////////////
+      //Check if selected
+      /////////////////
+      console.log("1Created Layer: " + this.layerName);
+      if(!_.isNull(this._compservice.comp.selected)){
+         console.log("2Created Layer: " + this.layerName + " Selected: " + this._compservice.comp.selected.name);
+          if(this.layerName == this._compservice.comp.selected.name){
+            this.variableOutline = true;
+            console.log("TRUE " + this._compservice.comp.selected.name + "VS: " + this.layerName);
+          } else {
+            this.variableOutline = false;
+            console.log("FALSE " + this._compservice.comp.selected.name + "VS: " + this.layerName);
+          }
+      } else {
+        this.variableOutline = false;
+      }
+
+
+
+
+
+
       // if(this.effects[0] != null) {
       // console.log("Did objects load: " + this.effects[0].type);
       // }

@@ -64,6 +64,7 @@ export class CompService {
     }
 
     setSelectedNoEvent(selected: IObject) {
+        console.log("No Event select: " + selected.name);
         this.comp.selected = selected;
     }
 
@@ -74,7 +75,7 @@ export class CompService {
       
             this.comp.selected = null;
         }
-  
+        //console.log("setSelected name: " + this.comp.selected.name);
         this.Observable.next(this.comp.selected);
     }
 

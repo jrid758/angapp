@@ -35,77 +35,28 @@ export class CompComponent implements OnInit, AfterViewInit {
 
     constructor(private renderer: Renderer2, private _compservice: CompService, private _objectservice: ObjectService) {
         
-        this._objectservice.objectsUpdated.subscribe(value => {
-                this.refreshObjects();
-        });
+                    this._objectservice.objectsUpdated.subscribe(value => {
+                            this.refreshObjects();
+                    });
 
 
-        /////////////////////////
-       //Crappy Reoder of objects
-       /////////////////////////
-       this._compservice.Observable.subscribe(value => {
-            let position = this._objectservice.objects.length;
-            for(let i = 0; i < this._objectservice.objects.length; i++) {
-                
-                for(let currentChild of this.app.stage.children) {
-                //console.log("Current Child Name: " + currentChild.name);
+                    /////////////////////////
+                //Crappy Reoder of objects
+                /////////////////////////
+                this._compservice.Observable.subscribe(value => {
+                        this.reorderofObjects();
+                        this.selectObject(value);
+                    });
 
-                    if(currentChild.name === this._objectservice.objects[i].name) {
-                        //console.log("The reorder: " + currentChild.objNum + " and zorder " + zorder);
-                        this.app.stage.setChildIndex(currentChild,position);
-                        position--;
-                        break;
+                /////////////////
+                ///Add New layer to comp - beta
+                ////////////////////
+                this._objectservice.objectsUpdated.skip(1).subscribe(value => {
+                    if(!_.isEmpty(value.name)){
+                        //this.initObjects(this.app.renderer,this.app.stage, this.objectTemp);
+                        this.refreshObjects();
                     }
-                }
-
-            }
-
-
-
-
-
-            /////////////////////////
-            //Crappy Selection of Objects
-            /////////////////////////
-
-            if(!_.isNull(value)) {
-            ///Remove all green boxes
-                this.removeAllChildrenFromChildren();
-
-         
-
-            for(let currentChild of this.app.stage.children) {
-                if(currentChild.name === value.name) {
-                    this.selectedObject = currentChild;
-                }
-            }   
-
-            //this.selectedObject = this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)];
-            var graphics = new PIXI.Graphics();
-            graphics.lineStyle(1, 0x0BFF70, 1);
-            graphics.beginFill(0xFF700B, 0);
-            graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
-            graphics.endFill();    
-
-            this.selectedObject.addChild(graphics);
-            //console.log("FROM COMP: " + value.name + " " + value.text + " child height " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].width + " width " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].height);
-            } else {
-                 //Remove all green boxes
-                for(let currentChild of this.app.stage.children) {
-                    currentChild.removeChild(currentChild.children[0]);
-                }
-            }
-      });
-
-      /////////////////
-      ///Add New layer to comp - beta
-      ////////////////////
-      this._objectservice.objectsUpdated.skip(1).subscribe(value => {
-        if(!_.isEmpty(value.name)){
-            //this.initObjects(this.app.renderer,this.app.stage, this.objectTemp);
-            this.refreshObjects();
-        }
-    });
+                });
 
     }
 
@@ -342,6 +293,59 @@ export class CompComponent implements OnInit, AfterViewInit {
             currentChild.removeChild(currentChild.children[0]);
         }
 
+    }
+
+    reorderofObjects() {
+        let position = this._objectservice.objects.length;
+        for(let i = 0; i < this._objectservice.objects.length; i++) {
+            
+            for(let currentChild of this.app.stage.children) {
+            //console.log("Current Child Name: " + currentChild.name);
+
+                if(currentChild.name === this._objectservice.objects[i].name) {
+                    //console.log("The reorder: " + currentChild.objNum + " and zorder " + zorder);
+                    this.app.stage.setChildIndex(currentChild,position);
+                    position--;
+                    break;
+                }
+            }
+
+        }
+
+    }
+
+    selectObject(value) {
+               /////////////////////////
+            //Crappy Selection of Objects
+            /////////////////////////
+
+            if(!_.isNull(value)) {
+                ///Remove all green boxes
+                    this.removeAllChildrenFromChildren();
+    
+             
+    
+                for(let currentChild of this.app.stage.children) {
+                    if(currentChild.name === value.name) {
+                        this.selectedObject = currentChild;
+                    }
+                }   
+    
+                //this.selectedObject = this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)];
+                var graphics = new PIXI.Graphics();
+                graphics.lineStyle(1, 0x0BFF70, 1);
+                graphics.beginFill(0xFF700B, 0);
+                graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
+                graphics.endFill();    
+    
+                this.selectedObject.addChild(graphics);
+                //console.log("FROM COMP: " + value.name + " " + value.text + " child height " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].width + " width " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].height);
+                } else {
+                     //Remove all green boxes
+                    for(let currentChild of this.app.stage.children) {
+                        currentChild.removeChild(currentChild.children[0]);
+                    }
+                }
     }
 
 }

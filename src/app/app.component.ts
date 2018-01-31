@@ -117,7 +117,7 @@ export class AppComponent implements OnInit, OnChanges {
           },
           name: this._objectService.newLayerName(),
           objectType: "text",
-          text: "placeLayer4",
+          text: "place" + this._objectService.newLayerName(),
           xC: 200,
           yC: 50,
           scaleCurrent: 1,
@@ -175,11 +175,12 @@ export class AppComponent implements OnInit, OnChanges {
       //   wordWrap: true,
       //   wordWrapWidth: number
       // }
+      
       this._compservice.setSelectedNoEvent(obj);
       this._objectService.setObjects(obj);
-      
+      //setTimeout(() => console.log("Sleep"), 4000);
       this._compservice.setSelected(obj);
-      this._objectService.objectsUpdated.next(obj);
+      // this._objectService.objectsUpdated.next(obj);
       
       //this.objects.unshift(obj);
       //this._objectService.

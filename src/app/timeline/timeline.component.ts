@@ -48,6 +48,11 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
 
         this.objects = [];
 
+      //   this._compservice.Observable.subscribe(value => {
+      //     this.reorderofObjects();
+      //     this.selectObject(value);
+      // });
+
         dragulaService.setOptions('first-bag', {
           moves: (el, source, handle, sibling) => !el.classList.contains('no-drag')
         });
@@ -57,7 +62,7 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
           //console.log(`drag: ${value[1]}`);
           //console.log(`drag2: ${value.slice(1)}`);
           this.onDrop(value.slice(1));
-          
+          this._compservice.Observable.next(this._compservice.comp.selected);
           //this.whatsInObjects();
           
         });

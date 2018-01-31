@@ -23,10 +23,8 @@ export class TimelineNumbersComponent{
 
     constructor(private _compservice: CompService) {
         this.timeLenght(this._compservice.comp.timeLength);
-        console.log("TimeLength: " + this.notthisNumber );
 
         this._compservice.OtimeChange.subscribe(value => {
-            console.log("What is number TimeNumers: " + value);
             this.timeLenght(value);
           })
     }
@@ -39,13 +37,9 @@ export class TimelineNumbersComponent{
     timeLenght(num: number) {
          this.notthisNumber = num;
          let minsone = (+num + 1) * 10;
-         console.log("mFirst part: " + minsone + " & " + num);
          let firstpart = (num * 100) - minsone;
-         console.log("First part: " + firstpart);
          let secondpart =  firstpart/num;
-         console.log("Second part: " + secondpart);
          this.blankspace = secondpart + "px";
-         console.log("Blankspae: " + this.blankspace);
      }
 }
 
