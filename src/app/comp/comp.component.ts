@@ -258,12 +258,40 @@ export class CompComponent implements OnInit, AfterViewInit {
 
     overStage() {
         console.log("OVER: " + this.bottom.name);
-        for(let currentChild of this.app.stage.children) {
-            if(currentChild.name !== "stage") {
-                currentChild.interactive = true;
-                currentChild.buttonMode = true;
+        if(_.isNull(this._compservice.comp.selected)) {
+            for(let currentChild of this.app.stage.children) {
+                if(currentChild.name !== "stage") {
+                    currentChild.interactive = true;
+                    currentChild.buttonMode = true;
+                } else {
+                    currentChild.interactive = true;
+                }
             }
-        }   
+        } else {
+            for(let currentChild of this.app.stage.children) {
+                if(currentChild.name !== this._compservice.comp.selected.name) {
+                    if(currentChild.name !== "stage") {
+                    currentChild.interactive = false;
+                    currentChild.buttonMode = false;
+                    }
+                }
+            }
+
+        }
+
+        if(_.isEmpty(this._compservice.comp.selected)) {
+            for(let currentChild of this.app.stage.children) {
+                if(currentChild.name !== "stage") {
+                    currentChild.interactive = true;
+                    currentChild.buttonMode = true;
+                } else {
+                    currentChild.interactive = true;
+                }
+            }
+
+        }
+
+      
     }
 
     stageClick() {
