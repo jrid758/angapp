@@ -46,6 +46,13 @@ export class CompComponent implements OnInit, AfterViewInit {
                 this._compservice.Observable.subscribe(value => {
                         this.reorderofObjects();
                         this.selectObject(value);
+
+                        //  for(let currentChild of this.app.stage.children) {
+                        //     if(currentChild.name !== "stage" || currentChild.name !== value.name) {
+                        //         currentChild.interactive = false;
+                        //         currentChild.buttonMode = false;
+                        //     }
+                        // }  
                     });
 
                 /////////////////
@@ -251,6 +258,12 @@ export class CompComponent implements OnInit, AfterViewInit {
 
     overStage() {
         console.log("OVER: " + this.bottom.name);
+        for(let currentChild of this.app.stage.children) {
+            if(currentChild.name !== "stage") {
+                currentChild.interactive = true;
+                currentChild.buttonMode = true;
+            }
+        }   
     }
 
     stageClick() {

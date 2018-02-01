@@ -68,13 +68,13 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
     
       this._compservice.Observable.subscribe(value => {
         if(!_.isNull(value)) {
-            console.log("TESTING LAYER NAME: " + value.name);
+            // console.log("TESTING LAYER NAME: " + value.name);
             if(this.layerName === value.name){
               this.variableOutline = true;
-              console.log("TRUE" + value.name + "VS: " + this.layerName);
+              // console.log("TRUE" + value.name + "VS: " + this.layerName);
             } else {
               this.variableOutline = false;
-              console.log("FALSE" + value.name + "VS: " + this.layerName);
+              // console.log("FALSE" + value.name + "VS: " + this.layerName);
             }
         } else {
           //console.log("TRUE TRUE TRUE TRUE TRUE" + value.name);
