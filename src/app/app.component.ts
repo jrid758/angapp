@@ -6,6 +6,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { ObjectService } from './object.service';
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { CompService } from './comp.service';
+import * as _ from 'underscore';
 // import { ADDRCONFIG } from 'dns';
 
 
@@ -60,6 +61,12 @@ export class AppComponent implements OnInit, OnChanges {
 
   onclick() {
 
+  }
+
+  onTextChange(text: string) {
+    let updateObject = this._objectService.getObjectByLayerName(this._compservice.comp.selected.name);
+    updateObject.text = text;
+    this._objectService.objectsUpdated.next(this.objects);
   }
 
   toggleDisabled() {

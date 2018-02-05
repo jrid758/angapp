@@ -126,34 +126,8 @@ export class CompComponent implements OnInit, AfterViewInit {
      update() {
         // this.app.renderer(this.app.stage);
         //console.log("Frame");
-
-        if(_.isNull(this._compservice.comp.selected)) {
-            for(let currentChild of this.app.stage.children) {
-                if(currentChild.name !== "stage") {
-                    currentChild.interactive = true;
-                    currentChild.buttonMode = true;
-                }
-            }   
-        } else if (this.pointerOverSelected()) {
-            //this._compservice.comp.selected.interactive = true;
-            //this._compservice.comp.selected.buttonMode = true;
-            for(let currentChild of this.app.stage.children) {
-                if(currentChild.name !== "stage" && currentChild.name !== this._compservice.comp.selected.name) {
-                    currentChild.interactive = false;
-                    currentChild.buttonMode = false;
-                }
-            }   
-            console.log("OVER SELECTED");
-
-        } else if (this.pointerOverNonSelected() && !this.pointerOverSelected()){
-            for(let currentChild of this.app.stage.children) {
-                if(currentChild.name !== "stage") {
-                    currentChild.interactive = true;
-                    currentChild.buttonMode = true;
-                }
-            }  
-
-        }
+        this.whatsSelected();
+       
 
         // if(!_.isNull(this._compService.comp.selected)) {
         //     console.log("WHATS POINTER OVER: " + this.pointerOverSelected());
@@ -186,6 +160,37 @@ export class CompComponent implements OnInit, AfterViewInit {
         requestAnimationFrame(this.update.bind(this));
      }
 
+
+     whatsSelected(){
+        if(_.isNull(this._compservice.comp.selected)) {
+            for(let currentChild of this.app.stage.children) {
+                if(currentChild.name !== "stage") {
+                    currentChild.interactive = true;
+                    currentChild.buttonMode = true;
+                }
+            }   
+        } else if (this.pointerOverSelected()) {
+            //this._compservice.comp.selected.interactive = true;
+            //this._compservice.comp.selected.buttonMode = true;
+            for(let currentChild of this.app.stage.children) {
+                if(currentChild.name !== "stage" && currentChild.name !== this._compservice.comp.selected.name) {
+                    currentChild.interactive = false;
+                    currentChild.buttonMode = false;
+                }
+            }   
+            console.log("OVER SELECTED");
+
+        } else if (this.pointerOverNonSelected() && !this.pointerOverSelected()){
+            for(let currentChild of this.app.stage.children) {
+                if(currentChild.name !== "stage") {
+                    currentChild.interactive = true;
+                    currentChild.buttonMode = true;
+                }
+            }  
+
+        }
+
+     }
 
      pointerOverSelected(): boolean {
 
