@@ -97,6 +97,7 @@ export class CompComponent implements OnInit, AfterViewInit {
         //this.addText(this.app.renderer,this.app.stage);
         //console.log("Test Private x: " + newClass.x);
         //this.app.stage.addChild(newClass);
+        this.update();
     }
 
     ​ getAllMethods(object) {
@@ -123,8 +124,115 @@ export class CompComponent implements OnInit, AfterViewInit {
      }
 
      update() {
-         this.app.renderer(this.app.stage);
+        // this.app.renderer(this.app.stage);
+        //console.log("Frame");
+
+        if(_.isNull(this._compservice.comp.selected)) {
+            for(let currentChild of this.app.stage.children) {
+                if(currentChild.name !== "stage") {
+                    currentChild.interactive = true;
+                    currentChild.buttonMode = true;
+                }
+            }   
+        } else if (this.pointerOverSelected()) {
+            //this._compservice.comp.selected.interactive = true;
+            //this._compservice.comp.selected.buttonMode = true;
+            for(let currentChild of this.app.stage.children) {
+                if(currentChild.name !== "stage" && currentChild.name !== this._compservice.comp.selected.name) {
+                    currentChild.interactive = false;
+                    currentChild.buttonMode = false;
+                }
+            }   
+            console.log("OVER SELECTED");
+
+        } else if (this.pointerOverNonSelected() && !this.pointerOverSelected()){
+            for(let currentChild of this.app.stage.children) {
+                if(currentChild.name !== "stage") {
+                    currentChild.interactive = true;
+                    currentChild.buttonMode = true;
+                }
+            }  
+
+        }
+
+        // if(!_.isNull(this._compService.comp.selected)) {
+        //     console.log("WHATS POINTER OVER: " + this.pointerOverSelected());
+        //     console.log("Is Current Selected: " + this.isCurrentSelected());
+        //     if(this.pointerOverSelected() && this.isCurrentSelected()) {
+        //         console.log("***********First***********");
+        //         this.interactive = true;
+        //         this.buttonMode = true;
+        //         this._compService.setSelectedByName(this.name);
+                
+        //     } else if ( !this.pointerOverSelected() && this.pointerOverNonSelected()) {
+        //         console.log("***********Second***********");
+        //         this.interactive = true;
+        //         this.buttonMode = true;
+        //         this._compService.setSelectedByName(this.name);
+        //     } else {
+        //         console.log("***********Third***********");
+        //         this.interactive = false;
+        //         this.buttonMode = false;
+        //     }
+
+        // } else {
+        //     this._compService.setSelectedByName(this.name);
+        // }
+
+
+
+
+
+        requestAnimationFrame(this.update.bind(this));
      }
+
+
+     pointerOverSelected(): boolean {
+
+        //let mouseXpos = this.data.getLocalPosition(this.parent).x;
+        let mouseXpos = this.app.renderer.plugins.interaction.mouse.global.x;
+        let mouseYpos = this.app.renderer.plugins.interaction.mouse.global.y;
+        let selected = this._compservice.comp.selected;
+        if(selected.xC  <=  mouseXpos && mouseXpos <= (selected.xC + selected.widthCurrent) && selected.yC  <=  mouseYpos && mouseYpos <= (selected.yC + selected.heightCurrent)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // isCurrentSelected() {
+    //     if(this._compservice.comp.selected.name === this.name) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+
+    pointerOverNonSelected() {
+        let mouseXpos = this.app.renderer.plugins.interaction.mouse.global.x;
+        let mouseYpos = this.app.renderer.plugins.interaction.mouse.global.y;
+
+        for(let currentChild of this.app.stage.children) {
+            if(currentChild.x  <=  mouseXpos && mouseXpos <= (currentChild.x + currentChild.width) && currentChild.y  <=  mouseYpos && mouseYpos <= (currentChild.y + currentChild.height)) {
+                return true;
+            }
+         }   
+
+
+   
+
+
+        return false;
+    }
+
+
+
+
+
+
+
+
+
 
      deleteChild() {
          while(this.app.stage.children[0]) { this.app.stage.removeChild(this.app.stage.children[0]); }
@@ -258,38 +366,38 @@ export class CompComponent implements OnInit, AfterViewInit {
 
     overStage() {
         console.log("OVER: " + this.bottom.name);
-        if(_.isNull(this._compservice.comp.selected)) {
-            for(let currentChild of this.app.stage.children) {
-                if(currentChild.name !== "stage") {
-                    currentChild.interactive = true;
-                    currentChild.buttonMode = true;
-                } else {
-                    currentChild.interactive = true;
-                }
-            }
-        } else {
-            for(let currentChild of this.app.stage.children) {
-                if(currentChild.name !== this._compservice.comp.selected.name) {
-                    if(currentChild.name !== "stage") {
-                    currentChild.interactive = false;
-                    currentChild.buttonMode = false;
-                    }
-                }
-            }
+        // if(_.isNull(this._compservice.comp.selected)) {
+        //     for(let currentChild of this.app.stage.children) {
+        //         if(currentChild.name !== "stage") {
+        //             currentChild.interactive = true;
+        //             currentChild.buttonMode = true;
+        //         } else {
+        //             currentChild.interactive = true;
+        //         }
+        //     }
+        // } else {
+        //     for(let currentChild of this.app.stage.children) {
+        //         if(currentChild.name !== this._compservice.comp.selected.name) {
+        //             if(currentChild.name !== "stage") {
+        //             currentChild.interactive = false;
+        //             currentChild.buttonMode = false;
+        //             }
+        //         }
+        //     }
 
-        }
+        // }
 
-        if(_.isEmpty(this._compservice.comp.selected)) {
-            for(let currentChild of this.app.stage.children) {
-                if(currentChild.name !== "stage") {
-                    currentChild.interactive = true;
-                    currentChild.buttonMode = true;
-                } else {
-                    currentChild.interactive = true;
-                }
-            }
+        // if(_.isEmpty(this._compservice.comp.selected)) {
+        //     for(let currentChild of this.app.stage.children) {
+        //         if(currentChild.name !== "stage") {
+        //             currentChild.interactive = true;
+        //             currentChild.buttonMode = true;
+        //         } else {
+        //             currentChild.interactive = true;
+        //         }
+        //     }
 
-        }
+        // }
 
       
     }

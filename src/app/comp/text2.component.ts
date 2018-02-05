@@ -83,33 +83,33 @@ export class Text2 extends PIXI.Text {
     onPointerOver(event) {
         this.data = event.data;
         console.log("OVER LAYER: " + this.name);
-        if(!_.isNull(this._compService.comp.selected)) {
-            console.log("WHATS POINTER OVER: " + this.pointerOverSelected());
-            console.log("Is Current Selected: " + this.isCurrentSelected());
-            if(this.pointerOverSelected() && this.isCurrentSelected()) {
-                console.log("***********First***********");
-                this.interactive = true;
-                this.buttonMode = true;
+        // if(!_.isNull(this._compService.comp.selected)) {
+        //     console.log("WHATS POINTER OVER: " + this.pointerOverSelected());
+        //     console.log("Is Current Selected: " + this.isCurrentSelected());
+        //     if(this.pointerOverSelected() && this.isCurrentSelected()) {
+        //         console.log("***********First***********");
+        //         this.interactive = true;
+        //         this.buttonMode = true;
                 
-            } else if ( !this.pointerOverSelected() && this.pointerOverNonSelected()) {
-                console.log("***********Second***********");
-                this.interactive = true;
-                this.buttonMode = true;
+        //     } else if ( !this.pointerOverSelected() && this.pointerOverNonSelected()) {
+        //         console.log("***********Second***********");
+        //         this.interactive = true;
+        //         this.buttonMode = true;
            
-            } else if(_.isNull(this._compService.comp.selected)) {
-                console.log("***********Third***********");
-                this.interactive = true;
-                this.buttonMode = true;
-            } else {
-                console.log("***********Forth***********");
-                this.interactive = false;
-                this.buttonMode = false;
-            }
+        //     } else if(_.isNull(this._compService.comp.selected)) {
+        //         console.log("***********Third***********");
+        //         this.interactive = true;
+        //         this.buttonMode = true;
+        //     } else {
+        //         console.log("***********Forth***********");
+        //         this.interactive = false;
+        //         this.buttonMode = false;
+        //     }
 
-        } else {
-            console.log("***********Fith***********");
-            //this._compService.setSelectedByName(this.name);
-        }
+        // } else {
+        //     console.log("***********Fith***********");
+        //     //this._compService.setSelectedByName(this.name);
+        // }
     }
 
     onPointerUpOutside(event) {
@@ -168,39 +168,39 @@ export class Text2 extends PIXI.Text {
         
     }
 
-    pointerOverSelected(): boolean {
+    // pointerOverSelected(): boolean {
 
-        let isOver = false;
-        let mouseXpos = this.data.getLocalPosition(this.parent).x;
-        let mouseYpos = this.data.getLocalPosition(this.parent).y;
-        let selected = this._compService.comp.selected;
-        if(selected.xC  <=  mouseXpos && mouseXpos <= (selected.xC + selected.widthCurrent) && selected.yC  <=  mouseYpos && mouseYpos <= (selected.yC + selected.heightCurrent)) {
-            isOver = true;
-        }
+    //     let isOver = false;
+    //     let mouseXpos = this.data.getLocalPosition(this.parent).x;
+    //     let mouseYpos = this.data.getLocalPosition(this.parent).y;
+    //     let selected = this._compService.comp.selected;
+    //     if(selected.xC  <=  mouseXpos && mouseXpos <= (selected.xC + selected.widthCurrent) && selected.yC  <=  mouseYpos && mouseYpos <= (selected.yC + selected.heightCurrent)) {
+    //         isOver = true;
+    //     }
 
-        return isOver;
-    }
+    //     return isOver;
+    // }
 
-    isCurrentSelected() {
-        if(this._compService.comp.selected.name === this.name) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    // isCurrentSelected() {
+    //     if(this._compService.comp.selected.name === this.name) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
-    pointerOverNonSelected() {
-        let mouseXpos = this.data.getLocalPosition(this.parent).x;
-        let mouseYpos = this.data.getLocalPosition(this.parent).y;
-        if(this.x  <=  mouseXpos && mouseXpos <= (this.x + this.width) && this.y  <=  mouseYpos && mouseYpos <= (this.y + this.height)) {
-            return true;
-        }
-        // if(selected.xC  <=  mouseXpos && mouseXpos <= (selected.xC + selected.widthCurrent) && selected.yC  <=  mouseYpos && mouseYpos <= (selected.yC + selected.heightCurrent)) {
-        //     isOver = true;
-        // }
+    // pointerOverNonSelected() {
+    //     let mouseXpos = this.data.getLocalPosition(this.parent).x;
+    //     let mouseYpos = this.data.getLocalPosition(this.parent).y;
+    //     if(this.x  <=  mouseXpos && mouseXpos <= (this.x + this.width) && this.y  <=  mouseYpos && mouseYpos <= (this.y + this.height)) {
+    //         return true;
+    //     }
+    //     // if(selected.xC  <=  mouseXpos && mouseXpos <= (selected.xC + selected.widthCurrent) && selected.yC  <=  mouseYpos && mouseYpos <= (selected.yC + selected.heightCurrent)) {
+    //     //     isOver = true;
+    //     // }
 
-        return false;
-    }
+    //     return false;
+    // }
 
     onDragEnd() {
         this.dragging = false;
