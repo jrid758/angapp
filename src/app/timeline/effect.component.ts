@@ -37,8 +37,23 @@ export class EffectComponent implements OnChanges,OnInit {
 
     sliderNum() {
         //console.log("Bottom: " + this.someRange);
+        let updateObject = this._objectservice.getObjectByLayerName(this.layerName);
         this.effect.timeStart = this.someRange[0];
         this.effect.timeEnd = this.someRange[1];
+
+        if(this.effect.type === "moveIn") {
+            if(this.effect.direction === "right") {
+                 this.effect.xS = this._compservice.comp.x + 1;
+            }
+            if(this.effect.direction === "left") {
+                this.effect.xS = updateObject.widthCurrent * -1;
+           }
+            this.effect.yS = updateObject.yC
+            this.effect.xE = updateObject.xC
+            this.effect.yE = updateObject.yC
+        }
+
+        console.log(this.effect.xS + "Y ends: " +  this.effect.yS);
         this._objectservice.updateEffectObject(this.layerName, this.effect);
         this._objectservice.consoleAllObjects();
       }

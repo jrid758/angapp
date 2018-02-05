@@ -206,7 +206,7 @@ export class Text2 extends PIXI.Text {
         this.dragging = false;
         this.data = null;
 
-        this._objectservice.updateObjectProperties(this);
+        this._objectservice.updateObjectProperties(this, this._compService.comp.x, this._compService.comp.y);
 
     }
 

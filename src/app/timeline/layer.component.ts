@@ -188,6 +188,7 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
   }
 
   addEffect() {
+    let newObject = this._objectservice.getObjectByLayerName(this.layerName);
     let newEffect: IEffect = {
 
                 type: "moveIn",
@@ -195,12 +196,12 @@ export class LayerComponent implements OnInit,AfterViewInit, OnChanges {
                 timeStart: 1,
                 timeEnd: 3,
 
-                xS: 0,
-                yS: 20,
-                xE: 30,
-                yE: 20,
+                xS: this._compservice.comp.x + 1,
+                yS: newObject.yC,
+                xE: newObject.xC,
+                yE: newObject.yC,
 
-                scaleStarting: 1,
+                scaleStarting: newObject.scaleCurrent,
                 scaleEnding: 1,
 
                 widthStarting: 20,

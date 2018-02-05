@@ -127,38 +127,50 @@ export class CompComponent implements OnInit, AfterViewInit {
         // this.app.renderer(this.app.stage);
         //console.log("Frame");
         this.whatsSelected();
-       
-
-        // if(!_.isNull(this._compService.comp.selected)) {
-        //     console.log("WHATS POINTER OVER: " + this.pointerOverSelected());
-        //     console.log("Is Current Selected: " + this.isCurrentSelected());
-        //     if(this.pointerOverSelected() && this.isCurrentSelected()) {
-        //         console.log("***********First***********");
-        //         this.interactive = true;
-        //         this.buttonMode = true;
-        //         this._compService.setSelectedByName(this.name);
-                
-        //     } else if ( !this.pointerOverSelected() && this.pointerOverNonSelected()) {
-        //         console.log("***********Second***********");
-        //         this.interactive = true;
-        //         this.buttonMode = true;
-        //         this._compService.setSelectedByName(this.name);
-        //     } else {
-        //         console.log("***********Third***********");
-        //         this.interactive = false;
-        //         this.buttonMode = false;
-        //     }
-
-        // } else {
-        //     this._compService.setSelectedByName(this.name);
-        // }
-
-
-
-
-
         requestAnimationFrame(this.update.bind(this));
      }
+
+     animatePreview(){
+
+     }
+
+//      animate(go, goAni, renderer, stage, FPS, fpsInterval, then, timeLen, startTime, GLOBAL) {
+//         console.log("Inside What Render Width(animate1): " + renderer.width);
+//        //go goAni controls when to stop comp reveiw
+//         if(goAni){
+              
+//                // calc elapsed time since last loop
+//                let now = Date.now();
+//                let elapsed = now - then;
+//                // if enough time has elapsed, draw the next frame
+//                if (elapsed > fpsInterval) {
+//                    // Get ready for next frame by setting then=now, but also adjust for your
+//                    // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
+//                    then = now - (elapsed % fpsInterval);
+//                    //run animation on children
+//                    console.log("Inside What Render Width(animate2): " + renderer.width);
+//                    this.runAnimationOnChildren(renderer, stage, startTime, now);
+//                    //update stage
+//                    renderer.render(stage);
+//                    //end animation if time is over 
+//                    if(this.endAnimation(startTime, now, timeLen)) {
+//                        go = true;
+//                        goAni = false;
+//                        this.restStageElementsToOriginalState(stage);
+                       
+//                    }
+//                    requestAnimationFrame(
+//                      this.animate.bind(this, go, goAni, renderer, stage, FPS, fpsInterval, then, timeLen, startTime, GLOBAL)
+//                     );
+
+//                  }
+//         //if goAni is set to false, return to update() function      
+//        } else {
+
+//             this.update(go, renderer, stage, GLOBAL); //return to comp render updater
+//             return; }
+       
+//    }
 
 
      whatsSelected(){
@@ -310,7 +322,7 @@ export class CompComponent implements OnInit, AfterViewInit {
         ////Re add bottom
         /////////////////////
         this.bottom = new PIXI.Sprite();
-        this.bottom.hitArea = new PIXI.Rectangle(0, 0, 1000, 1000);
+        this.bottom.hitArea = new PIXI.Rectangle(0, 0, this._compservice.comp.x, this._compservice.comp.y);
         this.bottom.name = "stage";
         this.bottom.interactive = true;
         
@@ -357,7 +369,7 @@ export class CompComponent implements OnInit, AfterViewInit {
 
         
         this.bottom = new PIXI.Sprite();
-        this.bottom.hitArea = new PIXI.Rectangle(0, 0, 1000, 1000);
+        this.bottom.hitArea = new PIXI.Rectangle(0, 0, this._compservice.comp.x, this._compservice.comp.y);
         this.bottom.name = "stage";
         this.bottom.interactive = true;
         

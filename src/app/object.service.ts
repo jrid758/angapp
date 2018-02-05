@@ -3,6 +3,7 @@ import { IObject } from "./obj";
 import { IEffect } from "./effect";
 import * as _ from 'underscore';
 import { Subject } from "rxjs/Subject";
+import { CompService } from "./comp.service";
 
 @Injectable()
 export class ObjectService {
@@ -305,7 +306,17 @@ export class ObjectService {
         }
     }
 
-    updateObjectProperties(object: any): void {
+    printObject(o) {
+        var out = '';
+        for (var p in o) {
+          out += p + ': ' + o[p] + '\n';
+        }
+        console.log(out);
+      }
+
+
+
+    updateObjectProperties(object: any, x, y): void {
 
         let sobj = this.getObjectByLayerName(object.name);
         sobj.xC = object.x;
@@ -313,6 +324,24 @@ export class ObjectService {
         sobj.widthCurrent = object.width;
         sobj.heightCurrent = object.height;
         sobj.scaleCurrent = object.scale;
+        console.log("UPDATING EFFECT OUTSIDE");
+        if(!_.isEmpty(sobj.effect)) {
+            for(let effect of sobj.effect) {
+                if(effect.type === "moveIn") {
+                    if(effect.direction === "right") {
+                        //console.log("name of object: " +  object.name + " Parent width: " + object.parent.parent.r + " Parent Height: "  + object.parent.height);
+                        //console.log(Object.values(object.parent));
+                        effect.xS = x + 1;
+                        //console.log(effect.xS);
+                    }
+                    if(effect.direction === "left") {
+                        effect.xS = sobj.widthCurrent * -1;
+                    }
+                }
+
+            }   
+            console.log("UPDATING EFFECT: " + sobj.effect);
+        }
     }
 
     // scaleCurrent: number;

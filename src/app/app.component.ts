@@ -63,6 +63,10 @@ export class AppComponent implements OnInit, OnChanges {
 
   }
 
+  startPreview() {
+    
+  }
+
   onTextChange(text: string) {
     let updateObject = this._objectService.getObjectByLayerName(this._compservice.comp.selected.name);
     updateObject.text = text;
