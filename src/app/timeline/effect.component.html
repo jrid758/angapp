@@ -1,6 +1,6 @@
 <div class="effect" >
     <div class="effectName">{{effect.type}}<button class="deleteButton" (click)="removeEffect()">X</button>
-      <select class='moveinsel' *ngIf='effect.direction !== ""' (change)="updateSelect()" [(ngModel)]="directionSelected">
+      <select class='moveinsel' *ngIf='effect.direction !== ""' (change)="updateSelect(selected.value)" [(ngModel)]="directionSelected" #selected>
           <option *ngFor="let option of optionSelect" [ngValue]="option">{{option}}</option>
       </select>
     </div>

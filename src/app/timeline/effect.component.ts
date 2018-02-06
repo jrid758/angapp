@@ -38,6 +38,7 @@ export class EffectComponent implements OnChanges,OnInit {
     sliderNum() {
         //console.log("Bottom: " + this.someRange);
         let updateObject = this._objectservice.getObjectByLayerName(this.layerName);
+
         this.effect.timeStart = this.someRange[0];
         this.effect.timeEnd = this.someRange[1];
 
@@ -52,6 +53,16 @@ export class EffectComponent implements OnChanges,OnInit {
             this.effect.xE = updateObject.xC
             this.effect.yE = updateObject.yC
         }
+
+        if(this.effect.type === "fadeOut") {
+        
+            this.effect.alphaStarting = 1;
+            this.effect.alphaEnding = 0;
+        
+        }
+
+     
+
 
         console.log(this.effect.xS + "Y ends: " +  this.effect.yS);
         this._objectservice.updateEffectObject(this.layerName, this.effect);
@@ -79,7 +90,8 @@ export class EffectComponent implements OnChanges,OnInit {
         this.max = +num;
     }
 
-    updateSelect() {
+    updateSelect(selected) {
+        console.log("SELECED: " + selected);
         this.effect.direction = this.directionSelected;
         this._objectservice.updateEffectObject(this.layerName, this.effect);
         this._objectservice.consoleAllObjects();

@@ -57,10 +57,10 @@ export class ObjectService {
                     timeStart: 1,
                     timeEnd: 3,
 
-                    xS: 0,
-                    yS: 20,
-                    xE: 30,
-                    yE: 20,
+                    xS: 400,
+                    yS: 25,
+                    xE: 25,
+                    yE: 25,
 
                     scaleStarting: 1,
                     scaleEnding: 1,
@@ -138,10 +138,10 @@ export class ObjectService {
                     timeStart: 1,
                     timeEnd: 5,
 
-                    xS: 0,
-                    yS: 20,
-                    xE: 30,
-                    yE: 20,
+                    xS: 300,
+                    yS: 120,
+                    xE: 40,
+                    yE: 120,
 
                     scaleStarting: 1,
                     scaleEnding: 1,
@@ -197,10 +197,10 @@ export class ObjectService {
                     timeStart: 1,
                     timeEnd: 3,
 
-                    xS: 0,
-                    yS: 20,
-                    xE: 30,
-                    yE: 20,
+                    xS: 350,
+                    yS: 80,
+                    xE: 60,
+                    yE: 80,
 
                     scaleStarting: 1,
                     scaleEnding: 1,
@@ -318,30 +318,62 @@ export class ObjectService {
 
     updateObjectProperties(object: any, x, y): void {
 
-        let sobj = this.getObjectByLayerName(object.name);
-        sobj.xC = object.x;
-        sobj.yC = object.y;
-        sobj.widthCurrent = object.width;
-        sobj.heightCurrent = object.height;
-        sobj.scaleCurrent = object.scale;
-        console.log("UPDATING EFFECT OUTSIDE");
-        if(!_.isEmpty(sobj.effect)) {
-            for(let effect of sobj.effect) {
-                if(effect.type === "moveIn") {
-                    if(effect.direction === "right") {
-                        //console.log("name of object: " +  object.name + " Parent width: " + object.parent.parent.r + " Parent Height: "  + object.parent.height);
-                        //console.log(Object.values(object.parent));
-                        effect.xS = x + 1;
-                        //console.log(effect.xS);
-                    }
-                    if(effect.direction === "left") {
-                        effect.xS = sobj.widthCurrent * -1;
-                    }
-                }
+        for(let i = 0; i < this.objects.length; i++) {
+            if(this.objects[i].name === object.name) {
+                //let sobj = this.getObjectByLayerName(object.name);
+                this.objects[i].xC = object.x;
+                this.objects[i].yC = object.y;
+                this.objects[i].widthCurrent = object.width;
+                this.objects[i].heightCurrent = object.height;
+                this.objects[i].scaleCurrent = object.scale;
+                console.log("UPDATING EFFECT OUTSIDE");
+                
+                if(!_.isEmpty(this.objects[i].effect)) {
+                    for(let effect of this.objects[i].effect) {
+                        if(effect.type === "moveIn") {
+                            if(effect.direction === "right") {
+                                //console.log("name of object: " +  object.name + " Parent width: " + object.parent.parent.r + " Parent Height: "  + object.parent.height);
+                                //console.log(Object.values(object.parent));
+                                effect.xS = x + 1;
+                                effect.yS = object.y;
+                                effect.xE = object.x;
+                                effect.yE = object.y;
+                                //console.log(effect.xS);
+                            }
+                            if(effect.direction === "left") {
+                                effect.xS = this.objects[i].widthCurrent * -1;
+                                effect.xE = object.x;
+                                effect.yE = object.y;
+                            }
+                        }
 
-            }   
-            console.log("UPDATING EFFECT: " + sobj.effect);
+
+                        if(effect.type === "fadeOut") {
+                            effect.alphaStarting = 1;
+                            effect.alphaEnding = 0;
+                        }
+
+                    }   
+                    console.log("UPDATING EFFECT: " + this.objects[i].effect);
+                }
+            }
         }
+
+
+
+        
+
+
+
+        this.consoleAllObjects();
+        this.objectsUpdated.next(this.objects);
+        // for(let i = 0; i < this.objects.length; i++) {
+        //     if(this.objects[i].name === object.name) {
+        //         this.objects[i] = sobj;
+        //         console.log("OBJECT UPDATED: " + object.name + " " +  this.objects[i].name);
+        //     }
+        // }
+
     }
 
     // scaleCurrent: number;
@@ -372,7 +404,8 @@ export class ObjectService {
                 for(let k = 0; k < this.objects[i].effect.length; k++) {
                   if(this.objects[i].effect[k].type === effect.type) {
                     this.objects[i].effect[k].timeStart = effect.timeStart;
-                    this.objects[i].effect[k].timeStart = effect.timeEnd;
+                    this.objects[i].effect[k].timeEnd = effect.timeEnd;
+                    this.objects[i].effect[k].direction = effect.direction;
                   }
                 }
             }

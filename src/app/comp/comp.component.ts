@@ -151,19 +151,20 @@ export class CompComponent implements OnInit, AfterViewInit {
 
      animatePreview(then = Date.now(), startime = Date.now()){
         if(this.aniPreviewRun) {
-                console.log("Frame2");
+                this.removeAllChildrenFromChildren();
+                //console.log("Frame2");
                 let fixedStartTime = startime;
                 let fpsInterval = 1000/this._compservice.comp.fps;
                 // calc elapsed time since last loop
                 let now = Date.now();
-                console.log("Now: " + now);
-                console.log("Then: " + then);
-                console.log("Starttime: " + startime);
+                // console.log("Now: " + now);
+                // console.log("Then: " + then);
+                // console.log("Starttime: " + startime);
                 // Get ready for next frame by setting then=now, but also adjust for your
                 // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
                 let elapsed = now - then;
-                console.log("Elapsed: " + elapsed);
-                console.log("FPS: " + fpsInterval);
+                //console.log("Elapsed: " + elapsed);
+                //console.log("FPS: " + fpsInterval);
                 //let elapsed = now - then;
                 // if enough time has elapsed, draw the next frame
 
@@ -177,12 +178,16 @@ export class CompComponent implements OnInit, AfterViewInit {
                     console.log("ELAPSED WAS BIGGER");
                     //run animation on children----------------------
 
-                    for(let currentChild of this.app.stage.children) {
-                        if(currentChild.name !== "stage") {
-                            console.log('Fire ' + currentChild.name + " *****************************************");
-                            currentChild.x++;
-                        }
-                    }   
+                    // for(let currentChild of this.app.stage.children) {
+                    //     if(currentChild.name !== "stage") {
+                    //         console.log('Fire ' + currentChild.name + " *****************************************");
+                    //         currentChild.x++;
+                    //     }
+                    // }   
+
+                    this.runAnimationOnChildren(fixedStartTime, now);
+
+
                     //////////////////////////////////--------------------
 
                     //this.app.renderer.render(this.app.stage);
@@ -203,6 +208,145 @@ export class CompComponent implements OnInit, AfterViewInit {
         }
         
      }
+
+
+     runAnimationOnChildren(startTime, now){
+         //renderer, stage, startTime, now
+        //Loop through of the children 
+         //console.log("Inside What Render Width(runAnimationOnChildren): " + renderer.width);
+        for(let element of this.app.stage.children) {
+            //console.log("Children Worked");
+            //Animate Each Effect on each Element
+            console.log("RUNNING ANIMATION***********************" + element.name);
+            if(element.name !== "stage"){
+              let currentObject = this._objectservice.getObjectByLayerName(element.name);
+            
+            for(let effect of currentObject.effect) {
+                let timeStart = effect.timeStart * 1000;
+                let timeEnd = effect.timeEnd * 1000;
+                console.log("start: " + timeStart + "end: " + timeEnd);
+                console.log("EFFECT ANIMATION***********************" + effect.type);
+                        //--------------------
+                        //Effect type MoveIn
+                        //--------------------
+                        if(effect.type === "moveIn"){
+                            
+                                    //set end of move in based on current location
+                                    // effect.xE = element.xC;
+                                    // effect.yE = element.yC;
+
+                                    //calculate starting place off screen
+                                    // if(effect.direction === "left"){  
+                                    //     effect.xS = element.width * -1;
+                                    //     effect.yS = element.yC;
+                                    // }
+
+                                    // if(effect.direction === "right"){  
+                                    //     effect.xS = element.width + renderer.width;
+                                    //     console.log("How Long: " + renderer.width);
+                                    //     effect.yS = element.yC;
+                                    // }
+
+                                    // if(effect.direction === "top"){  
+                                    //     effect.xS = element.xC;
+                                    //     console.log("How Long: " + renderer.width);
+                                    //     effect.yS = element.height * -1;
+                                    // }
+
+                                    // if(effect.direction === "bottom"){ 
+                                    //     effect.xS = element.xC;
+                                    //     console.log("How Long: " + renderer.width);
+                                    //     effect.yS = element.height + renderer.width;
+                                    // }
+
+                                    
+
+                            //Set beginning placement
+                            console.log("-----------------------------------PlacementX: " + timeStart + " vs " + timeEnd + " vs " + this.currentAniTime(startTime, now));
+                            if(timeStart > this.currentAniTime(startTime, now)){
+                             element.x = effect.xS;
+                             console.log("-----------------------------------PlacementX: " + element.x);
+                             element.y = effect.yS;
+                             console.log("-----------------------------------PlacementY: " + element.y);
+                            }
+                            //Start Moving  
+                            if(timeStart < this.currentAniTime(startTime, now) && timeEnd > this.currentAniTime(startTime, now)){
+                                console.log("Curr AniTime & Start: " + this.currentAniTime(startTime, now) + " " + timeStart);
+                                let current = this.currentAniTime(startTime, now) - timeStart;
+                                console.log("Current Done: " + current);
+                                let aniPercentDone = current / (timeEnd - timeStart);
+                                console.log("Percent Done: " + aniPercentDone);
+                                let totalDistanceX = effect.xE - effect.xS;
+                                let totalDistanceY = effect.yE - effect.yS;
+
+                                console.log("Total Distance: " + totalDistanceX);
+                                element.x = (totalDistanceX * aniPercentDone) + effect.xS;
+
+                                console.log("What so farY: " + totalDistanceY * aniPercentDone);
+                                element.y = (totalDistanceY * aniPercentDone) + effect.yS;
+                            }
+                            //Above if stops at 99%, this completes the last frame
+                            if(timeEnd < this.currentAniTime(startTime, now)){
+                                element.x = effect.xE;
+                                element.y = effect.yE;
+                            }
+
+                        }
+
+
+                        //--------------------
+                        //Effect type fadeOut
+                        //--------------------
+                        if(effect.type === "fadeOut"){
+                            //Start Moving  
+                            if(timeStart < this.currentAniTime(startTime, now) && timeEnd > this.currentAniTime(startTime, now)){
+                                let current = this.currentAniTime(startTime, now) - timeStart;
+                                let aniPercentDone = current / (timeEnd - timeStart);
+                                element.alpha = 1 - (1 * aniPercentDone);
+                            }
+                            //Above if stops at 99%, this completes the last frame
+                            if(timeEnd < this.currentAniTime(startTime, now)){
+                                element.alpha = 0;
+                            }
+
+                        }
+
+
+                        //--------------------
+                        //Effect type Zoom
+                        //--------------------
+                            //Set scale to 0 before it starts
+                            if(effect.type === "zoomIn"){
+                                if(timeStart > this.currentAniTime(startTime, now)){
+                                element.scale.x = 0;
+                                element.scale.y = 0;
+                            }
+                            //Start Moving  
+                            if(timeStart < this.currentAniTime(startTime, now) && timeEnd > this.currentAniTime(startTime, now)){
+                                let current = this.currentAniTime(startTime, now); - timeStart;
+                                let aniPercentDone = current / (timeEnd - timeStart);
+                                element.scale.x = (1 * aniPercentDone);
+                                element.scale.y = (1 * aniPercentDone);
+                            }
+                            //Above if stops at 99%, this completes the last frame
+                            if(timeEnd < this.currentAniTime(startTime, now)){
+                                element.scale.x = 1;
+                                element.scale.y = 1;
+                            }
+
+                        }
+
+                        //Effect type MoveOut
+
+                        //Effect type Zoom
+                    }
+                }
+            }
+    }
+
+    currentAniTime(startTime, now) {
+        return now - startTime;
+    }
 
 //      animate(go, goAni, renderer, stage, FPS, fpsInterval, then, timeLen, startTime, GLOBAL) {
 //         console.log("Inside What Render Width(animate1): " + renderer.width);
