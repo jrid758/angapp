@@ -30,6 +30,8 @@ export class CompComponent implements OnInit, AfterViewInit {
     objectTemp: IObject[] = [];
     selectedObject: any;
     bottom: any;
+    updateRun: boolean;
+    aniPreviewRun: boolean;
    
 
 
@@ -97,6 +99,12 @@ export class CompComponent implements OnInit, AfterViewInit {
         //this.addText(this.app.renderer,this.app.stage);
         //console.log("Test Private x: " + newClass.x);
         //this.app.stage.addChild(newClass);
+        // create the ticker
+        // this._ticker = new PIXI.ticker.Ticker();
+        // this._ticker.start();
+        // this._ticker.add(this.update(),this);
+        // console.log(this._ticker.delta)
+        this.updateRun = true;
         this.update();
     }
 
@@ -123,15 +131,77 @@ export class CompComponent implements OnInit, AfterViewInit {
         this.app.stage.addChild(cat2);
      }
 
+
      update() {
         // this.app.renderer(this.app.stage);
-        //console.log("Frame");
-        this.whatsSelected();
-        requestAnimationFrame(this.update.bind(this));
+        if(this.updateRun) {
+            // for(let currentChild of this.app.stage.children) {
+            //     if(currentChild.name !== "stage") {
+            //         console.log('Fire ' + currentChild.name + " *****************************************");
+            //         currentChild.x++;
+            //     }
+            // }   
+            console.log("Frame");
+            
+            this.whatsSelected();
+            requestAnimationFrame(this.update.bind(this));
+        }
+        
      }
 
-     animatePreview(){
+     animatePreview(then = Date.now(), startime = Date.now()){
+        if(this.aniPreviewRun) {
+                console.log("Frame2");
+                let fixedStartTime = startime;
+                let fpsInterval = 1000/this._compservice.comp.fps;
+                // calc elapsed time since last loop
+                let now = Date.now();
+                console.log("Now: " + now);
+                console.log("Then: " + then);
+                console.log("Starttime: " + startime);
+                // Get ready for next frame by setting then=now, but also adjust for your
+                // specified fpsInterval not being a multiple of RAF's interval (16.7ms)
+                let elapsed = now - then;
+                console.log("Elapsed: " + elapsed);
+                console.log("FPS: " + fpsInterval);
+                //let elapsed = now - then;
+                // if enough time has elapsed, draw the next frame
 
+                if (elapsed < fpsInterval) {
+                    requestAnimationFrame(this.animatePreview.bind(this, then, fixedStartTime));
+                    console.log("ELAPSED WAS SMALLER");
+                }
+
+                if (elapsed > fpsInterval) {
+                    then = now - (elapsed % (fpsInterval));
+                    console.log("ELAPSED WAS BIGGER");
+                    //run animation on children----------------------
+
+                    for(let currentChild of this.app.stage.children) {
+                        if(currentChild.name !== "stage") {
+                            console.log('Fire ' + currentChild.name + " *****************************************");
+                            currentChild.x++;
+                        }
+                    }   
+                    //////////////////////////////////--------------------
+
+                    //this.app.renderer.render(this.app.stage);
+
+                    if((now - startime) > this._compservice.comp.timeLength * 1000) {
+                        this.updateRun = true;
+                        this.aniPreviewRun = false;
+
+                    }
+
+                    requestAnimationFrame(this.animatePreview.bind(this, then, fixedStartTime));
+                }
+        } else {
+            this.updateRun = true;
+            this.aniPreviewRun = false;
+            this.refreshObjects();
+            this.update();
+        }
+        
      }
 
 //      animate(go, goAni, renderer, stage, FPS, fpsInterval, then, timeLen, startTime, GLOBAL) {
@@ -296,41 +366,49 @@ export class CompComponent implements OnInit, AfterViewInit {
         ///Need to reselect//
         //////////////////////
 
+      if(!_.isNull(this._compservice.comp.selected)) {  //Thought about doing this because of selection problems
+            for(let currentChild of this.app.stage.children) {
 
-        for(let currentChild of this.app.stage.children) {
-
-      
-                if(currentChild.name === this._compservice.comp.selected.name) {
-                    this.selectedObject = currentChild;
-              
-                }
-           
-        }   
-
-        //this.selectedObject = this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)];
-        var graphics = new PIXI.Graphics();
-        graphics.lineStyle(1, 0x0BFF70, 1);
-        graphics.beginFill(0xFF700B, 0);
-        graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
-        graphics.endFill();    
-
- 
-        this.selectedObject.addChild(graphics);
-
-
-          //////////////////
-        ////Re add bottom
-        /////////////////////
-        this.bottom = new PIXI.Sprite();
-        this.bottom.hitArea = new PIXI.Rectangle(0, 0, this._compservice.comp.x, this._compservice.comp.y);
-        this.bottom.name = "stage";
-        this.bottom.interactive = true;
         
-        this.bottom.on('pointerover', this.overStage.bind(this)),
-        this.bottom.on('pointerdown', this.stageClick.bind(this));
-        this.app.stage.addChild(this.bottom);
-        this.app.stage.setChildIndex(this.bottom, 0);
+                    if(currentChild.name === this._compservice.comp.selected.name) {
+                        this.selectedObject = currentChild;
+                
+                    }
+            
+            }
 
+            
+            //this.selectedObject = this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)];
+            var graphics = new PIXI.Graphics();
+            graphics.lineStyle(1, 0x0BFF70, 1);
+            graphics.beginFill(0xFF700B, 0);
+            graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
+            graphics.endFill();    
+
+    
+            this.selectedObject.addChild(graphics);
+
+
+
+
+
+       }
+
+       
+            //////////////////
+            ////Re add bottom
+            /////////////////////
+            this.bottom = new PIXI.Sprite();
+            this.bottom.hitArea = new PIXI.Rectangle(0, 0, this._compservice.comp.x, this._compservice.comp.y);
+            this.bottom.name = "stage";
+            this.bottom.interactive = true;
+            
+            this.bottom.on('pointerover', this.overStage.bind(this)),
+            this.bottom.on('pointerdown', this.stageClick.bind(this));
+            this.app.stage.addChild(this.bottom);
+            this.app.stage.setChildIndex(this.bottom, 0);
+
+       
 
 
         // for(let i = 0; i < this.app.stage.length; i++) {
