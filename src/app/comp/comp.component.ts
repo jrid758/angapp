@@ -145,7 +145,7 @@ export class CompComponent implements OnInit, AfterViewInit {
             //         currentChild.x++;
             //     }
             // }   
-            console.log("Frame");
+            //console.log("Frame");
             
             this.whatsSelected();
             requestAnimationFrame(this.update.bind(this));

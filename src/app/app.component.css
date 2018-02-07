@@ -10,6 +10,57 @@ p {
     text-align:center;
   }
 
+#app {
+    height:800px;
+    width: 900px;
+    background-color: lightgray;
+}
+
+#topScreen {
+    height: 50%;
+    width: 100%;
+    background-color: green;
+  }
+
+#bottomScreen {
+    height: 50%;
+    width: 100%;
+    background-color: orange;
+    padding: 5px;
+
+}
+
+#leftTopScreen {
+    width: 200px;
+    height: 300px;
+    float: left;
+    background-color: rgb(144, 144, 144);
+    padding: 5px;
+    margin: 5px;
+    display: block;
+}
+button{
+    display: block;
+}
+
+#rightTopScreen {
+    width: 650px;
+    height: 100%;
+    float: right;
+    background-color: lightcyan;
+    padding: 5px;
+    margin: 5px;
+}
+
+.floatInMiddle {
+    padding: 100px;
+}
+
+span.clear {
+    clear: both;
+    display: block;
+}
+
 /* #window {
     width: 1000px;
     height: 1000px;
