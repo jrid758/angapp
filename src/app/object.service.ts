@@ -406,11 +406,12 @@ export class ObjectService {
                     this.objects[i].effect[k].timeStart = effect.timeStart;
                     this.objects[i].effect[k].timeEnd = effect.timeEnd;
                     this.objects[i].effect[k].direction = effect.direction;
+                    console.log("Update: " + effect.type + " " + effect.timeStart + " " + effect.direction);
                   }
                 }
             }
         }
-
+        //this.objectsUpdated.next(this.objects);
 
     }
 

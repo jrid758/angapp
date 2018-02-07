@@ -91,10 +91,22 @@ export class EffectComponent implements OnChanges,OnInit {
     }
 
     updateSelect(selected) {
+        let updateObject = this._objectservice.getObjectByLayerName(this.layerName);
         console.log("SELECED: " + selected);
-        this.effect.direction = this.directionSelected;
+        let slicedSelected = selected.slice(3);
+        console.log("SELECED: " + slicedSelected);
+        this.effect.direction = slicedSelected;
         this._objectservice.updateEffectObject(this.layerName, this.effect);
         this._objectservice.consoleAllObjects();
+
+
+
+        if(this.effect.direction === "right") {
+            this.effect.xS = this._compservice.comp.x + 1;
+       }
+       if(this.effect.direction === "left") {
+           this.effect.xS = updateObject.widthCurrent * -1;
+      }
     }
 
     updateSelectedOption() {
