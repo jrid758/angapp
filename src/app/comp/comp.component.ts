@@ -62,13 +62,13 @@ export class CompComponent implements OnInit, AfterViewInit {
                 ///Add New layer to comp - beta
                 ////////////////////
                 this._objectservice.objectsUpdated.subscribe(value => {
-                    console.log("Objects Refreshed Outside");
-                    if(!_.isEmpty(value.name)){
+                    //console.log("Objects Refreshed Outside" + value.name);
+                    //if(!_.isEmpty(value.name)){
                         //this.initObjects(this.app.renderer,this.app.stage, this.objectTemp);
                         console.log("Objects Refreshed");
                         this.refreshObjects();
 
-                    }
+                    //}
                 });
 
     }

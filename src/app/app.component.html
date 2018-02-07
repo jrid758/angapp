@@ -4,7 +4,8 @@
     <div id="topScreen">
     <!-- <span class="clear"></span> -->
         <div id="leftTopScreen">
-            <button (click)="addText()">Add Text</button><button (click)="startPreview()">Play</button>
+            <button (click)="addText()">Add Text</button>
+            <button (click)="startPreview()">Play</button>
             <button (click)="changeTime(numInput.value)">Set Time</button><input type="text" #numInput />
             <label [style.visibility]="_compservice.comp.selected ? 'visible' : 'hidden'">Text Update: </label><input type="text" [value]='_compservice.comp.selected ? _compservice.comp.selected.text : ""' (input)="onTextChange($event.target.value)"  [style.visibility]="_compservice.comp.selected ? 'visible' : 'hidden'"/>
             <!-- <span class="clear"></span> -->
