@@ -40,6 +40,7 @@ export class AppComponent implements OnInit, OnChanges {
   title = 'app';
   test2: string = 'hello';
   disabled = true;
+  myFile: File;
   // options: any = {
   //   ignoreInputTextSelection: true
   // }
@@ -58,6 +59,94 @@ export class AppComponent implements OnInit, OnChanges {
     // console.log(`dragel: ${el}`);
     // console.log(`dragelc: ${c.innerHTML}`);
   }
+
+  fileChange(event: EventTarget){
+    //console.log("Whats in:" + files[0].slice() );
+    // let test = files[0].slice();
+    // console.log("Blob: " + test + test.testgetAsText());
+
+
+
+    let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
+        let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
+        let files: FileList = target.files;
+        this.myFile = files[0];
+        console.log(files[0].slice());
+        let reader = new FileReader();
+        reader.readAsDataURL(files[0].slice()); 
+        reader.onloadend = function() {
+          let base64data = reader.result;                
+          console.log(base64data);
+      }
+  
+        // console.log(this.myFile.slice());
+        // let reader = new FileReader();
+        // console.log(reader.readAsDataURL(this.myFile.slice()));
+
+    //________________________________________
+
+    // this.myFile = event[0];
+    // let reader = new FileReader();
+    // console.log(reader.readAsText(this.myFile));
+    // reader.onload = function(e) {
+    //   let src = e.target['result'];
+    //         let image = src;
+    // }
+
+
+    //________________________________________
+    
+    // console.log("Whats in2:" + this.myFile);
+
+    // if(this.myFile !== null && typeof this.myFile === 'object') {
+    //   console.log("Whats in file(Inside): " + this.myFile);
+    //   let textType = /image.*/;
+     
+    //   if (this.myFile.type.match(textType)) {
+    //       let reader = new FileReader();
+    //       console.log("inside fired2");
+    //       reader.onload = function(e) {
+    //              //console.log("inside fired3" + reader.result);
+    //              let image = reader.result;
+                 
+    //              //console.log("GLOBAL test: " + GLOBAL.depthNumber);
+                
+    //               // create an off-screen canvas
+
+    //               $('#imageShow').empty();
+    //               $('#imageShow').append('<img id="getPic" src="' + image + '" />');
+
+    //              let canvas = document.createElement('canvas');
+    //              let ctx = canvas.getContext('2d');
+
+    //              // set its dimension to target size
+    //              canvas.width = 1024;
+    //              canvas.height = 1024;
+
+    //              let src2 = document.getElementById("getPic");
+    //              console.log("YES: " + src2.width + "&" + src2.height)
+    //              //console.log("Did src2 work: " + src2);
+    //              // draw source image into the off-screen canvas:
+    //              ctx.drawImage(src2, 0, 0, 1024, 1024);
+    //              let finishedImage = canvas.toDataURL();
+    //              console.log("Everything Done");
+
+    //              // encode image to data-uri with base64 version of compressed image
+                 
+
+    //               document.getElementById("fileInput").value = "";
+    //              callback(renderer, stage, GLOBAL, finishedImage, src2.width, src2.height);     
+    //       }
+    //       reader.readAsDataURL(file);
+    //  } else {
+    //       console.log("Not Supported");
+    //   }
+  // }
+
+
+   
+}
+
 
   onclick() {
 
@@ -98,6 +187,11 @@ export class AppComponent implements OnInit, OnChanges {
       this._compservice.setTimeLenght(num);
     }
 
+
+    createImage() {
+
+    }
+
     createObj() {
       let obj: IObject = {
 
@@ -136,69 +230,16 @@ export class AppComponent implements OnInit, OnChanges {
           widthCurrent: 170,
           heightCurrent: 40,
           effect: []
-          // effect: [
-          //     {
-          //         type: "moveIn",
-          //         direction: "right",
-          //         timeStart: 1,
-          //         timeEnd: 3,
-
-          //         xS: 0,
-          //         yS: 20,
-          //         xE: 30,
-          //         yE: 20,
-
-          //         scaleStarting: 1,
-          //         scaleEnding: 1,
-
-          //         widthStarting: 20,
-          //         heightStarting: 20,
-          //         widthEnding: 20,
-          //         heightEnding: 20,
-
-          //         alphaStarting: 1,
-          //         alphaEnding: 1
-          //     }
-          //   ]
       };
 
-      // export interface ITextStyle {
-      //   align: string,
-      //   breakWords: string,
-      //   fontFamily: string,
-      //   fontSize: number,
-      //   fontStyle: string,
-      //   fontWeight: string,
-      //   fontVariant: string,
-      //   fill: string, // gradient
-      //   stroke: string,
-      //   strokeThickness: number,
-      //   lineJoin: string,
-      //   leading: number,
-      //   letterSpacing: number,
-      //   lineHeight: number,
-      //   dropShadow: true,
-      //   dropShadowColor: string,
-      //   dropShadowBlur: number,
-      //   dropShadowAngle: number,
-      //   dropShadowDistance: number,
-      //   dropShadowAlpha: number,
-      //   wordWrap: true,
-      //   wordWrapWidth: number
-      // }
+
+
+
       
       this._compservice.setSelectedNoEvent(obj);
       this._objectService.setObjects(obj);
-      //setTimeout(() => console.log("Sleep"), 4000);
       this._compservice.setSelected(obj);
-      // this._objectService.objectsUpdated.next(obj);
-      
-      //this.objects.unshift(obj);
-      //this._objectService.
-      // console.log(this.objects.length);
-      // console.log(this.objects[0].text);
-      //this._objectService.setObjects(obj);
-      //console.log(this._objectService[0].text);
+
 
       
     }

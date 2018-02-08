@@ -8,6 +8,9 @@
             <button (click)="startPreview()">Play</button>
             <button (click)="changeTime(numInput.value)">Set Time</button><input type="text" #numInput />
             <label [style.visibility]="_compservice.comp.selected ? 'visible' : 'hidden'">Text Update: </label><input type="text" [value]='_compservice.comp.selected ? _compservice.comp.selected.text : ""' (input)="onTextChange($event.target.value)"  [style.visibility]="_compservice.comp.selected ? 'visible' : 'hidden'"/>
+        
+            <input type="file" #fileupload name="myFile" (change)="fileChange($event)"/>
+ 
             <!-- <span class="clear"></span> -->
         </div>
         <div id="rightTopScreen">
