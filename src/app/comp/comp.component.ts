@@ -528,14 +528,20 @@ export class CompComponent implements OnInit, AfterViewInit {
     
                 var img = new Image();
                 img.src = value[i].image;
+                
+                //setTimeout(function(){  },1000);
+                
 
-
-
-                console.log(value[i].image);
+                //console.log(value[i].image);
                 let base = new PIXI.BaseTexture(img);
+                console.log("IMAGE X: " + base.height + " " + base.width);
                 let texture = new PIXI.Texture(base);
+                console.log("IMAGE X: " + texture.height + " " + texture.width);
                 //PIXI.Texture.addTextureToCache(texture, "someId");
                 let imageObj = new ImageS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
+                console.log("IMAGE X: " + imageObj.height + " " + imageObj.width);
+                //imageObj.height = 50;
+                //imageObj.width = 100;
                 this.app.stage.addChild(imageObj);
                 //PIXI.loader.add(value[i].image).load(this.imageConfig.bind(this, this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, value[i].image, value[i].name, this._compservice, this._objectservice));
               // PIXI.loader.add(value[i].image).load(console.log("loaded"));
