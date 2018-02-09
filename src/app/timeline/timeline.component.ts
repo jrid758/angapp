@@ -79,6 +79,7 @@ export class TimelineComponent implements OnChanges, OnInit, AfterViewInit {
        
         let newBlank: IObject = {
           name: null,
+          image: null,
           objectType: null,
           xC: null,
           yC: null,

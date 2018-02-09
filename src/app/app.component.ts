@@ -60,7 +60,7 @@ export class AppComponent implements OnInit, OnChanges {
     // console.log(`dragelc: ${c.innerHTML}`);
   }
 
-  fileChange(event: EventTarget){
+  fileChange(event: EventTarget,callback=this.createImage.bind(this)){
     //console.log("Whats in:" + files[0].slice() );
     // let test = files[0].slice();
     // console.log("Blob: " + test + test.testgetAsText());
@@ -71,14 +71,20 @@ export class AppComponent implements OnInit, OnChanges {
         let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
         let files: FileList = target.files;
         this.myFile = files[0];
-        console.log(files[0].slice());
+        //console.log(files[0].slice());
         let reader = new FileReader();
-        reader.readAsDataURL(files[0].slice()); 
+        
+        reader.readAsDataURL(files[0].slice());
+        //let imageBlob;
+        
         reader.onload = function() {
           let base64data = reader.result;                
-          console.log(base64data);
+          //console.log("Data: " + base64data);
+          callback(base64data);
+          //this.createImage(base64data);
 
       }
+      //console.log("Data2: " + imageBlob);
   
         // console.log(this.myFile.slice());
         // let reader = new FileReader();
@@ -200,8 +206,26 @@ export class AppComponent implements OnInit, OnChanges {
     }
 
 
-    createImage() {
+    createImage(imageLoad: any) {
+      let obj: IObject = {
+        style: null,
+        name: this._objectService.newLayerName(),
+        objectType: "image",
+        text: null,
+        image: imageLoad,
+        xC: 50,
+        yC: 50,
+        scaleCurrent: 1,
+        alphaCurrent: 1,
+        widthCurrent: 170,
+        heightCurrent: 40,
+        effect: []
+    };
 
+    //console.log("Obj: " + obj.image);
+    this._compservice.setSelectedNoEvent(obj);
+    this._objectService.setObjects(obj);
+    this._compservice.setSelected(obj);
     }
 
     createObj() {

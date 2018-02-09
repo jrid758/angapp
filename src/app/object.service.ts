@@ -58,7 +58,6 @@ export class ObjectService {
                     direction: "right",
                     timeStart: 1,
                     timeEnd: 3,
-
                     xS: 400,
                     yS: 25,
                     xE: 25,

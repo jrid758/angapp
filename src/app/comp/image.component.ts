@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
   })
 
 
-export class Image extends PIXI.Sprite {
+export class ImageS extends PIXI.Sprite {
     height: number;
     width: number;
     parent: any;
@@ -33,7 +33,7 @@ export class Image extends PIXI.Sprite {
     //public Oclicked = new Subject<string>();
 
 
-
+    //imageObj = new Image(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, value[i].image, value[i].name, this._compservice, this._objectservice);
     constructor(xHeight, yWidth, x, y, image, name, private _compService: CompService, private _objectservice: ObjectService) {
         super(image);
         console.log("&&&&&&&&&&&&&&&&&&&ServiceProp: " + _compService.comp.timeLength);

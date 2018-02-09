@@ -5,6 +5,7 @@ import { CompService } from "../comp.service";
 import { IObject } from "../obj";
 import { ObjectService } from "../object.service";
 import { Text2 } from "./text2.component";
+import { ImageS } from "./image.component";
 import { Subject } from "rxjs/Subject";
 import 'rxjs/add/operator/skip';
 import * as _ from 'underscore';
@@ -509,15 +510,50 @@ export class CompComponent implements OnInit, AfterViewInit {
                 let style = new PIXI.TextStyle(value[i].style);
                     textObj = new Text2(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, style, value[i].text, value[i].name, this._compservice, this._objectservice);
                 //have selected variable set to text object when clicked
- 
+                
                 this.app.stage.addChild(textObj);
+                console.log("TTTT: " + textObj.name);
+            }
+
+            if(value[i].objectType === "image"){
+                
+                console.log("IMAGE^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+                //setup text attributes
+               //console.log("New x and y on refresh: " + value[i].xC + " " + value[i].yC);
+
+                console.log("RESSSSET Loader");
+                PIXI.loader.reset();
+                console.log("RESSSSET Loader");
+
+    
+                var img = new Image();
+                img.src = value[i].image;
+
+
+
+                console.log(value[i].image);
+                let base = new PIXI.BaseTexture(img);
+                let texture = new PIXI.Texture(base);
+                //PIXI.Texture.addTextureToCache(texture, "someId");
+                let imageObj = new ImageS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
+                this.app.stage.addChild(imageObj);
+                //PIXI.loader.add(value[i].image).load(this.imageConfig.bind(this, this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, value[i].image, value[i].name, this._compservice, this._objectservice));
+              // PIXI.loader.add(value[i].image).load(console.log("loaded"));
+                console.log("TTTT: " + value[i].name);
+
+                //imageObj = new Image(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, value[i].image, value[i].name, this._compservice, this._objectservice);
+                //have selected variable set to text object when clicked
+ 
+                
             }
         }
 
-      
+   
+    
 
+        
 
-
+            
 
 
         //////////////////////
@@ -526,30 +562,18 @@ export class CompComponent implements OnInit, AfterViewInit {
 
       if(!_.isNull(this._compservice.comp.selected)) {  //Thought about doing this because of selection problems
             for(let currentChild of this.app.stage.children) {
-
-        
                     if(currentChild.name === this._compservice.comp.selected.name) {
                         this.selectedObject = currentChild;
-                
                     }
-            
             }
-
-            
             //this.selectedObject = this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)];
             var graphics = new PIXI.Graphics();
             graphics.lineStyle(1, 0x0BFF70, 1);
             graphics.beginFill(0xFF700B, 0);
+           
             graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
             graphics.endFill();    
-
-    
             this.selectedObject.addChild(graphics);
-
-
-
-
-
        }
 
        
@@ -574,7 +598,13 @@ export class CompComponent implements OnInit, AfterViewInit {
 
         // }
      }
+    
+     imageConfig(x, y, xC, yC, image, name, oc, ob){
+        let imageObj = null;
+        imageObj = new ImageS(x, y, xC , yC, image, name,  oc, ob);
+        this.app.stage.addChild(imageObj);
 
+    }
     
 
     initObjects(renderer, stage, objects: IObject[]) {
@@ -699,6 +729,7 @@ export class CompComponent implements OnInit, AfterViewInit {
 
     reorderofObjects() {
         let position = this._objectservice.objects.length;
+        console.log("WHAT THE LENGTH: " + position);
         for(let i = 0; i < this._objectservice.objects.length; i++) {
             
             for(let currentChild of this.app.stage.children) {
@@ -737,6 +768,7 @@ export class CompComponent implements OnInit, AfterViewInit {
                 var graphics = new PIXI.Graphics();
                 graphics.lineStyle(1, 0x0BFF70, 1);
                 graphics.beginFill(0xFF700B, 0);
+                console.log("GOT HERE");
                 graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
                 graphics.endFill();    
     
@@ -750,4 +782,5 @@ export class CompComponent implements OnInit, AfterViewInit {
                 }
     }
 
+   
 }
