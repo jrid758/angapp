@@ -20,6 +20,7 @@ export class ObjectService {
             name: "Layer 3",
             objectType: "text",
             text: "placeholder3",
+            image: null,
             style: {
                 align: 'center',
                 breakWords: 'false',
@@ -44,6 +45,7 @@ export class ObjectService {
                 wordWrap: true,
                 wordWrapWidth: 440
             },
+            
             xC: 25,
             yC: 25,
             scaleCurrent: 1,
@@ -101,6 +103,7 @@ export class ObjectService {
             name: "Layer 2",
             objectType: "text",
             text: "place2",
+            image: null,
             style: {
                 align: 'center',
                 breakWords: 'false',
@@ -160,6 +163,7 @@ export class ObjectService {
             name: "Layer 1",
             objectType: "text",
             text: "placehol1",
+            image: null,
             style: {
                 align: 'center',
                 breakWords: 'false',
@@ -316,17 +320,17 @@ export class ObjectService {
 
 
 
-    updateObjectProperties(object: any, x, y): void {
+    updateObjectProperties(objectI: any, x, y): void {
 
         for(let i = 0; i < this.objects.length; i++) {
-            if(this.objects[i].name === object.name) {
+            if(this.objects[i].name === objectI.name) {
                 //let sobj = this.getObjectByLayerName(object.name);
-                this.objects[i].xC = object.x;
-                this.objects[i].yC = object.y;
-                this.objects[i].widthCurrent = object.width;
-                this.objects[i].heightCurrent = object.height;
-                this.objects[i].scaleCurrent = object.scale;
-                console.log("UPDATING EFFECT OUTSIDE");
+                this.objects[i].xC = objectI.x;
+                this.objects[i].yC = objectI.y;
+                this.objects[i].widthCurrent = objectI.width;
+                this.objects[i].heightCurrent = objectI.height;
+                this.objects[i].scaleCurrent = objectI.scale;
+                console.log("UPDATING EFFECT OUTSIDE1: " + objectI.x + " " + objectI.y);
                 
                 if(!_.isEmpty(this.objects[i].effect)) {
                     for(let effect of this.objects[i].effect) {
@@ -335,15 +339,15 @@ export class ObjectService {
                                 //console.log("name of object: " +  object.name + " Parent width: " + object.parent.parent.r + " Parent Height: "  + object.parent.height);
                                 //console.log(Object.values(object.parent));
                                 effect.xS = x + 1;
-                                effect.yS = object.y;
-                                effect.xE = object.x;
-                                effect.yE = object.y;
+                                effect.yS = objectI.y;
+                                effect.xE = objectI.x;
+                                effect.yE = objectI.y;
                                 //console.log(effect.xS);
                             }
                             if(effect.direction === "left") {
                                 effect.xS = this.objects[i].widthCurrent * -1;
-                                effect.xE = object.x;
-                                effect.yE = object.y;
+                                effect.xE = objectI.x;
+                                effect.yE = objectI.y;
                             }
                         }
 
@@ -365,8 +369,10 @@ export class ObjectService {
 
 
 
-        this.consoleAllObjects();
+        //this.consoleAllObjects();
+        console.log("UPDATING EFFECT OUTSIDE2: " + this.objects[2].name +" " + this.objects[2].xC + " " + this.objects[2].xC);
         this.objectsUpdated.next(this.objects);
+        
         // for(let i = 0; i < this.objects.length; i++) {
         //     if(this.objects[i].name === object.name) {
         //         this.objects[i] = sobj;

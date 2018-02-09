@@ -4,6 +4,7 @@ import { ITextStyle } from "./textstyle";
 export interface IObject {
     name: string;
     objectType: string;
+    image: any;
     xC: number;
     yC: number;
     scaleCurrent: number;

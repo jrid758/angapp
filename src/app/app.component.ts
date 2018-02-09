@@ -74,9 +74,10 @@ export class AppComponent implements OnInit, OnChanges {
         console.log(files[0].slice());
         let reader = new FileReader();
         reader.readAsDataURL(files[0].slice()); 
-        reader.onloadend = function() {
+        reader.onload = function() {
           let base64data = reader.result;                
           console.log(base64data);
+
       }
   
         // console.log(this.myFile.slice());
@@ -146,6 +147,17 @@ export class AppComponent implements OnInit, OnChanges {
 
    
 }
+
+// addImage(renderer, stage, GLOBAL, image, preW, preH) {
+
+//   //let randomName = "image" + GLOBAL.depthNumber;
+//   console.log("RESSSSET Loader");
+//   PIXI.loader.reset();
+//   console.log("RESSSSET Loader");
+//   PIXI.loader.add(image).load(this.setupImage.bind(this,renderer, stage, GLOBAL, image, preW, preH));
+  
+
+// }
 
 
   onclick() {
@@ -223,6 +235,7 @@ export class AppComponent implements OnInit, OnChanges {
           name: this._objectService.newLayerName(),
           objectType: "text",
           text: "place" + this._objectService.newLayerName(),
+          image: null,
           xC: 200,
           yC: 50,
           scaleCurrent: 1,

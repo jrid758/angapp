@@ -65,10 +65,14 @@ export class CompComponent implements OnInit, AfterViewInit {
                     //console.log("Objects Refreshed Outside" + value.name);
                     //if(!_.isEmpty(value.name)){
                         //this.initObjects(this.app.renderer,this.app.stage, this.objectTemp);
+                        //console.log("Value" + value);
                         console.log("Objects Refreshed");
-                        this.refreshObjects();
+                        this.refreshObjects(value);
 
                     //}
+                },
+                error => {
+                   console.log("had error: " + error);
                 });
 
     }
@@ -207,7 +211,7 @@ export class CompComponent implements OnInit, AfterViewInit {
         } else {
             this.updateRun = true;
             this.aniPreviewRun = false;
-            this.refreshObjects();
+            this.refreshObjects(this._objectservice.objects);
             this.update();
         }
         
@@ -398,7 +402,8 @@ export class CompComponent implements OnInit, AfterViewInit {
                     currentChild.interactive = true;
                     currentChild.buttonMode = true;
                 }
-            }   
+            }
+            console.log("$$$$$$$$$$$$$$$$-NOTHING SELECTED");   
         } else if (this.pointerOverSelected()) {
             //this._compservice.comp.selected.interactive = true;
             //this._compservice.comp.selected.buttonMode = true;
@@ -408,7 +413,7 @@ export class CompComponent implements OnInit, AfterViewInit {
                     currentChild.buttonMode = false;
                 }
             }   
-            console.log("OVER SELECTED");
+            console.log("$$$$$$$$$$$$$$$$-OVER SELECTED");
 
         } else if (this.pointerOverNonSelected() && !this.pointerOverSelected()){
             for(let currentChild of this.app.stage.children) {
@@ -417,7 +422,7 @@ export class CompComponent implements OnInit, AfterViewInit {
                     currentChild.buttonMode = true;
                 }
             }  
-
+            console.log("$$$$$$$$$$$$$$$$-OVER NON SELECTD - NOT OVER SELECTED");  
         }
 
      }
@@ -428,8 +433,12 @@ export class CompComponent implements OnInit, AfterViewInit {
         let mouseXpos = this.app.renderer.plugins.interaction.mouse.global.x;
         let mouseYpos = this.app.renderer.plugins.interaction.mouse.global.y;
         let selected = this._compservice.comp.selected;
-        if(selected.xC  <=  mouseXpos && mouseXpos <= (selected.xC + selected.widthCurrent) && selected.yC  <=  mouseYpos && mouseYpos <= (selected.yC + selected.heightCurrent)) {
-            return true;
+        for(let currentChild of this.app.stage.children) {
+            if(currentChild.name !== "stage" && currentChild.name === selected.name) {
+                if(currentChild.x  <=  mouseXpos && mouseXpos <= (currentChild.x + currentChild.width) && currentChild.y  <=  mouseYpos && mouseYpos <= (currentChild.y + currentChild.height)) {
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -474,7 +483,7 @@ export class CompComponent implements OnInit, AfterViewInit {
 
      }
 
-     refreshObjects() {
+     refreshObjects(value: IObject[]) {
         
         // for(let currentChild of this.app.stage) {
         //     console.log("REMOVE CHILD");
@@ -493,11 +502,12 @@ export class CompComponent implements OnInit, AfterViewInit {
 
         for(let i = this._objectservice.objects.length-1; i > -1; i--) {
             //console.log("Check Type: " + this._objectservice.objects[i].objectType);
-            if(this._objectservice.objects[i].objectType === "text"){
+            if(value[i].objectType === "text"){
                 let textObj = null;
                 //setup text attributes
-                let style = new PIXI.TextStyle(this._objectservice.objects[i].style);
-                    textObj = new Text2(this._compservice.x, this._compservice.y, this._objectservice.objects[i].xC , this._objectservice.objects[i].yC, style, this._objectservice.objects[i].text, this._objectservice.objects[i].name, this._compservice, this._objectservice);
+                console.log("New x and y on refresh: " + value[i].xC + " " + value[i].yC);
+                let style = new PIXI.TextStyle(value[i].style);
+                    textObj = new Text2(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, style, value[i].text, value[i].name, this._compservice, this._objectservice);
                 //have selected variable set to text object when clicked
  
                 this.app.stage.addChild(textObj);

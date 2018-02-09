@@ -205,7 +205,7 @@ export class Text2 extends PIXI.Text {
     onDragEnd() {
         this.dragging = false;
         this.data = null;
-
+        console.log("LAST DATA: " + this.x + " " + this.y + " " + this.name);
         this._objectservice.updateObjectProperties(this, this._compService.comp.x, this._compService.comp.y);
 
     }
@@ -222,6 +222,8 @@ export class Text2 extends PIXI.Text {
         var newPosition = this.data.getLocalPosition(this.parent);
         this.x = newPosition.x + this.xOffset;
         this.y = newPosition.y + this.yOffset;
+        
     }
+    //this._objectservice.updateObjectProperties(this, this._compService.comp.x, this._compService.comp.y);
     }
 }
