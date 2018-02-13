@@ -60,6 +60,37 @@ export class AppComponent implements OnInit, OnChanges {
     // console.log(`dragelc: ${c.innerHTML}`);
   }
 
+
+  fileChangeVideo(event: EventTarget,callback=this.createVideo.bind(this)){
+    //console.log("Whats in:" + files[0].slice() );
+    // let test = files[0].slice();
+    // console.log("Blob: " + test + test.testgetAsText());
+
+
+
+    let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
+        let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
+        let files: FileList = target.files;
+        this.myFile = files[0];
+        //console.log(files[0].slice());
+        let reader = new FileReader();
+        
+        reader.readAsDataURL(files[0].slice());
+        //let imageBlob;
+        
+        reader.onload = function() {
+          let base64data = reader.result;                
+          //console.log("Data: " + base64data);
+          callback(base64data);
+          //this.createImage(base64data);
+
+      }
+    }
+
+
+
+
+
   fileChange(event: EventTarget,callback=this.createImage.bind(this)){
     //console.log("Whats in:" + files[0].slice() );
     // let test = files[0].slice();
@@ -205,6 +236,28 @@ export class AppComponent implements OnInit, OnChanges {
       this._compservice.setTimeLenght(num);
     }
 
+    createVideo(videoLoad: any) {
+      let obj: IObject = {
+        style: null,
+        name: this._objectService.newLayerName(),
+        objectType: "video",
+        text: null,
+        image: null,
+        video: videoLoad,
+        xC: 10,
+        yC: 10,
+        scaleCurrent: 1,
+        alphaCurrent: 1,
+        widthCurrent: 40,
+        heightCurrent: 40,
+        effect: []
+    };
+
+    //console.log("Obj: " + obj.image);
+    this._compservice.setSelectedNoEvent(obj);
+    this._objectService.setObjects(obj);
+    this._compservice.setSelected(obj);
+    }
 
     createImage(imageLoad: any) {
       let obj: IObject = {
@@ -212,6 +265,7 @@ export class AppComponent implements OnInit, OnChanges {
         name: this._objectService.newLayerName(),
         objectType: "image",
         text: null,
+        video: null,
         image: imageLoad,
         xC: 50,
         yC: 50,
@@ -260,6 +314,7 @@ export class AppComponent implements OnInit, OnChanges {
           objectType: "text",
           text: "place" + this._objectService.newLayerName(),
           image: null,
+          video: null,
           xC: 200,
           yC: 50,
           scaleCurrent: 1,

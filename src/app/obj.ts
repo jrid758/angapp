@@ -5,6 +5,7 @@ export interface IObject {
     name: string;
     objectType: string;
     image: any;
+    video: any;
     xC: number;
     yC: number;
     scaleCurrent: number;

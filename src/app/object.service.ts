@@ -21,6 +21,7 @@ export class ObjectService {
             objectType: "text",
             text: "placeholder3",
             image: null,
+            video: null,
             style: {
                 align: 'center',
                 breakWords: 'false',
@@ -103,6 +104,7 @@ export class ObjectService {
             objectType: "text",
             text: "place2",
             image: null,
+            video: null,
             style: {
                 align: 'center',
                 breakWords: 'false',
@@ -163,6 +165,7 @@ export class ObjectService {
             objectType: "text",
             text: "placehol1",
             image: null,
+            video: null,
             style: {
                 align: 'center',
                 breakWords: 'false',

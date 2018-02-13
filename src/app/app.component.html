@@ -10,6 +10,7 @@
             <label [style.visibility]="_compservice.comp.selected ? 'visible' : 'hidden'">Text Update: </label><input type="text" [value]='_compservice.comp.selected ? _compservice.comp.selected.text : ""' (input)="onTextChange($event.target.value)"  [style.visibility]="_compservice.comp.selected ? 'visible' : 'hidden'"/>
         
             <input type="file" #fileupload name="myFile" (change)="fileChange($event)"/>
+            <input type="file" #fileupload name="myFile" (change)="fileChangeVideo($event)"/>
  
             <!-- <span class="clear"></span> -->
         </div>

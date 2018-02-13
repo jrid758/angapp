@@ -9,6 +9,7 @@ import { ImageS } from "./image.component";
 import { Subject } from "rxjs/Subject";
 import 'rxjs/add/operator/skip';
 import * as _ from 'underscore';
+import { VideoS } from "./video.component";
 
 @Component({
     selector: 'comp',
@@ -551,6 +552,35 @@ export class CompComponent implements OnInit, AfterViewInit {
                 //have selected variable set to text object when clicked
  
                 
+            }
+
+            if(value[i].objectType === "video"){
+                console.log("Video^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+                //console.log("Did video work: " + value[i].video);
+
+                // let video = document.createElement("video");
+                // video.preload = "auto";
+                // video.loop = true;              // enable looping
+                // video.src = value[i].video;
+            
+                // PIXI.loader.reset();
+                // PIXI.loader.add(value[i].video);
+                //var texture = PIXI.Texture.fromVideoUrl(value[i].video);
+                let video = document.createElement("video");
+                video.src = value[i].video;
+                let texture = PIXI.Texture.fromVideo(value[i].video);
+                texture.baseTexture.source.autoplay = true;
+                texture.baseTexture.source.loop = true;
+                //let videoSprite = new PIXI.Sprite(texture);
+                let videoSprite = new VideoS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
+                videoSprite.width = 10;
+                videoSprite.height = 10;
+                // videoSprite.name = "Layer 4";
+                console.log("Whats Video Width: " + videoSprite.width);
+                this.app.stage.addChild(videoSprite);
+         
+                //video.setAttribute("src", value[i].video);
+                //console.log("Whats video: " + video.videoHeight);
             }
         }
 
