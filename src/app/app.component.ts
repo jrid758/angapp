@@ -79,9 +79,10 @@ export class AppComponent implements OnInit, OnChanges {
         //let imageBlob;
         
         reader.onload = function() {
-          let base64data = reader.result;                
+          let base64data = reader.result;
+          let madeLink = "<video type='video/mp4' src='"+base64data+"'></video>";               
           //console.log("Data: " + base64data);
-          callback(base64data);
+          callback(madeLink);
           //this.createImage(base64data);
 
       }
@@ -111,6 +112,9 @@ export class AppComponent implements OnInit, OnChanges {
         reader.onload = function() {
           let base64data = reader.result;                
           //console.log("Data: " + base64data);
+          // let madeLink = "<video width='400' ><source id='vid-source' src='"+base64data+"' type='video/mp4'></video>";
+          // callback(madeLink);
+          
           callback(base64data);
           //this.createImage(base64data);
 

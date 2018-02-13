@@ -154,6 +154,7 @@ export class CompComponent implements OnInit, AfterViewInit {
             //console.log("Frame");
             
             this.whatsSelected();
+            this.app.renderer.render(this.app.stage);
             requestAnimationFrame(this.update.bind(this));
         }
         
@@ -567,14 +568,19 @@ export class CompComponent implements OnInit, AfterViewInit {
                 // PIXI.loader.add(value[i].video);
                 //var texture = PIXI.Texture.fromVideoUrl(value[i].video);
                 let video = document.createElement("video");
-                video.src = value[i].video;
-                let texture = PIXI.Texture.fromVideo(value[i].video);
+                //video.src = value[i].video;
+                video.src = '../assets/videos/video.mp4';
+                console.log("Video source: " + video.src);
+                video.controls = true;
+                video.autoplay = true;
+                //document.body.appendChild(video);
+                let texture = PIXI.Texture.fromVideo(video);
                 texture.baseTexture.source.autoplay = true;
                 texture.baseTexture.source.loop = true;
                 //let videoSprite = new PIXI.Sprite(texture);
                 let videoSprite = new VideoS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
-                videoSprite.width = 10;
-                videoSprite.height = 10;
+                videoSprite.width = 100;
+                videoSprite.height = 100;
                 // videoSprite.name = "Layer 4";
                 console.log("Whats Video Width: " + videoSprite.width);
                 this.app.stage.addChild(videoSprite);
