@@ -582,36 +582,41 @@ export class CompComponent implements OnInit, AfterViewInit {
                 // PIXI.loader.reset();
                 // PIXI.loader.add(value[i].video);
                 //var texture = PIXI.Texture.fromVideoUrl(value[i].video);
-                let video = document.createElement("video");
-                //video.src = value[i].video;
-                video.src = '../assets/videos/video.mp4';
-                console.log("Video source: " + video.src);
-                video.controls = false;
-                video.autoplay = false;
-                video.pause();
-                //document.body.appendChild(video);
-                let texture = PIXI.Texture.fromVideo(video);
-                //texture.baseTexture.source.pause();
-                //texture.baseTexture.source.loop = false;
-                //let videoSprite = new PIXI.Sprite(texture);
+                // let video = document.createElement("video");
+                // video.src = value[i].video;
+                let loader = PIXI.loader;
+                loader.add('ivid','../assets/videos/video.mp4').load((loader) => {
+               
 
-                texture.baseTexture.source.currentTime = 1;
-                texture.baseTexture.source.pause();
-                let videoSprite = new VideoS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
-                // videoSprite.width = 100;
-                // videoSprite.height = 100;
-                // videoSprite.name = "Layer 4";
+                    //video.src = '../assets/videos/video.mp4';
+                    //console.log("Video source: " + video.src);
+                    // video.controls = false;
+                    // video.autoplay = false;
+                    // video.pause();
+                    //document.body.appendChild(video);
+                    
+                    let texture = PIXI.Texture.fromVideo(loader.resources['ivid'].texture);
+                    //texture.baseTexture.source.pause();
+                    //texture.baseTexture.source.loop = false;
+                    //let videoSprite = new PIXI.Sprite(texture);
 
-                
-                let tempName = videoSprite.name;
-                //console.log("Whats Video Width: " + videoSprite.width);
-                console.log("temChild name&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + tempName);
-                //let temChild = this.app.stage.getChildByName(tempName);
-                //console.log("temChild name&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + temChild);
-                this.app.stage.addChild(videoSprite);
+                    texture.baseTexture.source.currentTime = 1;
+                    texture.baseTexture.source.pause();
+                    let videoSprite = new VideoS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
+                    videoSprite.width = 100;
+                    videoSprite.height = 100;
+                    // videoSprite.name = "Layer 4";
+
+                    
+                    let tempName = videoSprite.name;
+                    //console.log("Whats Video Width: " + videoSprite.width);
+                    console.log("temChild name&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + tempName);
+                    //let temChild = this.app.stage.getChildByName(tempName);
+                    //console.log("temChild name&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + temChild);
+                    this.app.stage.addChild(videoSprite);
                 
     
-        
+                } );
 
 
                 
