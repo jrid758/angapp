@@ -152,6 +152,21 @@ export class CompComponent implements OnInit, AfterViewInit {
             //     }
             // }   
             //console.log("Frame");
+
+
+            //TESTING PAUSED VIDEO
+            // for(let currentChild of this.app.stage.children) {
+            //     //console.log("Current Child Name: " + currentChild.name);
+            //          //console.log("PAUSE " + currentChild.type);
+            //         if(currentChild.type === "video") {
+                        
+            //             currentChild.texture.baseTexture.source.currentTime = 1;
+            //             currentChild.texture.baseTexture.source.pause();
+            //             console.log("PAUSE");
+            //         }
+            // }
+
+
             
             this.whatsSelected();
             this.app.renderer.render(this.app.stage);
@@ -571,20 +586,36 @@ export class CompComponent implements OnInit, AfterViewInit {
                 //video.src = value[i].video;
                 video.src = '../assets/videos/video.mp4';
                 console.log("Video source: " + video.src);
-                video.controls = true;
-                video.autoplay = true;
+                video.controls = false;
+                video.autoplay = false;
+                video.pause();
                 //document.body.appendChild(video);
                 let texture = PIXI.Texture.fromVideo(video);
-                texture.baseTexture.source.autoplay = true;
-                texture.baseTexture.source.loop = true;
+                //texture.baseTexture.source.pause();
+                //texture.baseTexture.source.loop = false;
                 //let videoSprite = new PIXI.Sprite(texture);
+
+                texture.baseTexture.source.currentTime = 1;
+                texture.baseTexture.source.pause();
                 let videoSprite = new VideoS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
-                videoSprite.width = 100;
-                videoSprite.height = 100;
+                // videoSprite.width = 100;
+                // videoSprite.height = 100;
                 // videoSprite.name = "Layer 4";
-                console.log("Whats Video Width: " + videoSprite.width);
+
+                
+                let tempName = videoSprite.name;
+                //console.log("Whats Video Width: " + videoSprite.width);
+                console.log("temChild name&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + tempName);
+                //let temChild = this.app.stage.getChildByName(tempName);
+                //console.log("temChild name&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + temChild);
                 this.app.stage.addChild(videoSprite);
-         
+                
+    
+        
+
+
+                
+                
                 //video.setAttribute("src", value[i].video);
                 //console.log("Whats video: " + video.videoHeight);
             }
@@ -789,6 +820,20 @@ export class CompComponent implements OnInit, AfterViewInit {
 
     }
 
+    pauseVideo() {
+        for(let currentChild of this.app.stage.children) {
+            //console.log("Current Child Name: " + currentChild.name);
+                 console.log("PAUSE " + currentChild.type);
+                if(currentChild.type === "video") {
+                    
+                    currentChild.texture.baseTexture.source.currentTime = 1;
+                    currentChild.texture.baseTexture.source.pause();
+                    console.log("PAUSE");
+                }
+            }
+
+    }
+
     selectObject(value) {
                /////////////////////////
             //Crappy Selection of Objects
@@ -810,7 +855,7 @@ export class CompComponent implements OnInit, AfterViewInit {
                 var graphics = new PIXI.Graphics();
                 graphics.lineStyle(1, 0x0BFF70, 1);
                 graphics.beginFill(0xFF700B, 0);
-                console.log("GOT HERE");
+                console.log("GOT HERE " + this.selectedObject.width + " " + this.selectedObject.height);
                 graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
                 graphics.endFill();    
     

@@ -29,6 +29,7 @@ export class ImageS extends PIXI.Sprite {
     text: string;
     interactive: boolean;
     name: string;
+    type: string;
     //private clickedOn: Observable<string>;
     //public Oclicked = new Subject<string>();
 
@@ -38,6 +39,7 @@ export class ImageS extends PIXI.Sprite {
         super(image);
         console.log("&&&&&&&&&&&&&&&&&&&ServiceProp: " + _compService.comp.timeLength);
         this.name = name;
+        this.type = "image";
         //this.text = this.dText;
         console.log("Test is empty: " + x + _.isNumber(x) + " " + y + _.isNumber(y));
         if(!_.isNumber(x) && !_.isNumber(y)) {

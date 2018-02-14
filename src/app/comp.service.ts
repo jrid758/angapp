@@ -25,8 +25,8 @@ export class CompService {
         // );
         
         this.comp = {
-            x: 500,
-            y: 500,
+            x: 300,
+            y: 250,
             timeLength: 4,
             fps: 30,
             selected: null

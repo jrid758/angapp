@@ -29,6 +29,7 @@ export class Text2 extends PIXI.Text {
     text: string;
     interactive: boolean;
     name: string;
+    type: string;
     //private clickedOn: Observable<string>;
     //public Oclicked = new Subject<string>();
 
@@ -56,6 +57,7 @@ export class Text2 extends PIXI.Text {
         super(text,style);
         console.log("&&&&&&&&&&&&&&&&&&&ServiceProp: " + _compService.comp.timeLength);
         this.name = name;
+        this.type = "text";
         //this.text = this.dText;
         console.log("Test is empty: " + x + _.isNumber(x) + " " + y + _.isNumber(y));
         if(!_.isNumber(x) && !_.isNumber(y)) {
