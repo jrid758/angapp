@@ -7,7 +7,7 @@ import { ObjectService } from './object.service';
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { CompService } from './comp.service';
 import * as _ from 'underscore';
-import { basename } from 'path';
+//import { basename } from 'path';
 // import { ADDRCONFIG } from 'dns';
 
 

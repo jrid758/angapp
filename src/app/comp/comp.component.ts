@@ -877,6 +877,8 @@ export class CompComponent implements OnInit, AfterViewInit {
     pauseVideo() {
         for(let currentChild of this.app.stage.children) {
             //console.log("Current Child Name: " + currentChild.name);
+                currentChild.height = currentChild.height + 2;
+                currentChild.width = currentChild.width + 2;
                  console.log("PAUSE " + currentChild.type);
                 if(currentChild.type === "video") {
                     
