@@ -7,7 +7,7 @@ import { ObjectService } from "../object.service";
 import { Text2 } from "./text2.component";
 import { ImageS } from "./image.component";
 import { Subject } from "rxjs/Subject";
-import 'rxjs/add/operator/skip';
+//import 'rxjs/add/operator/skip';
 import * as _ from 'underscore';
 import { VideoS } from "./video.component";
 
@@ -160,7 +160,7 @@ export class CompComponent implements OnInit, AfterViewInit {
             //          //console.log("PAUSE " + currentChild.type);
             //         if(currentChild.type === "video") {
                         
-            //             currentChild.texture.baseTexture.source.currentTime = 1;
+            //             currentChild.texture.baseTexture.source.currentTime = 3;
             //             currentChild.texture.baseTexture.source.pause();
             //             console.log("PAUSE");
             //         }
@@ -512,10 +512,10 @@ export class CompComponent implements OnInit, AfterViewInit {
         // console.log("Remove Children " + howManyChildren);
         // this.app.stage.removeChildren(0, howManyChildren);
 
-         let loader = PIXI.loader;
-         loader.reset();
-         loader.add('../assets/videos/video.mp4').load((loader,resources) => {
-            console.log("Loading*************************");
+        //  let loader = PIXI.loader;
+        //  loader.reset();
+        //  loader.add('../assets/videos/video.mp4').load((loader,resources) => {
+        //     console.log("Loading*************************");
         while(this.app.stage.children[0]) { this.app.stage.removeChild(this.app.stage.children[0]); }
 
 
@@ -588,13 +588,24 @@ export class CompComponent implements OnInit, AfterViewInit {
                 //var texture = PIXI.Texture.fromVideoUrl(value[i].video);
 
 
-
+                 //  let loader = PIXI.loader;
+                 //  loader.reset();
+                  //  loader.add('../assets/videos/video.mp4').load((loader,resources) => {
 
                 // //********************************************** */
-                // let video = document.createElement("video");
-                // video.src = '../assets/videos/video.mp4';
+                let video = document.createElement("video");
+                //video.src = '../assets/videos/video.mp4';
+                video.src = value[i].video;
+                // video.currentTime = 1;
+                // video.pause();
 
-                // let texture = PIXI.Texture.fromVideo(video);
+                //  let loader = PIXI.loader;
+                // loader.reset();
+                // loader.add('vid',video).load((loader,resources) => {
+
+                // PIXI.loader.resources[image].texture;
+
+                let texture = PIXI.Texture.fromVideo(video);
                 // let videoSprite = new VideoS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
                 // this.app.stage.addChild(videoSprite);
                 // // video.src = value[i].video;
@@ -611,26 +622,45 @@ export class CompComponent implements OnInit, AfterViewInit {
                     // video.autoplay = false;
                     // video.pause();
                     //document.body.appendChild(video);
-                    let texture = new PIXI.VideoBaseTexture.fromUrl('../assets/videos/video.mp4');
+                    //let texture = PIXI.Texture.fromVideo(value[i].video);
+                    //let texture = PIXI.Texture.fromVideo('../assets/videos/video.mp4');
                     //let texture = PIXI.Texture.fromVideo(resources.ivid.texture);
                     //texture.baseTexture.source.pause();
                     //texture.baseTexture.source.loop = false;
                     //let videoSprite = new PIXI.Sprite(texture);
 
-                    texture.baseTexture.source.currentTime = 1;
-                    texture.baseTexture.source.pause();
+                    // texture.baseTexture.source.currentTime = 1;
+                    // texture.baseTexture.source.pause();
+                    // texture.baseTexture.on('loaded', function () {
+                    //      texture.baseTexture.source.currentTime = 1;
+                    //         texture.baseTexture.source.pause();
+                    // });
                     let videoSprite = new VideoS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
-                    // videoSprite.width = 100;
-                    // videoSprite.height = 100;
+                    
+                    //videoSprite.width = 10;
+                    //videoSprite.height = 10;
                     // videoSprite.name = "Layer 4";
-
+              
+                    //videoSprite.basetext = 10;
                     
                     let tempName = videoSprite.name;
                     //console.log("Whats Video Width: " + videoSprite.width);
-                    console.log("temChild name&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + tempName);
+                    console.log("temChild name&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + videoSprite.height);
                     //let temChild = this.app.stage.getChildByName(tempName);
                     //console.log("temChild name&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& " + temChild);
                     this.app.stage.addChild(videoSprite);
+
+                    // //TESTING PAUSED VIDEO
+                    // for(let currentChild of this.app.stage.children) {
+                    //     //console.log("Current Child Name: " + currentChild.name);
+                    //         //console.log("PAUSE " + currentChild.type);
+                    //         if(currentChild.type === "video") {
+                                
+                    //             currentChild.texture.baseTexture.source.currentTime = 1;
+                    //             currentChild.texture.baseTexture.source.pause();
+                    //             console.log("PAUSE");
+                    //         }
+                    // }
                 
     
                 // } );
@@ -693,7 +723,7 @@ export class CompComponent implements OnInit, AfterViewInit {
 
         // }
 
-      });        
+    //   });        
      }
     
      imageConfig(x, y, xC, yC, image, name, oc, ob){

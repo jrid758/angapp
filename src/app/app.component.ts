@@ -7,6 +7,7 @@ import { ObjectService } from './object.service';
 import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 import { CompService } from './comp.service';
 import * as _ from 'underscore';
+import { basename } from 'path';
 // import { ADDRCONFIG } from 'dns';
 
 
@@ -71,8 +72,11 @@ export class AppComponent implements OnInit, OnChanges {
     let eventObj: MSInputMethodContext = <MSInputMethodContext> event;
         let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
         let files: FileList = target.files;
-        this.myFile = files[0];
-        //console.log(files[0].slice());
+        //this.myFile = files[0];
+        //console.log("W" + files[0].slice());
+
+        //callback(files[0].slice());
+
         let reader = new FileReader();
         
         reader.readAsDataURL(files[0].slice());
@@ -82,6 +86,9 @@ export class AppComponent implements OnInit, OnChanges {
           let base64data = reader.result;
           //let madeLink = "<video type='video/mp4' src='"+base64data+"'></video>";               
           //console.log("Data: " + base64data);
+          base64data = base64data.replace("data:","data:video/mp4");
+          //let binary = atob(base64data);
+          //console.log(base64data);
           callback(base64data);
           //this.createImage(base64data);
 
@@ -103,18 +110,22 @@ export class AppComponent implements OnInit, OnChanges {
         let target: HTMLInputElement = <HTMLInputElement> eventObj.target;
         let files: FileList = target.files;
         this.myFile = files[0];
+        
         //console.log(files[0].slice());
         let reader = new FileReader();
         
         reader.readAsDataURL(files[0].slice());
+        //reader.readAsDataURL(this.myFile);
         //let imageBlob;
         
         reader.onload = function() {
+          console.log("Data loaded");
           let base64data = reader.result;                
           //console.log("Data: " + base64data);
-          // let madeLink = "<video width='400' ><source id='vid-source' src='"+base64data+"' type='video/mp4'></video>";
+          //let madeLink = "<video src='"+base64data+"' type='video/mp4'></video>";
           // callback(madeLink);
-          
+          base64data = base64data.replace("data:","data:video/mp4");
+          //console.log(base64data);
           callback(base64data);
           //this.createImage(base64data);
 
@@ -257,8 +268,9 @@ export class AppComponent implements OnInit, OnChanges {
         effect: []
     };
 
-    //console.log("Obj: " + obj.image);
+    //console.log("Obj: " + obj.video);
     this._compservice.setSelectedNoEvent(obj);
+    
     this._objectService.setObjects(obj);
     this._compservice.setSelected(obj);
     }
