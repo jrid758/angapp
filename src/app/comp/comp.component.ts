@@ -512,6 +512,10 @@ export class CompComponent implements OnInit, AfterViewInit {
         // console.log("Remove Children " + howManyChildren);
         // this.app.stage.removeChildren(0, howManyChildren);
 
+         let loader = PIXI.loader;
+         loader.reset();
+         loader.add('../assets/videos/video.mp4').load((loader,resources) => {
+            console.log("Loading*************************");
         while(this.app.stage.children[0]) { this.app.stage.removeChild(this.app.stage.children[0]); }
 
 
@@ -582,20 +586,33 @@ export class CompComponent implements OnInit, AfterViewInit {
                 // PIXI.loader.reset();
                 // PIXI.loader.add(value[i].video);
                 //var texture = PIXI.Texture.fromVideoUrl(value[i].video);
-                // let video = document.createElement("video");
-                // video.src = value[i].video;
-                let loader = PIXI.loader;
-                loader.add('ivid','../assets/videos/video.mp4').load((loader) => {
-               
 
+
+
+
+                // //********************************************** */
+                // let video = document.createElement("video");
+                // video.src = '../assets/videos/video.mp4';
+
+                // let texture = PIXI.Texture.fromVideo(video);
+                // let videoSprite = new VideoS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
+                // this.app.stage.addChild(videoSprite);
+                // // video.src = value[i].video;
+                // //********************************************** */
+
+
+                // let loader = PIXI.loader;
+                // loader.add('ivid','../assets/videos/video.mp4').load((loader,resources) => {
+               
+                    console.log("Video Loaded");
                     //video.src = '../assets/videos/video.mp4';
                     //console.log("Video source: " + video.src);
                     // video.controls = false;
                     // video.autoplay = false;
                     // video.pause();
                     //document.body.appendChild(video);
-                    
-                    let texture = PIXI.Texture.fromVideo(loader.resources['ivid'].texture);
+                    let texture = new PIXI.VideoBaseTexture.fromUrl('../assets/videos/video.mp4');
+                    //let texture = PIXI.Texture.fromVideo(resources.ivid.texture);
                     //texture.baseTexture.source.pause();
                     //texture.baseTexture.source.loop = false;
                     //let videoSprite = new PIXI.Sprite(texture);
@@ -603,8 +620,8 @@ export class CompComponent implements OnInit, AfterViewInit {
                     texture.baseTexture.source.currentTime = 1;
                     texture.baseTexture.source.pause();
                     let videoSprite = new VideoS(this._compservice.x, this._compservice.y, value[i].xC , value[i].yC, texture, value[i].name, this._compservice, this._objectservice);
-                    videoSprite.width = 100;
-                    videoSprite.height = 100;
+                    // videoSprite.width = 100;
+                    // videoSprite.height = 100;
                     // videoSprite.name = "Layer 4";
 
                     
@@ -616,7 +633,7 @@ export class CompComponent implements OnInit, AfterViewInit {
                     this.app.stage.addChild(videoSprite);
                 
     
-                } );
+                // } );
 
 
                 
@@ -675,6 +692,8 @@ export class CompComponent implements OnInit, AfterViewInit {
 
 
         // }
+
+      });        
      }
     
      imageConfig(x, y, xC, yC, image, name, oc, ob){

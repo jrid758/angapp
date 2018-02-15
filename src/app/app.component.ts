@@ -80,9 +80,9 @@ export class AppComponent implements OnInit, OnChanges {
         
         reader.onload = function() {
           let base64data = reader.result;
-          let madeLink = "<video type='video/mp4' src='"+base64data+"'></video>";               
+          //let madeLink = "<video type='video/mp4' src='"+base64data+"'></video>";               
           //console.log("Data: " + base64data);
-          callback(madeLink);
+          callback(base64data);
           //this.createImage(base64data);
 
       }
