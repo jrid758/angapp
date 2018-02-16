@@ -69,13 +69,29 @@ export class CompComponent implements OnInit, AfterViewInit {
                         //this.initObjects(this.app.renderer,this.app.stage, this.objectTemp);
                         //console.log("Value" + value);
                         console.log("Objects Refreshed");
-                        this.refreshObjects(value);
+                        //this.refreshObjects(value);
+                        this.refreshObjects2();
 
                     //}
                 },
                 error => {
                    console.log("had error: " + error);
                 });
+
+
+                this._objectservice.newObject.subscribe(value => {
+        
+                    this.refreshObjects(value);
+
+                    //  for(let currentChild of this.app.stage.children) {
+                    //     if(currentChild.name !== "stage" || currentChild.name !== value.name) {
+                    //         currentChild.interactive = false;
+                    //         currentChild.buttonMode = false;
+                    //     }
+                    // }  
+                });
+
+
 
     }
 
@@ -229,7 +245,8 @@ export class CompComponent implements OnInit, AfterViewInit {
         } else {
             this.updateRun = true;
             this.aniPreviewRun = false;
-            this.refreshObjects(this._objectservice.objects);
+            this.refreshObjects2();
+            //this.refreshObjects(this._objectservice.objects);
             this.update();
         }
         
@@ -500,6 +517,35 @@ export class CompComponent implements OnInit, AfterViewInit {
          while(this.app.stage.children[0]) { this.app.stage.removeChild(this.app.stage.children[0]); }
 
      }
+
+
+     refreshObjects2() {
+        // for(let currentChild of this.app.stage.children) {
+        //     currentChild.name
+        // }   
+
+        for(let obj of this._objectservice.objects) {
+            let child = this.app.stage.getChildByName(obj.name);
+                child.text = obj.text;
+                child.x = obj.xC;
+                child.y = obj.yC;
+                //child.width = obj.widthCurrent;
+                child.height = obj.heightCurrent;
+                child.alpha = obj.alphaCurrent;
+                
+                //child.children[0].width = child.width;
+                //child.scale = obj.scaleCurrent;
+                console.log(child.x + " " + child.y + " " + child.width + " " + child.height + " " + child.scale);
+        }   
+
+
+     }
+
+    
+    addNewObject(value: IObject[]) {
+        this.refreshObjects(value);
+    }
+
 
      refreshObjects(value: IObject[]) {
         
@@ -875,18 +921,20 @@ export class CompComponent implements OnInit, AfterViewInit {
     }
 
     pauseVideo() {
-        for(let currentChild of this.app.stage.children) {
-            //console.log("Current Child Name: " + currentChild.name);
-                currentChild.height = currentChild.height + 2;
-                currentChild.width = currentChild.width + 2;
-                 console.log("PAUSE " + currentChild.type);
-                if(currentChild.type === "video") {
+        // for(let currentChild of this.app.stage.children) {
+        //     //console.log("Current Child Name: " + currentChild.name);
+        //         currentChild.height = currentChild.height + 2;
+        //         currentChild.width = currentChild.width + 2;
+        //          console.log("PAUSE " + currentChild.type);
+        //         if(currentChild.type === "video") {
                     
-                    currentChild.texture.baseTexture.source.currentTime = 1;
-                    currentChild.texture.baseTexture.source.pause();
-                    console.log("PAUSE");
-                }
-            }
+        //             currentChild.texture.baseTexture.source.currentTime = 1;
+        //             currentChild.texture.baseTexture.source.pause();
+        //             console.log("PAUSE");
+        //         }
+        //     }
+
+        this.refreshObjects2();
 
     }
 

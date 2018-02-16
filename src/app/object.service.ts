@@ -10,6 +10,7 @@ export class ObjectService {
 
     layerNumber: number;
     objectsUpdated = new Subject<any>(); //needs to be looked at "any"
+    newObject = new Subject<any>(); //needs to be looked at "any"
 
 
     constructor() {
@@ -295,7 +296,8 @@ export class ObjectService {
 
     setObjects(insert: IObject): void {
         this.objects.unshift(insert);
-        this.objectsUpdated.next(this.objects);
+        this.newObject.next(this.objects);
+        //this.objectsUpdated.next(this.objects);
     }
 
     updateAllObjects(newArray: IObject[]): void {
@@ -453,7 +455,7 @@ export class ObjectService {
             }
         }
         this.consoleAllObjects();
-        this.objectsUpdated.next(this.objects);
+        this.newObject.next(this.objects);
 
 
     }
