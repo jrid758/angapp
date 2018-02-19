@@ -529,8 +529,9 @@ export class CompComponent implements OnInit, AfterViewInit {
                 child.text = obj.text;
                 child.x = obj.xC;
                 child.y = obj.yC;
+                //////Maybe shouldn't update these
                 //child.width = obj.widthCurrent;
-                child.height = obj.heightCurrent;
+                //child.height = obj.heightCurrent;
                 child.alpha = obj.alphaCurrent;
                 
                 //child.children[0].width = child.width;
@@ -738,13 +739,13 @@ export class CompComponent implements OnInit, AfterViewInit {
                     }
             }
             //this.selectedObject = this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)];
-            var graphics = new PIXI.Graphics();
-            graphics.lineStyle(1, 0x0BFF70, 1);
-            graphics.beginFill(0xFF700B, 0);
+            // var graphics = new PIXI.Graphics();
+            // graphics.lineStyle(1, 0x0BFF70, 1);
+            // graphics.beginFill(0xFF700B, 0);
            
-            graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
-            graphics.endFill();    
-            this.selectedObject.addChild(graphics);
+            // graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
+            // graphics.endFill();    
+            this.selectedObject.addChild(this.createSquare());
        }
 
        
@@ -954,16 +955,36 @@ export class CompComponent implements OnInit, AfterViewInit {
                         this.selectedObject = currentChild;
                     }
                 }   
-    
+                
+                let w = 0;
+                let h = 0;
+
+                // let squares = [
+                //     // this.createSquare(w-150, h-150),
+                //     // this.createSquare(w+150, h-150),
+                //     // this.createSquare(w+150, h+150),
+                //     // this.createSquare(w-150, h+150)
+                //     this.createSquare(w-10, h-10),
+                //     this.createSquare(w+10, h-10),
+                //     this.createSquare(w+10, h+10),
+                //     this.createSquare(w-10, h+10)
+                // ]; 
+                
+                //let quad = squares.map((s) => { return s.position });
+                //squares.forEach((s)=>{ this.selectedObject.addChild(s); });
+
+
                 //this.selectedObject = this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)];
-                var graphics = new PIXI.Graphics();
-                graphics.lineStyle(1, 0x0BFF70, 1);
-                graphics.beginFill(0xFF700B, 0);
-                console.log("GOT HERE " + this.selectedObject.width + " " + this.selectedObject.height);
-                graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
-                graphics.endFill();    
-    
-                this.selectedObject.addChild(graphics);
+
+                // var graphics = new PIXI.Graphics();
+                // graphics.lineStyle(1, 0x0BFF70, 1);
+                // graphics.beginFill(0xFF700B, 0);
+                // console.log("GOT HERE " + this.selectedObject.width + " " + this.selectedObject.height);
+                // graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
+                // graphics.endFill();    
+                this.selectedObject.addChild(this.createSquare());
+
+
                 //console.log("FROM COMP: " + value.name + " " + value.text + " child height " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].width + " width " + this.app.stage.children[this._objectservice.getLayerPositionInArray(value.name)].height);
                 } else {
                      //Remove all green boxes
@@ -971,6 +992,26 @@ export class CompComponent implements OnInit, AfterViewInit {
                         currentChild.removeChild(currentChild.children[0]);
                     }
                 }
+    }
+
+
+    // createSquare(x, y) {
+    //     var square = new PIXI.Sprite(PIXI.Texture.WHITE);
+    //     square.tint = 0xff0000;
+    //     square.factor = 1;
+    //     square.anchor.set(0.5);
+    //     square.position.set(x, y);
+    //     return square;
+    // }
+
+     createSquare() {
+        var graphics = new PIXI.Graphics();
+        graphics.lineStyle(1, 0x0BFF70, 1);
+        graphics.beginFill(0xFF700B, 0);
+        console.log("GOT HERE " + this.selectedObject.width + " " + this.selectedObject.height);
+        graphics.drawRect(0, 0, this.selectedObject.width, this.selectedObject.height);
+        graphics.endFill();    
+        return graphics;
     }
 
    

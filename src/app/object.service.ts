@@ -455,6 +455,7 @@ export class ObjectService {
             }
         }
         this.consoleAllObjects();
+        //this is kind of a hack
         this.newObject.next(this.objects);
 
 
