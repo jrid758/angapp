@@ -533,8 +533,10 @@ export class CompComponent implements OnInit, AfterViewInit {
                 //child.width = obj.widthCurrent;
                 //child.height = obj.heightCurrent;
                 child.alpha = obj.alphaCurrent;
-                
-                //child.children[0].width = child.width;
+                if(child.children.length > 0) {
+                    child.children[0].width =  child.width;
+                    obj.widthCurrent = child.width;
+                }
                 //child.scale = obj.scaleCurrent;
                 console.log(child.x + " " + child.y + " " + child.width + " " + child.height + " " + child.scale);
         }   
