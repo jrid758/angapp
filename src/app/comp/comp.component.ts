@@ -264,6 +264,15 @@ export class CompComponent implements OnInit, AfterViewInit {
             if(element.name !== "stage"){
               let currentObject = this._objectservice.getObjectByLayerName(element.name);
             
+                if(element.type == "video") {
+                    let current = this.currentAniTime(startTime, now);
+                    element.texture.baseTexture.source.pause();
+                    element.texture.baseTexture.source.currentTime = current/1000;
+                    element.texture.baseTexture.source.play();
+                    // console.log("Video TIme: " + current/1000);
+                }
+
+
             for(let effect of currentObject.effect) {
                 let timeStart = effect.timeStart * 1000;
                 let timeEnd = effect.timeEnd * 1000;
