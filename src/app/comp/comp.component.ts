@@ -34,6 +34,7 @@ export class CompComponent implements OnInit, AfterViewInit {
     bottom: any;
     updateRun: boolean;
     aniPreviewRun: boolean;
+    renderRun: boolean = false;
    
 
 
@@ -251,6 +252,116 @@ export class CompComponent implements OnInit, AfterViewInit {
         }
         
      }
+
+
+     startRendering(then = Date.now(), startime = Date.now()){
+        let now = 0;
+        let start = true;
+        let fixedStartTime = startime;
+        //this.updateRun = false;
+        while(start) {
+            
+            this.runAnimationOnChildren(fixedStartTime, now);
+            now =+ 1/this._compservice.comp.fps;
+            //Take snap shot of canvas
+            //let canvasPic = <HTMLCanvasElement> document.getElementById('canvas');
+            //let canvasPic = this.compView.nativeElement.value;
+            //let canvasPic = this.compView.nativeElement.element;
+            let canvasPic:HTMLCanvasElement = this.compView.nativeElement.value;
+            let imgPic = canvasPic.toDataURL("image/png");
+            //document.body.appendChild(imgPic); 
+            if(now > this._compservice.comp.timeLength) {
+                start = false;
+            }
+
+
+        }
+            
+    
+        this.updateRun = true;
+        this.refreshObjects2();
+        //this.refreshObjects(this._objectservice.objects);
+        this.update();
+     
+        
+     }
+
+    //  startRendering(renderer, stage, timeLenofComp, goAni, go, FPS, GLOBAL) {
+    //     goAni = true;
+    //     go = false;
+    //     let startTime = 0;
+    //     let now = 0;
+    //     let timeCode = 0;
+    //     let howLongComp = this.timeLengthofComp();
+    //     let moveon = true;
+    //     this.saveChildrenCurrentState(stage.children);
+    //     this.retrieveSliderStartEnds(stage);
+    //     //this.highlightSquare.clear();
+    //     this.removeHighlightSquare(GLOBAL.selected, stage);
+    //     console.log("Time Length inside of function:--------------------------------------------- " + this.timeLengthofComp());
+    //     //ipc.send('cleanTempFolder');
+    //     while(goAni){
+    //              console.log("What Time Now" + now);
+    //             //run animation on children
+    //             this.runAnimationOnChildren(renderer, stage, startTime, now);
+    //             //update stage
+    //             renderer.render(stage);
+    //             now += 1000/FPS;
+
+    //             //Take snap shot of canvas
+    //             let canvasPic = $("#canvas2");
+    //             let imgPic = canvasPic[0].toDataURL("image/png");
+                
+
+    //               if(moveon == true) {
+    //                 ipc.send('cleanTempFolder', imgPic, this.timeCodePadWithZeros(timeCode));
+    //                 this.sleep(2000);
+    //                 moveon = false;
+    //               } else {
+    //                   ipc.send('frame-rendered', imgPic, this.timeCodePadWithZeros(timeCode));
+    //               }
+          
+    //                 console.log("Time code before: " + timeCode);
+    //                 timeCode++;
+                    
+    //                 console.log("Time code after: " + timeCode);
+    //                 //ipc.send('frame-rendered', imgPic, this.timeCodePadWithZeros(timeCode));
+              
+    //         if(this.endAnimation(startTime, now, howLongComp)) {
+    //             goAni = false;
+    //             go = true;
+    //             ipc.send('renderMovie');
+    //             this.restStageElementsToOriginalState(stage);
+    //          }
+    //     }
+    //     this.createHighlightSquare(GLOBAL.selected);
+    //     this.update(go, renderer, stage, GLOBAL);
+    //     return;
+    // }
+
+     sleep(miliseconds) {
+     var currentTime = new Date().getTime();
+
+     while (currentTime + miliseconds >= new Date().getTime()) {
+      }
+    }
+
+
+    timeCodePadWithZeros(timeCode) {
+        let sendTimeCode = timeCode;
+        if(timeCode < 10){
+            sendTimeCode = "000" + timeCode;
+        } else if(timeCode > 9 && timeCode < 100) {
+            sendTimeCode = "00" + timeCode;
+        } else if(timeCode > 99 && timeCode < 1000) {
+            sendTimeCode = "0" + timeCode;
+        } else {
+                    //do nothing
+        }
+        return sendTimeCode;
+    }
+
+
 
 
      runAnimationOnChildren(startTime, now){
