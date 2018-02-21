@@ -274,8 +274,8 @@ export class CompComponent implements OnInit, AfterViewInit {
             console.log("Adding: " + adding +" Startime: " + fixedStartTime + " Now: " + now);
             
             this.runAnimationOnChildren(fixedStartTime, now);
-            
-            
+            //this.app.renderer(this.app.stage);
+            this.app.renderer.render(this.app.stage);
             //Take snap shot of canvas
             //let canvasPic = <HTMLCanvasElement> document.getElementById('canvas');
             //let canvasPic = this.compView.nativeElement.value;
@@ -290,7 +290,7 @@ export class CompComponent implements OnInit, AfterViewInit {
             if(shouldStop > this._compservice.comp.timeLength) {
                 start = false;
             }
-
+            //this.sleep(100);
 
         }
             
@@ -303,7 +303,7 @@ export class CompComponent implements OnInit, AfterViewInit {
         //document.body.appendChild(images[60]);
         console.log(images[10]);
         let newImage = new Image();
-        newImage.src = images[110];
+        newImage.src = images[100];
         let imageOnPage = document.getElementById('test');
         this.compTest.nativeElement.appendChild(newImage);
         //imageOnPage.innerHTML('<img src=' + images[60] + ' >');
