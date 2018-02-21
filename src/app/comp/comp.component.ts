@@ -9,6 +9,9 @@ import { ImageS } from "./image.component";
 import { Subject } from "rxjs/Subject";
 //import 'rxjs/add/operator/skip';
 import * as _ from 'underscore';
+import * as ffmpeg from "ffmpeg.js/ffmpeg-mp4.js";
+//import * as fs from "fs";
+
 import { VideoS } from "./video.component";
 
 @Component({
@@ -22,6 +25,7 @@ export class CompComponent implements OnInit, AfterViewInit {
 
 
     @ViewChild('compView') compView: ElementRef;
+    @ViewChild('compTest') compTest: ElementRef;
     time: string = "hello";
     app: any;
     rendererPixi;
@@ -98,18 +102,21 @@ export class CompComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         //this.rendererPixi = PIXI.autoDetectRenderer(  {width: this.compLength, height: this.compHeight, antialias: true});
+        let myView = document.getElementById('canvas');
        this.app = new PIXI.Application({ 
         width: this._compservice.x,         // default: 800
         height: this._compservice.y,        // default: 600
+        view: myView,
         antialias: true,    // default: false
         transparent: false, // default: false
-        resolution: 1       // default: 1
+        resolution: 1,       // default: 1
+        preserveDrawingBuffer:true
       });
         this.app.renderer.backgroundColor =0xFF0000;
         this.app.renderer.autoResize = true;
 
-
-        this.compView.nativeElement.appendChild(this.app.view);
+        /////////////Was using this, but changed from div to canvas
+        //this.compView.nativeElement.appendChild(this.app.view);
 
     
 
@@ -255,22 +262,32 @@ export class CompComponent implements OnInit, AfterViewInit {
 
 
      startRendering(then = Date.now(), startime = Date.now()){
-        let now = 0;
+        let now = startime;
         let start = true;
         let fixedStartTime = startime;
+        let images = [];
         //this.updateRun = false;
         while(start) {
+            let adding = ((1/this._compservice.comp.fps)*1000);
+            //now.setSeconds(now.getSeconds() + 10);
+            now += adding;
+            console.log("Adding: " + adding +" Startime: " + fixedStartTime + " Now: " + now);
             
             this.runAnimationOnChildren(fixedStartTime, now);
-            now =+ 1/this._compservice.comp.fps;
+            
+            
             //Take snap shot of canvas
             //let canvasPic = <HTMLCanvasElement> document.getElementById('canvas');
             //let canvasPic = this.compView.nativeElement.value;
             //let canvasPic = this.compView.nativeElement.element;
-            let canvasPic:HTMLCanvasElement = this.compView.nativeElement.value;
+            //let canvasPic:HTMLCanvasElement = this.compView.nativeElement.value;
+            let canvasPic = <HTMLCanvasElement> document.getElementById('canvas');
             let imgPic = canvasPic.toDataURL("image/png");
+            images.push(imgPic);
             //document.body.appendChild(imgPic); 
-            if(now > this._compservice.comp.timeLength) {
+            let shouldStop = (now - fixedStartTime)/1000;
+            console.log("shouldStop: " + shouldStop + "Timelenght: " + this._compservice.comp.timeLength);
+            if(shouldStop > this._compservice.comp.timeLength) {
                 start = false;
             }
 
@@ -282,7 +299,16 @@ export class CompComponent implements OnInit, AfterViewInit {
         this.refreshObjects2();
         //this.refreshObjects(this._objectservice.objects);
         this.update();
-     
+        console.log(")))))))))))))))))))))))))))) " + images.length);
+        //document.body.appendChild(images[60]);
+        console.log(images[10]);
+        let newImage = new Image();
+        newImage.src = images[110];
+        let imageOnPage = document.getElementById('test');
+        this.compTest.nativeElement.appendChild(newImage);
+        //imageOnPage.innerHTML('<img src=' + images[60] + ' >');
+        //this.compView.nativeElement.appendChild(newImage);
+        //document.appendChild(newImage);
         
      }
 
@@ -365,6 +391,7 @@ export class CompComponent implements OnInit, AfterViewInit {
 
 
      runAnimationOnChildren(startTime, now){
+        let current = this.currentAniTime(startTime, now);
          //renderer, stage, startTime, now
         //Loop through of the children 
          //console.log("Inside What Render Width(runAnimationOnChildren): " + renderer.width);
@@ -376,7 +403,7 @@ export class CompComponent implements OnInit, AfterViewInit {
               let currentObject = this._objectservice.getObjectByLayerName(element.name);
             
                 if(element.type == "video") {
-                    let current = this.currentAniTime(startTime, now);
+                    current = this.currentAniTime(startTime, now);
                     element.texture.baseTexture.source.pause();
                     element.texture.baseTexture.source.currentTime = current/1000;
                     element.texture.baseTexture.source.play();
@@ -452,6 +479,7 @@ export class CompComponent implements OnInit, AfterViewInit {
                             if(timeEnd < this.currentAniTime(startTime, now)){
                                 element.x = effect.xE;
                                 element.y = effect.yE;
+                                console.log("TIME END***********************");
                             }
 
                         }
