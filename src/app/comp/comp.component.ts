@@ -9,7 +9,8 @@ import { ImageS } from "./image.component";
 import { Subject } from "rxjs/Subject";
 //import 'rxjs/add/operator/skip';
 import * as _ from 'underscore';
-import * as ffmpeg from "ffmpeg.js/ffmpeg-mp4.js";
+//import * as ffmpeg from "ffmpeg.js/ffmpeg-mp4.js";
+let worker = new Worker("node_modules/ffmpeg.js/ffmpeg-worker-mp4.js");
 //import * as fs from "fs";
 
 import { VideoS } from "./video.component";
@@ -268,10 +269,8 @@ export class CompComponent implements OnInit, AfterViewInit {
         let images = [];
         //this.updateRun = false;
         while(start) {
-            let adding = ((1/this._compservice.comp.fps)*1000);
-            //now.setSeconds(now.getSeconds() + 10);
-            now += adding;
-            console.log("Adding: " + adding +" Startime: " + fixedStartTime + " Now: " + now);
+            
+            
             
             this.runAnimationOnChildren(fixedStartTime, now);
             //this.app.renderer(this.app.stage);
@@ -282,11 +281,17 @@ export class CompComponent implements OnInit, AfterViewInit {
             //let canvasPic = this.compView.nativeElement.element;
             //let canvasPic:HTMLCanvasElement = this.compView.nativeElement.value;
             let canvasPic = <HTMLCanvasElement> document.getElementById('canvas');
-            let imgPic = canvasPic.toDataURL("image/png");
-            images.push(imgPic);
+            let imgPic = canvasPic.toDataURL("image/jpg", 1);
+            let convert = this.convertDataURIToBinary(imgPic);
+            images.push(convert);
             //document.body.appendChild(imgPic); 
             let shouldStop = (now - fixedStartTime)/1000;
             console.log("shouldStop: " + shouldStop + "Timelenght: " + this._compservice.comp.timeLength);
+            
+            let adding = ((1/this._compservice.comp.fps)*1000);
+            //now.setSeconds(now.getSeconds() + 10);
+            now += adding;
+            console.log("Adding: " + adding +" Startime: " + fixedStartTime + " Now: " + now);
             if(shouldStop > this._compservice.comp.timeLength) {
                 start = false;
             }
@@ -301,14 +306,65 @@ export class CompComponent implements OnInit, AfterViewInit {
         this.update();
         console.log(")))))))))))))))))))))))))))) " + images.length);
         //document.body.appendChild(images[60]);
-        console.log(images[10]);
-        let newImage = new Image();
-        newImage.src = images[100];
-        let imageOnPage = document.getElementById('test');
-        this.compTest.nativeElement.appendChild(newImage);
+        //console.log(images[10]);
+
+        /////////////////////
+        ///Test for checking images
+        /////////////////
+        // let newImage = new Image();
+        // newImage.src = images[100];
+        // let imageOnPage = document.getElementById('test');
+        // this.compTest.nativeElement.appendChild(newImage);
+
+
         //imageOnPage.innerHTML('<img src=' + images[60] + ' >');
         //this.compView.nativeElement.appendChild(newImage);
         //document.appendChild(newImage);
+
+
+
+        worker.onmessage = function (e) {
+            var msg = e.data;
+        
+            switch (msg.type) {
+                case "ready":
+                    console.log('mp4 worker ready');
+                    break;
+                case "stdout":
+                    console.log(msg.data);
+                    break;
+                case "stderr":
+                    console.log(msg.data);
+                    break;
+        
+                case "done":
+                    var blob = new Blob([msg.data.MEMFS[0].data], {
+                        type: "video/mp4"
+                    });
+        
+                    // ...
+                    break;
+        
+                case "exit":
+                    console.log("Process exited with code " + msg.data);
+                    break;
+            }
+        };
+
+
+        worker.postMessage(
+            {
+                type: "run",
+                TOTAL_MEMORY: 268435456,
+                MEMFS: [
+                    {
+                        name: "input.jpeg",
+                        data: images
+                    }
+                ],
+                arguments: ["-r", "60", "-i", "input.jpeg", "-aspect", "16/9", "-c:v", "libx264", "-crf", "1", "-vf", "scale=1280:720", "-pix_fmt", "yuv420p", "-vb", "20M", "out.mp4"]
+            }
+        );
         
      }
 
@@ -364,6 +420,21 @@ export class CompComponent implements OnInit, AfterViewInit {
     //     this.update(go, renderer, stage, GLOBAL);
     //     return;
     // }
+
+    convertDataURIToBinary(dataURI) {
+        //var base64 = dataURI.substring(23);
+        let remove = dataURI.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');
+        var raw = atob(remove);
+        //var raw = atob(base64);
+        var rawLength = raw.length;
+    
+        var array = new Uint8Array(new ArrayBuffer(rawLength));
+        for (let i = 0; i < rawLength; i++) {
+            array[i] = raw.charCodeAt(i);
+        }
+        return array;
+    };
+
 
      sleep(miliseconds) {
      var currentTime = new Date().getTime();
